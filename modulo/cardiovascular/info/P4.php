@@ -41,8 +41,9 @@ $rango_seccion_a = [
     'persona.edad_total>(69*12) and persona.edad_total<=(74*12)', //menor 70 a 74 años
     'persona.edad_total>(74*12) and persona.edad_total<=(79*12)', //menor 75 a 79 años
     'persona.edad_total>(79*12) ', //mayor o igual 80
-    "persona.edad_total>=(15*12) and persona.pueblo!='NO'",//PUEBLOS ORIGINARIOS
-    "persona.edad_total>=(15*12) and persona.migrante!='NO'"//MIGRANTES
+    "persona.edad_total>=(14*12) and persona.pueblo='SI' ",//PUEBLOS ORIGINARIOS
+    "persona.edad_total>=(14*12) and persona.migrante='SI' ",//MIGRANTES
+    "persona.edad_total>=(14*12) and paciente_pscv.patologia_dm='SI' ",//DIABETICOS
 ];
 $rango_seccion_a_texto = [
     '15 a 19 años', //menor 15 a 19 años
@@ -60,7 +61,8 @@ $rango_seccion_a_texto = [
     '75 a 79 años', //menor 75 a 79 años
     'Más de 80 años', //mayor o igual 80
     "",//PUEBLOS ORIGINARIOS
-    ""//MIGRANTES
+    "",//MIGRANTES
+    ""//DIABETICOS
 ];
 
 
@@ -157,6 +159,9 @@ $rango_seccion_a_texto = [
                 <td colspan="2" rowspan="2" style="text-align: center;">
                     POBLACION MIGRANTE
                 </td>
+                <td colspan="2" rowspan="2" style="text-align: center;">
+                    PACIENTES DIABETICOS
+                </td>
             </tr>
             <tr>
                 <td colspan="2">15 a 19 años</td>
@@ -226,6 +231,8 @@ $rango_seccion_a_texto = [
 
                 <td>HOMBRES</td>
                 <td>MUJERES</td>
+
+                <td colspan="2">TOTAL</td>
             </tr>
             <tr>
                 <td colspan="2">NUMERO DE PERSONAS EN PSCV</td>
@@ -251,7 +258,6 @@ $rango_seccion_a_texto = [
                     inner join persona on paciente_establecimiento.rut=persona.rut
                     where m_cardiovascular='SI'
                     AND indicador='riesgo_cv'
-                    and TIMESTAMPDIFF(DAY,historial_pscv.fecha_registro,CURRENT_DATE)<365
                     and sectores_centros_internos.id_centro_interno='$id_centro'
                     and $rango
                     group by historial_pscv.rut
@@ -270,7 +276,6 @@ $rango_seccion_a_texto = [
                     inner join persona on paciente_establecimiento.rut=persona.rut
                     where m_cardiovascular='SI'
                     AND indicador='riesgo_cv'
-                    and TIMESTAMPDIFF(DAY,historial_pscv.fecha_registro,CURRENT_DATE)<365
                     and $rango
                     group by historial_pscv.rut
                     order by historial_pscv.id_historial desc
@@ -320,8 +325,9 @@ $rango_seccion_a_texto = [
                     $total_mujeres = 0;
                     $fila = '';
                     foreach ($rango_seccion_a as $i => $rango){
-                        if($id_centro!=''){
-                            $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
+                        if($i<16){
+                            if($id_centro!=''){
+                                $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
                                        sum(persona.sexo='M') as total_hombres
                                         from paciente_pscv 
                                             inner join persona using(rut), (
@@ -340,8 +346,8 @@ $rango_seccion_a_texto = [
                                             ) as personas
                                         where paciente_pscv.rut=personas.rut 
                                           and paciente_pscv.riesgo_cv='$valor';";
-                        }else{
-                            $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
+                            }else{
+                                $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
                                        sum(persona.sexo='M') as total_hombres
                                         from paciente_pscv inner join persona using(rut), (
                                         select historial_pscv.rut from historial_pscv
@@ -357,26 +363,30 @@ $rango_seccion_a_texto = [
                                         order by historial_pscv.id_historial desc
                                             ) as personas
                                         where paciente_pscv.rut=personas.rut and paciente_pscv.riesgo_cv='$valor';";
-                        }
+                            }
 
-                        $row = mysql_fetch_array(mysql_query($sql));
-                        if($row){
-                            $total_hombres = $row['total_hombres'];
-                            $total_mujeres = $row['total_mujeres'];
+                            $row = mysql_fetch_array(mysql_query($sql));
+                            if($row){
+                                $total_hombres = $row['total_hombres'];
+                                $total_mujeres = $row['total_mujeres'];
+                            }else{
+                                $total_hombres = 0;
+                                $total_mujeres = 0;
+                            }
+
+
+                            if($i != 14 && $i!= 15){
+                                $PACIENTE_PSCV[$valor]['HOMBRES'] = $PACIENTE_PSCV[$valor]['HOMBRES'] + $total_hombres;
+                                $PACIENTE_PSCV[$valor]['MUJERES'] = $PACIENTE_PSCV[$valor]['MUJERES'] + $total_mujeres;
+                                $PACIENTE_PSCV[$valor]['AMBOS'] = $PACIENTE_PSCV[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
+                            }
+
+                            $fila.= '<td>'.$total_hombres.'</td>';//hombre
+                            $fila.= '<td>'.$total_mujeres.'</td>';//mujer
                         }else{
-                            $total_hombres = 0;
-                            $total_mujeres = 0;
+                            $fila.= '<td colspan="2" style="background-color: grey"></td>';//hombre
                         }
 
-
-                        if($i != 14 && $i!= 15){
-                            $PACIENTE_PSCV[$valor]['HOMBRES'] = $PACIENTE_PSCV[$valor]['HOMBRES'] + $total_hombres;
-                            $PACIENTE_PSCV[$valor]['MUJERES'] = $PACIENTE_PSCV[$valor]['MUJERES'] + $total_mujeres;
-                            $PACIENTE_PSCV[$valor]['AMBOS'] = $PACIENTE_PSCV[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
-                        }
-
-                        $fila.= '<td>'.$total_hombres.'</td>';//hombre
-                        $fila.= '<td>'.$total_mujeres.'</td>';//mujer
                     }
                     ?>
                     <td><?php echo $PACIENTE_PSCV[$valor]['AMBOS'] ?></td>
@@ -418,9 +428,9 @@ $rango_seccion_a_texto = [
                     $fila = '';
                     echo '<td>'.$factor.'</td>';
                     foreach ($rango_seccion_a as $i => $rango){
-
-                        if($id_centro!=''){
-                            $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
+                        if($i<16){
+                            if($id_centro!=''){
+                                $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
                                        sum(persona.sexo='M') as total_hombres
                                         from paciente_pscv inner join persona using(rut), (
                                         select historial_pscv.rut from historial_pscv
@@ -437,8 +447,8 @@ $rango_seccion_a_texto = [
                                             ) as personas
                                         where paciente_pscv.rut=personas.rut 
                                           and paciente_pscv.$indicador='SI';";
-                        }else{
-                            $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
+                            }else{
+                                $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
                                        sum(persona.sexo='M') as total_hombres
                                         from paciente_pscv inner join persona using(rut), (
                                         select historial_pscv.rut from historial_pscv
@@ -454,27 +464,33 @@ $rango_seccion_a_texto = [
                                             ) as personas
                                         where paciente_pscv.rut=personas.rut 
                                           and paciente_pscv.$indicador='SI';";
-                        }
+                            }
 
-                        $row = mysql_fetch_array(mysql_query($sql));
-                        if($row){
-                            $total_hombres = $row['total_hombres'];
-                            $total_mujeres = $row['total_mujeres'];
-                        }else{
-                            $total_hombres = 0;
-                            $total_mujeres = 0;
-                        }
+                            $row = mysql_fetch_array(mysql_query($sql));
+                            if($row){
+                                $total_hombres = $row['total_hombres'];
+                                $total_mujeres = $row['total_mujeres'];
+                            }else{
+                                $total_hombres = 0;
+                                $total_mujeres = 0;
+                            }
 
 //                        $total_hombres = $mysql->getTotal($tabla,$indicador,$valor,$rango,$sexo[0],$id_centro);
 //                        $total_mujeres = $mysql->getTotal($tabla,$indicador,$valor,$rango,$sexo[1],$id_centro);
-                        if($i != 14 && $i!= 15){
-                            $PATOLOGIA[$indicador]['HOMBRES'] = $PATOLOGIA[$indicador]['HOMBRES'] + $total_hombres;
-                            $PATOLOGIA[$indicador]['MUJERES'] = $PATOLOGIA[$indicador]['MUJERES'] + $total_mujeres;
-                            $PATOLOGIA[$indicador]['AMBOS'] = $PATOLOGIA[$indicador]['AMBOS'] + $total_mujeres + $total_hombres;
+                            if($i != 14 && $i!= 15){
+                                $PATOLOGIA[$indicador]['HOMBRES'] = $PATOLOGIA[$indicador]['HOMBRES'] + $total_hombres;
+                                $PATOLOGIA[$indicador]['MUJERES'] = $PATOLOGIA[$indicador]['MUJERES'] + $total_mujeres;
+                                $PATOLOGIA[$indicador]['AMBOS'] = $PATOLOGIA[$indicador]['AMBOS'] + $total_mujeres + $total_hombres;
+                            }
+
+                            $fila.= '<td>'.$total_hombres.'</td>';//hombre
+                            $fila.= '<td>'.$total_mujeres.'</td>';//mujer
+                        }else{
+                            $fila.= '<td colspan="2" style="background-color: grey"></td>';//hombre
+
                         }
 
-                        $fila.= '<td>'.$total_hombres.'</td>';//hombre
-                        $fila.= '<td>'.$total_mujeres.'</td>';//mujer
+
                     }
                     ?>
                     <td><?php echo $PATOLOGIA[$indicador]['AMBOS'] ?></td>
@@ -487,7 +503,7 @@ $rango_seccion_a_texto = [
             </tr>
 
             <tr>
-                <td rowspan="9">CLASIFICACIÓN DEL RIESGO CARDIOVASCULAR</td>
+                <td rowspan="9">DETECCIÓN Y PREVENCION DE LA PROGRESION DE LA ENFERMEDAD RENAL CRÓNICA (ERC).</td>
                 <?php
                 $sql1 = "select * from parametros_pscv 
                             where erc_vfg!='' 
@@ -525,6 +541,7 @@ $rango_seccion_a_texto = [
                                         inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                         inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
                                         inner join persona on paciente_establecimiento.rut=persona.rut
+                                        inner join paciente_pscv on paciente_pscv.rut=persona.rut
                                         where m_cardiovascular='SI'  
                                         and TIMESTAMPDIFF(DAY,historial_parametros_pscv.fecha_registro,CURRENT_DATE)<365
                                         and sectores_centros_internos.id_centro_interno='$id_centro'
@@ -534,6 +551,7 @@ $rango_seccion_a_texto = [
                                             ) as personas
                                         where parametros_pscv.rut=personas.rut 
                                           and parametros_pscv.erc_vfg='$valor';";
+
                         }else{
                             $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
                                        sum(persona.sexo='M') as total_hombres
@@ -544,6 +562,7 @@ $rango_seccion_a_texto = [
                                         inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                         inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
                                         inner join persona on paciente_establecimiento.rut=persona.rut
+                                        inner join paciente_pscv on paciente_pscv.rut=persona.rut
                                         where m_cardiovascular='SI'
                                         and TIMESTAMPDIFF(DAY,historial_parametros_pscv.fecha_registro,CURRENT_DATE)<365
                                         and $rango
@@ -569,8 +588,14 @@ $rango_seccion_a_texto = [
                             $ERC_VFG[$valor]['AMBOS'] = $ERC_VFG[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
                         }
 
-                        $fila.= '<td>'.$total_hombres.'</td>';//hombre
-                        $fila.= '<td>'.$total_mujeres.'</td>';//mujer
+                        if($i==16){
+                            $fila.= '<td colspan="2" style="text-align: center;">'.($total_hombres+$total_mujeres).'</td>';//hombre
+                        }else{
+                            $fila.= '<td>'.$total_hombres.'</td>';//hombre
+                            $fila.= '<td>'.$total_mujeres.'</td>';//mujer
+                        }
+
+
                     }
                     ?>
                     <td><?php echo $ERC_VFG[$valor]['AMBOS'] ?></td>
@@ -583,6 +608,11 @@ $rango_seccion_a_texto = [
             </tr>
         </table>
     </section>
+
+    <?php
+    //ELIMINAMOS ULTIMO DATO DE ARRAY RANGO A
+    unset($rango_seccion_a[16]);
+    ?>
     <!--    SECCION B-->
     <section id="seccion_b" style="width: 100%;overflow-y: scroll;">
         <div class="row">
@@ -649,6 +679,7 @@ $rango_seccion_a_texto = [
                 <td>MUJERES</td>
                 <td>HOMBRES</td>
                 <td>MUJERES</td>
+
             </tr>
 
             <tr>

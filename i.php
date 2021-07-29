@@ -98,7 +98,7 @@ session_start();
                 </div>
             </a>
             <?php
-            if($_SESSION['usuario_admin']=='SI'){
+            if($_SESSION['tipo_usuario']=='ADMINISTRADOR'){
                 ?>
                 <a href="modulo/default/index.php" target="_blank"
                    class="col l4 m6 s12 card-panel teal lighten-5 center" style="margin: 0px;text-align: center;">
@@ -106,7 +106,8 @@ session_start();
                         <div class="col l12 m12 s12">
                             <div class="row">
                                 <div class="col l12 m12 s12 center">
-                                    <img src="images/icono_ajustes.png" class="responsive-img" height="200px" />
+                                    <img src="images/icono_ajustes.png"
+                                         class="responsive-img" height="200px" />
                                 </div>
                             </div>
                         </div>

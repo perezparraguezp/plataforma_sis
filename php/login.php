@@ -27,6 +27,7 @@ if($row){
     $_SESSION['id_usuario'] = $row['id_profesional'];
     $_SESSION['rut'] = $row['rut'];
     $_SESSION['id_establecimiento'] = $row['id_establecimiento'];
+    $_SESSION['tipo_usuario'] = $row['tipo_contrato'];
 
     $_SESSION['login'] = 'true';
     //actualizamos las edades
