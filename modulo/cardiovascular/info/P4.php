@@ -1100,8 +1100,8 @@ $rango_seccion_a_texto = [
                                                inner join persona using(rut)    
                                                inner join paciente_pscv on persona.rut=paciente_pscv.rut
                                                inner join parametros_pscv on persona.rut=parametros_pscv.rut, (
-                                        select paciente_establecimiento.rut from paciente_establecimiento
-                                        
+                                        select historial_diabetes_mellitus.rut from historial_diabetes_mellitus
+                                        inner join paciente_establecimiento using (rut)
                                         inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                         inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                         inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
@@ -1109,7 +1109,8 @@ $rango_seccion_a_texto = [
                                         where m_cardiovascular='SI'
                                         and sectores_centros_internos.id_centro_interno='$id_centro' 
                                         and $rango
-                                        group by paciente_establecimiento.rut
+                                        group by historial_diabetes_mellitus.rut
+                                        order by historial_diabetes_mellitus.id_historial desc
                                             ) as personas
                                         where parametros_pscv.rut=personas.rut ".$filtro[$f];
                         }else{
@@ -1119,14 +1120,16 @@ $rango_seccion_a_texto = [
                                                inner join persona using(rut)
                                                inner join paciente_pscv on persona.rut=paciente_pscv.rut
                                                inner join parametros_pscv on persona.rut=parametros_pscv.rut, (
-                                        select paciente_establecimiento.rut from paciente_establecimiento
+                                        select historial_diabetes_mellitus.rut from historial_diabetes_mellitus
+                                        inner join paciente_establecimiento using (rut)
                                         inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                         inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                         inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
                                         inner join persona on paciente_establecimiento.rut=persona.rut
                                         where m_cardiovascular='SI'
                                         and $rango
-                                        group by paciente_establecimiento.rut
+                                        group by historial_diabetes_mellitus.rut
+                                        order by historial_diabetes_mellitus.id_historial desc
                                             ) as personas
                                         where parametros_pscv.rut=personas.rut ".$filtro[$f];
                         }
@@ -1503,7 +1506,6 @@ $rango_seccion_a_texto = [
                 ,"AND factor_riesgo_iam='SI' and patologia_dm='SI'  "
 
             ];
-
 
             foreach ($VARIABLES_C as $fila_f => $texto){
                 echo '<tr>
