@@ -1100,8 +1100,7 @@ $rango_seccion_a_texto = [
                                                inner join persona using(rut)    
                                                inner join paciente_pscv on persona.rut=paciente_pscv.rut
                                                inner join parametros_pscv on persona.rut=parametros_pscv.rut, (
-                                        select historial_diabetes_mellitus.rut from historial_diabetes_mellitus
-                                        inner join paciente_establecimiento using (rut)
+                                        select paciente_establecimiento.rut from paciente_establecimiento
                                         inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                         inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                         inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
@@ -1109,8 +1108,7 @@ $rango_seccion_a_texto = [
                                         where m_cardiovascular='SI'
                                         and sectores_centros_internos.id_centro_interno='$id_centro' 
                                         and $rango
-                                        group by historial_diabetes_mellitus.rut
-                                        order by historial_diabetes_mellitus.id_historial desc
+                                        group by paciente_establecimiento.rut
                                             ) as personas
                                         where parametros_pscv.rut=personas.rut ".$filtro[$f];
                         }else{
@@ -1120,16 +1118,14 @@ $rango_seccion_a_texto = [
                                                inner join persona using(rut)
                                                inner join paciente_pscv on persona.rut=paciente_pscv.rut
                                                inner join parametros_pscv on persona.rut=parametros_pscv.rut, (
-                                        select historial_diabetes_mellitus.rut from historial_diabetes_mellitus
-                                        inner join paciente_establecimiento using (rut)
+                                        select paciente_establecimiento.rut from paciente_establecimiento
                                         inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                         inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                         inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
                                         inner join persona on paciente_establecimiento.rut=persona.rut
                                         where m_cardiovascular='SI'
                                         and $rango
-                                        group by historial_diabetes_mellitus.rut
-                                        order by historial_diabetes_mellitus.id_historial desc
+                                        group by paciente_establecimiento.rut
                                             ) as personas
                                         where parametros_pscv.rut=personas.rut ".$filtro[$f];
                         }
@@ -1480,15 +1476,119 @@ $rango_seccion_a_texto = [
                     $fila.= '<td>'.$total_mujeres.'</td>';//mujer
                 }
                 ?>
-            <td><?php echo $PACIENTE_DB[$valor]['AMBOS'] ?></td>
-            <td><?php echo $PACIENTE_DB[$valor]['HOMBRES'] ?></td>
-            <td><?php echo $PACIENTE_DB[$valor]['MUJERES']; ?></td>
-            <?php
+                <td><?php echo $PACIENTE_DB[$valor]['AMBOS'] ?></td>
+                <td><?php echo $PACIENTE_DB[$valor]['HOMBRES'] ?></td>
+                <td><?php echo $PACIENTE_DB[$valor]['MUJERES']; ?></td>
+                <?php
 //                echo $sql.'<br />';
-            echo $fila;
-            ?>
-            <?php
-            echo '</tr>';
+                echo $fila;
+                ?>
+                <?php
+                echo '</tr>';
+            }
+
+            //TIPO CURACION
+
+            $VARIABLES_C = ['Curación Convencional'
+                ,'Curación Avanzada'
+            ];
+
+            $filtro_c = ["AND patologia_dm='SI' and ulceras like '%CONVEN%' "
+                ,"AND patologia_dm='SI' and ulceras like '%AVANZA%' "
+
+            ];
+            $c = 0;
+            foreach ($VARIABLES_C as $fila_f => $texto){
+                echo '<tr>';
+                if($c==0){
+                    echo '<td rowspan="4">CON ÚLCERAS ACTIVAS DE PIE TRATADAS CON CURACIÓN </td>';
+                    $c++;
+                }
+                echo '<td>'.$texto.'</td>';
+
+                $filtro_interno = $filtro_c[$fila_f];
+                $tabla = 'paciente_establecimiento';
+                $indicador = 'm_cardiovascular';
+                $valor = 'riesgo_cv';
+                $PACIENTE_DB[$valor]['HOMBRES'] = 0;
+                $PACIENTE_DB[$valor]['MUJERES'] = 0;
+                $PACIENTE_DB[$valor]['AMBOS'] = 0;
+                $total_hombres = 0;
+                $total_mujeres = 0;
+                $fila = '';
+                foreach ($rango_seccion_a as $i => $rango){
+                    if($id_centro!=''){
+                        $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
+                                           sum(persona.sexo='M') as total_hombres
+                        from persona inner join paciente_pscv using(rut) 
+                            inner join pscv_diabetes_mellitus using(rut)
+                           inner join parametros_pscv on persona.rut=parametros_pscv.rut, (
+                        select historial_diabetes_mellitus.rut from historial_diabetes_mellitus
+                        inner join paciente_establecimiento using (rut)
+                        inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                        inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
+                        inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
+                        inner join persona on paciente_establecimiento.rut=persona.rut
+                        where m_cardiovascular='SI'
+                        and TIMESTAMPDIFF(DAY,historial_diabetes_mellitus.fecha_registro,CURRENT_DATE)<365
+                        and sectores_centros_internos.id_centro_interno='$id_centro'
+                        and $rango
+                        group by historial_diabetes_mellitus.rut
+                        order by historial_diabetes_mellitus.id_historial desc
+                            ) as personas
+                        where persona.rut=personas.rut 
+                        $filtro_interno;";
+                    }else{
+                        $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
+                                           sum(persona.sexo='M') as total_hombres
+                        from persona inner join paciente_pscv using(rut)
+                            inner join pscv_diabetes_mellitus using(rut)
+                           inner join parametros_pscv on persona.rut=parametros_pscv.rut, (
+                        select historial_diabetes_mellitus.rut from historial_diabetes_mellitus
+                        inner join paciente_establecimiento using (rut)
+                        inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                        inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
+                        inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
+                        inner join persona on paciente_establecimiento.rut=persona.rut
+                        where m_cardiovascular='SI'
+                        and TIMESTAMPDIFF(DAY,historial_diabetes_mellitus.fecha_registro,CURRENT_DATE)<365
+                        and $rango
+                        group by historial_diabetes_mellitus.rut
+                        order by historial_diabetes_mellitus.id_historial desc
+                            ) as personas
+                        where persona.rut=personas.rut 
+                        $filtro_interno;";
+                    }
+
+                    $row = mysql_fetch_array(mysql_query($sql));
+                    if($row){
+                        $total_hombres = $row['total_hombres'];
+                        $total_mujeres = $row['total_mujeres'];
+                    }else{
+                        $total_hombres = 0;
+                        $total_mujeres = 0;
+                    }
+
+
+                    if($i != 14 && $i!= 15){
+                        $PACIENTE_DB[$valor]['HOMBRES'] = $PACIENTE_DB[$valor]['HOMBRES'] + $total_hombres;
+                        $PACIENTE_DB[$valor]['MUJERES'] = $PACIENTE_DB[$valor]['MUJERES'] + $total_mujeres;
+                        $PACIENTE_DB[$valor]['AMBOS'] = $PACIENTE_DB[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
+                    }
+
+                    $fila.= '<td>'.$total_hombres.'</td>';//hombre
+                    $fila.= '<td>'.$total_mujeres.'</td>';//mujer
+                }
+                ?>
+                <td><?php echo $PACIENTE_DB[$valor]['AMBOS'] ?></td>
+                <td><?php echo $PACIENTE_DB[$valor]['HOMBRES'] ?></td>
+                <td><?php echo $PACIENTE_DB[$valor]['MUJERES']; ?></td>
+                <?php
+//                echo $sql.'<br />';
+                echo $fila;
+                ?>
+                <?php
+                echo '</tr>';
             }
 
             //columna diabeticos
