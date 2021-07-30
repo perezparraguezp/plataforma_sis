@@ -1606,7 +1606,6 @@ $rango_seccion_a_texto = [
                 ,"AND factor_riesgo_iam='SI' and patologia_dm='SI'  "
 
             ];
-
             foreach ($VARIABLES_C as $fila_f => $texto){
                 echo '<tr>
                         <td colspan="2">'.$texto.'</td>';
