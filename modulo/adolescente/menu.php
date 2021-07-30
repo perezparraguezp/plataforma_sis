@@ -16,6 +16,7 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
 $profesional = new profesional($_SESSION['id_usuario']);
 
 
+
 ?>
 <ul id="menu_usuario" class="dropdown-content">
     <li><a href="#"><i class="mdi-action-face-unlock"></i> Perfil</a></li>
