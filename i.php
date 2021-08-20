@@ -4,6 +4,7 @@ if($LOGIN=='TRUE'){
     //header('Location: escritorio.php');
 }
 session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -73,62 +74,33 @@ session_start();
     img.responsive-img, video.responsive-video {
         max-width: 90%;
     }
+    .PANEL_MENU_SIS:hover{
+        background-color: #508ede;
+        cursor: pointer;
+    }
 </style>
 <div id="login-page" class="row">
     <div class="card-panel center" style="width: 98%;padding: 10px;">
-        <div class="row">
-            <div class="col l4 m3 s12"><div class="clear" style="color: white;">-</div> </div>
-            <a href="modulo/some/index.php" target="_blank"
-               class="col l4 m6 s12 card-panel teal lighten-5 center" style="margin: 0px;">
+        <div class="col l12 m12 s12">
+            <div class="card-panel">
                 <div class="row">
                     <div class="col l12 m12 s12">
-                        <div class="row">
-                            <div class="col l12 m12 s12">
-                                <img src="images/some.png" class="responsive-img" height="200px" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col l12 m12 s12">
-                        <div class="row">
-                            <div class="col l12 m12 s12">
-                                <header class="center">INGRESO DE PACIENTES</header>
-                            </div>
-                        </div>
+                        <strong>MODULOS DISPONIBLES</strong>
                     </div>
                 </div>
-            </a>
-            <?php
-            if($_SESSION['tipo_usuario']=='ADMINISTRADOR'){
-                ?>
-                <a href="modulo/default/index.php" target="_blank"
-                   class="col l4 m6 s12 card-panel teal lighten-5 center" style="margin: 0px;text-align: center;">
-                    <div class="row">
-                        <div class="col l12 m12 s12">
-                            <div class="row">
-                                <div class="col l12 m12 s12 center">
-                                    <img src="images/icono_ajustes.png"
-                                         class="responsive-img" height="200px" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col l12 m12 s12">
-                            <div class="row">
-                                <div class="col l12 m12 s12">
-                                    <header class="center">CONFIGURACIONES GENERALES</header>
-                                </div>
-                            </div>
-                        </div>
+            </div>
+            <div class="card-panel PANEL_MENU_SIS" style="background-color: #f1ffc5;">
+                <div class="row">
+                    <div class="col l4 m4 s4">
+                        <i class="mdi-social-people"></i>
                     </div>
-                </a>
-                <?php
-            }else{
-                ?>
-                <div class="col l4 m3 s12"><div class="clear" style="color: white;">-</div> </div>
-                <?php
-            }
-            ?>
-        </div>
-        <div class="row">
+                    <div class="col l8 m8 s8">
+                        <a style="color: black" href="modulo/some/index.php" target="_blank">
+                            <strong>INGRESO DE PACIENTES</strong>
+                        </a>
+                    </div>
+                </div>
+            </div>
             <?php
             include('php/config.php');
             session_start();
@@ -145,10 +117,32 @@ session_start();
                 echo  $row['html'];
             }
             ?>
+
+
+            <?php
+            if($_SESSION['tipo_usuario']=='ADMINISTRADOR'){
+                ?>
+                <div class="card-panel PANEL_MENU_SIS" style="background-color: #c282de;">
+                    <div class="row">
+                        <div class="col l4 m4 s4">
+                            <i class="mdi-action-settings-applications"></i>
+                        </div>
+                        <div class="col l8 m8 s8">
+                            <a style="color: black" href="modulo/default/index.php" target="_blank">
+                                <strong>AJUSTES GENERALES</strong>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
+            ?>
+
         </div>
+        <hr class="row" />
         <div class="row">
             <div class="col l12 s12 m12">
-                <a href="php/salir.php" class="btn-large" style="width: 100%;" >CERRAR SESSION</a>
+                <a href="salir.php" class="btn-large" style="width: 100%;" >CERRAR SESSION</a>
             </div>
         </div>
         <div class="card-panel" class="card-panel center" style="width: 98%;padding: 10px;">

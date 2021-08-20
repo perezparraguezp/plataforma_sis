@@ -1,14 +1,3 @@
-<?php
-
-include '../../php/config.php';
-include '../../php/objetos/profesional.php';
-session_start();
-$id_establecimiento = 1;
-
-$profesional = new profesional($_SESSION['id_usuario']);
-
-
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -18,7 +7,7 @@ $profesional = new profesional($_SESSION['id_usuario']);
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
     <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
-    <title>Bienvenido - SIS ADOLESCENTE</title>
+    <title>Bienvenido - SIS MUJER</title>
     <link rel="stylesheet" href="../../jqwidgets/styles/jqx.base.css" type="text/css" />
     <!-- Favicons-->
     <link rel="icon" href="../../images/O.ico" sizes="32x32">
@@ -136,13 +125,12 @@ $profesional = new profesional($_SESSION['id_usuario']);
     <script type="text/javascript" src="../../js/plugins.js"></script>
     <script type="text/javascript" src="../../js/rut.js"></script>
     <script type="text/javascript" src="../../js/inti.js"></script>
-    <script type="text/javascript" src="js/init.js"></script>
     <!-- Toast Notification -->
     <script type="text/javascript">
         $(function () {
             menuEhOpen('');
             // infoLateral();
-            init();
+            loadDimensiones();
         });
         function menuEhOpen(menu) {
             $.post('menu.php',{
@@ -152,10 +140,21 @@ $profesional = new profesional($_SESSION['id_usuario']);
                 //loadEstadisticaGeneral();
             });
         }
-        function menu_misDatos(menu,php,rut){
+        function alertaLateral(texto){
+            var toastHTML = '<span>'+texto+'</span>';
+            Materialize.toast(toastHTML, 4000);
+        }
+        function infoLateral(){
+            var div = 'chat-out';
+            $.post('info/lateral.php',{
+            },function(data){
+                $("#"+div).html(data);
+
+            });
+        }
+        function loadMenu_AM(menu,php,rut) {
             var div = 'content';
-            loading_div(div);
-            $.post('../default/menu/'+php+'.php',{
+            $.post('menu/'+php+'.php',{
                 rut:rut
             },function(data){
                 $("#"+div).html(data);
@@ -164,28 +163,15 @@ $profesional = new profesional($_SESSION['id_usuario']);
             $( "aside #slide-out #"+menu ).addClass( "active" );
         }
 
-    </script>
-    <style type="text/css">
-        @media only screen
-        and (min-device-width : 320px)
-        and (max-device-width : 800px) { /* Aquí van los estilos */
-            #header{
-                display: none;;
-            }
-        }
-        a{
-            border: none;
-            text-decoration: none;
-        }
-        a:hover{
-            background-color: #438eb9;
-        }
+        function loading_div(div){
 
-    </style>
+        }
+    </script>
+
 
 </head>
 
-<body onload="menuEhOpen_ADOLESCENTE('menu_0','dashboard','')">
+<body onload="loadMenu_AM('menu_0','dashboard','');init();">
 <a id="btn-modal" class="modal-trigger" href="#modal"></a>
 <div id="modal" class="modal modal-fixed-footer">
 </div>
@@ -200,37 +186,27 @@ $profesional = new profesional($_SESSION['id_usuario']);
 <!-- //////////////////////////////////////////////////////////////////////////// -->
 
 <!-- START HEADER -->
-<header id="header" class="page-topbar">
-    <!-- start header nav-->
-    <div class="navbar-fixed">
-        <nav class="grey lighten-2">
-            <div class="nav-wrapper">
-
-                <ul class="right hide-on-med-and-down black-text">
-                    <li style="font-size: 0.8em;">
-                        <div class="row">
-                            <div class="col l12"><?php echo $profesional->nombre; ?></div>
-
-                        </div>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="waves-effect waves-block blue-text toggle-fullscreen"><i class="mdi-action-settings-overscan"></i>
-                        </a>
-                    </li>
-                    <!-- Dropdown Trigger -->
-                    <li>
-                        <a href="#" data-activates="chat-out" class="waves-effect waves-block blue-text chat-collapse"><i class="mdi-editor-insert-chart"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-    <!-- end header nav-->
-</header>
+<?php include '../../php/html/header.php'; ?>
 <!-- END HEADER -->
 
 <!-- //////////////////////////////////////////////////////////////////////////// -->
+<style type="text/css">
+    @media only screen
+    and (min-device-width : 320px)
+    and (max-device-width : 800px) { /* Aquí van los estilos */
+        #header{
+            display: none;;
+        }
+    }
+    a{
+        border: none;
+        text-decoration: none;
+    }
+    a:hover{
+        background-color: #438eb9;
+    }
 
+</style>
 <!-- START MAIN -->
 <div id="main">
     <!-- START WRAPPER -->
@@ -246,6 +222,7 @@ $profesional = new profesional($_SESSION['id_usuario']);
         <section id="content">
             <!--start container-->
             <div class="container">
+
             </div>
             <!--end container-->
         </section>
@@ -254,68 +231,66 @@ $profesional = new profesional($_SESSION['id_usuario']);
         <!-- //////////////////////////////////////////////////////////////////////////// -->
         <!-- START RIGHT SIDEBAR NAV-->
         <aside id="right-sidebar-nav">
-            <?php
+            <ul id="chat-out" class="side-nav rightside-navigation">
+                <?php
 
+                include '../../php/config.php';
+                $id_establecimiento = 1;
 
-
-
-            $sql_e = "select count(*) as total,
-       sum(persona.sexo='M') as hombres,sum(persona.sexo='M')*100/count(*) as porcentaje_hombres,
-       sum(persona.sexo='F') as mujeres,sum(persona.sexo='F')*100/count(*) as porcentaje_mujeres,
-       sum(persona.edad_total>=10*12 and persona.edad_total<15*12) as menores14,
-       sum(persona.edad_total>=15*12 and persona.edad_total<20*12) as mayores14
-      from persona 
-      inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut 
-      where paciente_establecimiento.m_adolescente='SI'; ";
-
-
-            $row = mysql_fetch_array(mysql_query($sql_e))or die('1');
-            $total_pacientes = $row['total'];
-            $porcentaje_14 = $row['menores14']*100/$total_pacientes;
-            $porcentaje_15 = $row['mayores14']*100/$total_pacientes;
-
-
-            $sql_e = "select
-                       sum(paciente_adolescente.educacion='DESERCION') as desercion,
-                       sum(paciente_adolescente.educacion='TRABAJO' and persona.edad_total>=10*12 and persona.edad_total<15*12) as trabajo_infantil,
-                       sum(paciente_adolescente.educacion='TRABAJO' and persona.edad_total>=15*12 and persona.edad_total<20*12) as trabajo_juvenil,
-                       sum(paciente_adolescente.imc='DN') as DN,
-                       sum(paciente_adolescente.imc='BP') as BP,
-                       sum(paciente_adolescente.imc='N') as N,
-                       sum(paciente_adolescente.imc='SP') as SP,
-                       sum(paciente_adolescente.imc='OB') as OB,
-                       sum(paciente_adolescente.imc='OBM') as OBM
-
-                      from paciente_adolescente inner join persona using(rut)
-                      inner join paciente_establecimiento on paciente_adolescente.rut=paciente_establecimiento.rut    
+                $sql_e = "select count(*) as total,
+                       sum(persona.sexo='M') as hombres,sum(persona.sexo='M')*100/count(*) as porcentaje_hombres,
+                       sum(persona.sexo='F') as mujeres,sum(persona.sexo='F')*100/count(*) as porcentaje_mujeres,
+                       sum(persona.nanea='SI') as nanea,sum(persona.nanea='SI')*100/count(*) as porcentaje_nanea,
+                       sum(persona.pueblo='SI') as pueblo,sum(persona.pueblo='SI')*100/count(*) as porcentaje_pueblo,
+                       sum(persona.migrante='SI') as migrante,sum(persona.migrante='SI')*100/count(*) as porcentaje_migrante
+                      from persona 
+                      inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut 
+                       where m_adulto_mayor='SI'; ";
+                $row = mysql_fetch_array(mysql_query($sql_e))or die('error');
+                $total_pacientes = $row['total'];
+                //PATOLOGIAS
+                $sql_e = "select 
+                       sum(paciente_adultomayor.funcionalidad='AUTOVALENTE CON RIESGO') as con_riesgo,
+                       sum(paciente_adultomayor.funcionalidad='AUTOVALENTE SIN RIESGO') as sin_riesgo,
+                       sum(paciente_adultomayor.funcionalidad='RIESGO DEPENDENCIA') as risgo_dependencia,
+                       sum(paciente_adultomayor.funcionalidad='DEPENDENCIA LEVE') as dependencia_leve,
+                       sum(paciente_adultomayor.funcionalidad='DEPENDENCIA MODERADO') as dependencia_moderado,
+                       sum(paciente_adultomayor.funcionalidad='DEPENDENCIA GRAVE') as dependencia_grave,
+                       sum(paciente_adultomayor.funcionalidad='DEPENDENCIA TOTAL') as dependencia_total,
+                       sum(paciente_adultomayor.imc='BP') as BP,
+                       sum(paciente_adultomayor.imc='N') as N,
+                       sum(paciente_adultomayor.imc='SP') as SP,
+                       sum(paciente_adultomayor.imc='OB') as OB,
+                       sum(paciente_adultomayor.sospecha_maltrato='SI') as maltrato,
+                       sum(paciente_adultomayor.actividad_fisica='SI') as actividad_fisica
+                    
+                      from paciente_adultomayor 
+                      inner join paciente_establecimiento on paciente_adultomayor.rut=paciente_establecimiento.rut    
                        where id_establecimiento='$id_establecimiento'; ";
-            $row = mysql_fetch_array(mysql_query($sql_e))or die('1');
+                $row = mysql_fetch_array(mysql_query($sql_e))or die($sql_e);
+                $total_pacientes = $row['total'];
+                $riesgo_dependencia = $row['riesgo_dependencia']*100/$total_pacientes;
+                $auto_sin_riesgo = $row['sin_riesgo']*100/$total_pacientes;
+                $auto_con_riesgo = $row['con_riesgo']*100/$total_pacientes;
+                $d_leve = $row['dependencia_leve']*100/$total_pacientes;
+                $d_moderado = $row['dependencia_moderado']*100/$total_pacientes;
+                $d_grave = $row['dependencia_grave']*100/$total_pacientes;
+                $d_total = $row['dependencia_total']*100/$total_pacientes;
 
-            $DN = $row['DN']*100/$total_pacientes;
-            $BP = $row['BP']*100/$total_pacientes;
-            $N = $row['N']*100/$total_pacientes;
-            $SP = $row['SP']*100/$total_pacientes;
-            $OB = $row['OB']*100/$total_pacientes;
-            $OBM = $row['OBM']*100/$total_pacientes;
+                $BP = $row['BP']*100/$total_pacientes;
+                $N = $row['N']*100/$total_pacientes;
+                $SP = $row['SP']*100/$total_pacientes;
+                $OB = $row['OB']*100/$total_pacientes;
 
-
-            $desercion = $row['desercion']*100/$total_pacientes;
-            $trabajo_infantil = $row['trabajo_infantil']*100/$total_pacientes;
-            $trabajo_juvenil = $row['trabajo_juvenil']*100/$total_pacientes;
-
-
-
-
-
-
+                $MALTRATO = $row['maltrato']*100/$total_pacientes;
+                $ACTIVIDAD_FISICA = $row['actividad_fisica']*100/$total_pacientes;
 
 
+                ?>
 
-            ?>
 
-            <ul id="chat-out" class="side-nav rightside-navigation right-aligned ps-container ps-active-y">
                 <li class="li-hover">
-                    <ul class="chat-collapsible" data-collapsible="">
+                    <ul class="chat-collapsible" data-collapsible="expandable">
                         <li>
                             <div class="collapsible-header teal white-text active"><i class="mdi-editor-insert-chart"></i>ESTADISTICA GENERAL</div>
                             <div class="collapsible-body recent-activity" style="display: none;">
@@ -331,11 +306,32 @@ $profesional = new profesional($_SESSION['id_usuario']);
                                             ?>
                                         </p>
                                         <hr class="row" />
+                                        <?php
+                                        echo 'AUTOVALENTE SIN RIESGO '.number_format($auto_sin_riesgo,0).'%<br />';
+                                        echo 'AUTOVALENTE CON RIESGO '.number_format($auto_con_riesgo,0).'%<br />';
+                                        echo 'RIESGO DEPENDENCIA '.number_format($riesgo_dependencia,0).'%<br />';
+                                        ?>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header purple lighten-4 black-text "><i class="mdi-action-accessibility"></i>BARTHEL</div>
+                            <div class="collapsible-body recent-activity" style="display: none;">
+                                <div class="recent-activity-list chat-out-list row">
+                                    <div class="col s3 recent-activity-list-icon">
+                                        <!-- img -->
+                                    </div>
+                                    <div class="col s9 recent-activity-list-text">
+
                                         <p class="left-align">
                                             <?php
-                                            echo '10 a 14 AÑOS '.number_format($porcentaje_14,0).'%<br />';
-                                            echo '15 a 19 AÑOS '.number_format($porcentaje_15,0).'%<br />';
-
+                                            echo 'INDICE DE DEPENDENCIA <BR />';
+                                            echo 'LEVE '.number_format($d_leve,0).'%<br />';
+                                            echo 'MODERADA '.number_format($d_moderado,0).'%<br />';
+                                            echo 'GRAVE '.number_format($d_grave,0).'%<br />';
+                                            echo 'TOTAL '.number_format($d_total,0).'%<br />';
 
                                             ?>
                                         </p>
@@ -343,59 +339,40 @@ $profesional = new profesional($_SESSION['id_usuario']);
                                 </div>
                             </div>
                         </li>
-                        <li class="">
-                            <div class="collapsible-header light-blue lighten-4 black-text "><i class="mdi-social-mood"></i>ESTADO NUTRICIONAL</div>
+                        <li>
+                            <div class="collapsible-header lime accent-1 black-text "><i class="mdi-alert-warning red-text"></i>ESTADO NUTRICIONAL</div>
                             <div class="collapsible-body recent-activity" style="display: none;">
                                 <div class="recent-activity-list chat-out-list row">
                                     <div class="col s3 recent-activity-list-icon">
-                                        <img src="images/imc.png" width="32" />
+                                        <img src="images/imc.png" width="100%" />
                                     </div>
                                     <div class="col s9 recent-activity-list-text">
+
                                         <p class="left-align">
                                             <?php
-                                            echo 'DESNUTRICION '.number_format($DN,0).'%<br />';
                                             echo 'BAJO PESO '.number_format($BP,0).'%<br />';
                                             echo 'NORMAL '.number_format($N,0).'%<br />';
                                             echo 'SOBREPESO '.number_format($SP,0).'%<br />';
                                             echo 'OBESIDAD '.number_format($OB,0).'%<br />';
-                                            echo 'OBESIDAD MORBIDA '.number_format($OBM,0).'%<br />';
                                             ?>
                                         </p>
                                     </div>
                                 </div>
                             </div>
                         </li>
-                        <li class="">
-                            <div class="collapsible-header orange lighten-3 black-text "><i class="mdi-navigation-arrow-forward"></i>EDUCACION Y TRABAJO</div>
-                            <div class="collapsible-body recent-activity" style="display: none;">
+                        <li>
+                            <div class="collapsible-header light-green lighten-2 black-text "><i class="mdi-maps-local-hospital blue-text"></i>VARIOS</div>
+                            <div class="collapsible-body recent-activity" style="display: none; ">
                                 <div class="recent-activity-list chat-out-list row">
                                     <div class="col s3 recent-activity-list-icon">
-                                        <img src="images/EDUCACION.png" width="32" />
+
                                     </div>
                                     <div class="col s9 recent-activity-list-text">
 
                                         <p class="left-align">
                                             <?php
-                                            echo 'DESERCIÓN ESCOLAR '.number_format($desercion,0).'%<br />';
-                                            echo 'TRABAJO INFANTIL '.number_format($trabajo_infantil,0).'%<br />';
-                                            echo 'TRABAJO JUVENIL '.number_format($trabajo_juvenil,0).'%<br />';
-                                            ?>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="">
-                            <div class="collapsible-header green lighten-2 black-text"><i class="mdi-navigation-arrow-forward"></i>AREAS DE RIESGO</div>
-                            <div class="collapsible-body recent-activity" style="display: none;">
-                                <div class="recent-activity-list chat-out-list row">
-                                    <div class="col s3 recent-activity-list-icon">
-                                        <img src="images/RIESGO.png" width="32" />
-                                    </div>
-                                    <div class="col s9 recent-activity-list-text">
-
-                                        <p class="left-align">
-                                            <?php
+                                            echo 'SOSPECHA DE MALTRATO '.number_format($MALTRATO,0).'%<br />';
+                                            echo 'ACTIVIDAD FISICA '.number_format($ACTIVIDAD_FISICA,0).'%<br />';
 
                                             ?>
                                         </p>
@@ -403,33 +380,12 @@ $profesional = new profesional($_SESSION['id_usuario']);
                                 </div>
                             </div>
                         </li>
-                        <li class="">
-                            <div class="collapsible-header deep-purple lighten-3 black-text"><i class="mdi-navigation-arrow-forward"></i> GENICO / SEXUAL</div>
-                            <div class="collapsible-body recent-activity" style="display: none;">
-                                <div class="recent-activity-list chat-out-list row">
-                                    <div class="col s3 recent-activity-list-icon">
-                                        <img src="images/GENICO.png" width="32" />
-                                    </div>
-                                    <div class="col s9 recent-activity-list-text">
 
-                                        <p class="left-align">
-                                            <?php
-
-                                            ?>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
                     </ul>
                 </li>
                 <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 582px; right: 3px;"><div class="ps-scrollbar-y" style="top: 0px; height: 340px;"></div></div></ul>
             </ul>
         </aside>
-
-        <div>
-
-        </div>
         <!-- LEFT RIGHT SIDEBAR NAV-->
     </div>
     <!-- END WRAPPER -->
@@ -444,23 +400,19 @@ $profesional = new profesional($_SESSION['id_usuario']);
         <div class="container">
             Copyright © <?php echo date('Y'); ?>
             <span class="right">
-            <a class="light-blue-text" href="http://www.eh-open.com">
+            <a class="light-blue-text" href="http://www.eh-open.com" style="text-decoration: none">
                 <img src="../../ehopen_logo.png" alt="materialize logo" height="64" />
             </a>
         </span>
         </div>
     </div>
 </footer>
-
 <!-- END FOOTER -->
-
-
 <!-- ================================================
 Scripts
 ================================================ -->
 
 <!-- JQUERY -->
-
 
 </body>
 

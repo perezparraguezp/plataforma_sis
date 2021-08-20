@@ -574,7 +574,7 @@ class persona{
         }
     }
     function validaIRA(){
-        if($this->total_meses < 8){
+        if($this->total_meses < 13){
             //para menores de 7 meses 29 dias
             return true;
         }else{
