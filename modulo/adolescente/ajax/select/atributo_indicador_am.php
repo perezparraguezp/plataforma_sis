@@ -9,6 +9,7 @@
     switch ($indicador){
         case 'IMC':{
             ?>
+            <option value="DN2#imc">DESNUTRICION SECUNDARIA</option>
             <option value="DN#imc">DESNUTRICION</option>
             <option value="BP#imc">BAJO PESO</option>
             <option value="N#imc">NORMAL</option>

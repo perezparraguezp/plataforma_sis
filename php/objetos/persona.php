@@ -33,17 +33,19 @@ class persona{
     public $existe,$ultima_actualizacion;
 
     function __construct($rut){
-        $this->rut = trim($rut);
+        $rut = trim($rut);
         $this->rut = str_replace(".","",$this->rut);
         $this->myID = $_SESSION['id_usuario'];
         $this->myEstablecimiento = $_SESSION['id_establecimiento'];
         $sql = "select * from persona 
-                where upper(rut)=upper('$rut') limit 1";
+                where upper(trim(rut))=upper(trim('$rut')) limit 1";
+
 
         $row = mysql_fetch_array(mysql_query($sql));
 
         if($row){
-            $this->nombre = limpiaCadena(strtoupper(trim($row['nombre_completo'])));
+            $this->rut = strtoupper(trim($row['rut']));
+            $this->nombre = strtoupper(trim($row['nombre_completo']));
             $this->telefono = $row['telefono'];
             $this->email = $row['email'];
             $this->direccion = $row['direccion'];
@@ -71,18 +73,6 @@ class persona{
             $this->existe = true;
         }else{
             $this->existe = false;
-        }
-    }
-    function getDatosNacimiento($column){
-        $sql1 = "select * from datos_nacimiento
-                            where rut='$this->rut' 
-                            limit 1";
-
-        $row1 = mysql_fetch_array(mysql_query($sql1));
-        if($row1){
-            return $row1[$column];
-        }else{
-            return '';
         }
     }
     function getUltimoHistorial(){
@@ -137,8 +127,7 @@ class persona{
         }
     }
     function getContacto(){
-//        return 'Telefono: '.$this->telefono;
-        return '';
+        return 'Telefono: '.$this->telefono;
     }
     function getNaneas(){
         return $this->nanea;
@@ -201,12 +190,16 @@ class persona{
         }
     }
     function getEstablecimiento(){
+        $rut =  $this->rut;
         $sql = "select * from paciente_establecimiento
                 inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                 inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                 inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal 
-                where paciente_establecimiento.rut='$this->rut' 
+                where trim(paciente_establecimiento.rut)=trim('$rut') 
                 limit 1";
+
+
+
         $row = mysql_fetch_array(mysql_query($sql));
         if($row){
             $sector_comunal = $row['nombre_sector_comunal'];
@@ -574,7 +567,7 @@ class persona{
         }
     }
     function validaIRA(){
-        if($this->total_meses < 13){
+        if($this->total_meses < 8){
             //para menores de 7 meses 29 dias
             return true;
         }else{
@@ -776,7 +769,6 @@ class persona{
             $sql2 = "insert into antropometria(rut,$column,fecha_registro) values('$this->rut','$val','$fecha')";
         }
         mysql_query($sql2);
-//        echo $sql2;
         $this->hisotrialAntropometria($column,$val,$fecha);
         $this->addHistorial('ANTROPOMETRIA','SE REGISTRO UN CAMBIO EN '.$column.' con un valor '.$val.' EN LA FECHA '.$fecha);
 
@@ -1176,7 +1168,7 @@ class persona{
                             where rut='$this->rut' ";
                 }else{
                     $sql1 = "insert into pscv_diabetes_mellitus(rut,$column) 
-                        values('$this->rut',upper('$column'))";
+                        values('$this->rut',upper('$value'))";
                 }
                 mysql_query($sql1);
                 $this->insert_historial_diabetes_pscv($column,$value,$fecha);
@@ -1199,7 +1191,7 @@ class persona{
                             where rut='$this->rut' ";
                 }else{
                     $sql1 = "insert into parametros_pscv(rut,$column) 
-                        values('$this->rut',upper('$column'))";
+                        values('$this->rut',upper('$value'))";
                 }
                 mysql_query($sql1);
                 $this->insert_historial_parametro_pscv($column,$value,$fecha);
@@ -1212,11 +1204,9 @@ class persona{
     function insert_historial_pscv($column,$value,$fecha){
         $sql0 = "delete from historial_pscv 
                   where rut='$this->rut' 
-                  and indicador='$column' 
+                  and $column='$value' 
                   and fecha_registro='$fecha' ";
-
         mysql_query($sql0);
-        //borramos todos los registros vacios
         mysql_query("delete from historial_pscv where fecha_registro='' OR fecha_registro is null ");
         if($fecha!=''){
             $fecha_dias = $this->calcularEdadDias($fecha);
@@ -1226,10 +1216,7 @@ class persona{
         }
     }
     function insert_historial_parametro_pscv($column,$value,$fecha){
-        $sql0 = "delete from historial_parametros_pscv 
-                    where rut='$this->rut' 
-                      and indicador='$column' 
-                      and fecha_registro='$fecha' ";
+        $sql0 = "delete from historial_parametros_pscv where rut='$this->rut' and indicador='$column' and fecha_registro='$fecha' ";
         mysql_query($sql0);
         if($fecha!=''){
             $fecha_dias = $this->calcularEdadDias($fecha);
@@ -1313,6 +1300,45 @@ class persona{
         }
 
     }
+    //PROGRAMA MUJER
+    function update_parametro_m($column,$value,$fecha){
+        $sql = "select * from paciente_mujer 
+                where rut='$this->rut' limit 1";
+
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            $sql1 = "update paciente_mujer 
+                            set $column=upper('$value') 
+                            where rut='$this->rut' ";
+        }else{
+            $sql1 = "insert into paciente_mujer(rut,$column) 
+                        values('$this->rut',upper('$value'))";
+        }
+        mysql_query($sql1);
+
+        $this->insert_historial_parametro_m($column,$value,$fecha);
+    }
+    function insert_historial_parametro_m($column,$value,$fecha){
+        $sql0 = "delete from historial_parametros_m where rut='$this->rut' and indicador='$column' and fecha_registro='$fecha' ";
+        mysql_query($sql0);
+        if($fecha!=''){
+            $fecha_dias = $this->calcularEdadDias($fecha);
+            $sql = "insert into historial_parametros_m(rut,id_profesional,indicador,valor,fecha_registro,edad_dias) 
+                values('$this->rut','$this->myID','$column','$value','$fecha','$fecha_dias')";
+
+            mysql_query($sql);
+            $this->limpiarHistorial('historial_parametros_am');
+        }
+    }
+    function getParametro_M($column){
+        $sql = "select * from paciente_mujer where rut='$this->rut' limit 1";
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            return $row[$column];
+        }else{
+            return  '';
+        }
+    }
     //ADULTO MAYOR
     function update_parametro_am($column,$value,$fecha){
         $sql = "select * from paciente_adultomayor 
@@ -1325,11 +1351,110 @@ class persona{
                             where rut='$this->rut' ";
         }else{
             $sql1 = "insert into paciente_adultomayor(rut,$column) 
-                        values('$this->rut',upper('$column'))";
+                        values('$this->rut',upper('$value'))";
         }
         mysql_query($sql1);
 
         $this->insert_historial_parametro_am($column,$value,$fecha);
+    }
+    function update_parametro_ad($column,$value,$fecha){
+        $sql = "select * from paciente_adolescente 
+                where rut='$this->rut' limit 1";
+
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            $sql1 = "update paciente_adolescente 
+                            set $column=upper('$value') 
+                            where rut='$this->rut' ";
+        }else{
+            $sql1 = "insert into paciente_adolescente(rut,$column) 
+                        values('$this->rut',upper('$value'))";
+        }
+
+        mysql_query($sql1);
+
+        $this->insert_historial_parametro_ad($column,$value,$fecha);
+    }
+    function update_riesgos_ad($column,$value,$fecha){
+        $sql = "select * from riesgo_adolescente 
+                where rut='$this->rut' and id_tipo_riesgo='$value' limit 1";
+
+        $row = mysql_fetch_array(mysql_query($sql));
+        if(!$row){
+            $sql1 = "insert into riesgo_adolescente(rut,id_tipo_riesgo,estado_riesgo,edad_dias,fecha_registro) 
+                        values('$this->rut',upper('$value'),'SI','$this->edad_total',current_date())";
+
+        }else{
+            $sql1 = "delete from riesgo_adolescente where rut='$this->rut' and id_tipo_riesgo='$value'";
+        }
+        mysql_query($sql1);
+    }
+    function getRiesgoAD($id){
+        $sql = "select * from riesgo_adolescente 
+                where rut='$this->rut' and id_tipo_riesgo='$id' limit 1";
+
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            return 'SI';
+        }else{
+            return 'NO';
+        }
+    }
+    function update_consejeria_ad($column,$value,$amigable,$fecha){
+        $sql = "select * from consejerias_adolescente 
+                where rut='$this->rut' and id_tipo_consejeria='$value' limit 1";
+
+        $row = mysql_fetch_array(mysql_query($sql));
+        if(!$row){
+            $sql1 = "insert into consejerias_adolescente(rut,id_tipo_consejeria,estado_consejeria,edad_dias,fecha_registro,amigable) 
+                        values('$this->rut',upper('$value'),'SI','$this->edad_total',current_date(),'$amigable')";
+
+        }else{
+            $sql1 = "delete from consejerias_adolescente where rut='$this->rut' and id_tipo_consejeria='$value'";
+        }
+
+        mysql_query($sql1);
+    }
+    function update_conserjeria_ad_amigable($column,$value,$amigable,$fecha){
+        $sql1 = "update consejerias_adolescente 
+                    set amigable='$amigable' 
+                    where rut='$this->rut' 
+                    and id_tipo_consejeria='$value'";
+        mysql_query($sql1);
+    }
+    function getConsejeriaAD($id){
+        $sql = "select * from consejerias_adolescente 
+                where rut='$this->rut' and id_tipo_consejeria='$id' limit 1";
+
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            return 'SI';
+        }else{
+            return 'NO';
+        }
+    }
+    function getConsejeriaAD_amigable($id){
+        $sql = "select * from consejerias_adolescente 
+                where rut='$this->rut' and id_tipo_consejeria='$id' limit 1";
+
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            return $row['amigable'];
+        }else{
+            return '';
+        }
+    }
+    function insert_historial_parametro_ad($column,$value,$fecha){
+        $sql0 = "delete from historial_parametros_ad where rut='$this->rut' and indicador='$column' and fecha_registro='$fecha' ";
+        mysql_query($sql0);
+        if($fecha!=''){
+            $fecha_dias = $this->calcularEdadDias($fecha);
+            $sql = "insert into historial_parametros_ad(rut,id_profesional,indicador,valor,fecha_registro,edad_dias) 
+                values('$this->rut','$this->myID','$column','$value','$fecha','$fecha_dias')";
+
+            mysql_query($sql);
+            $this->limpiarHistorial('historial_parametros_am');
+        }
     }
     function insert_historial_parametro_am($column,$value,$fecha){
         $sql0 = "delete from historial_parametros_am where rut='$this->rut' and indicador='$column' and fecha_registro='$fecha' ";
@@ -1340,11 +1465,22 @@ class persona{
                 values('$this->rut','$this->myID','$column','$value','$fecha','$fecha_dias')";
 
             mysql_query($sql);
-            $this->limpiarHistorial('historial_parametros_am');
+
         }
     }
+
     function getParametro_AM($column){
         $sql = "select * from paciente_adultomayor where rut='$this->rut' limit 1";
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            return $row[$column];
+        }else{
+            return  '';
+        }
+    }
+
+    function getParametro_AD($column){
+        $sql = "select * from paciente_adolescente where rut='$this->rut' limit 1";
         $row = mysql_fetch_array(mysql_query($sql));
         if($row){
             return $row[$column];

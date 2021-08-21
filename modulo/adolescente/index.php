@@ -1,14 +1,3 @@
-<?php
-
-include '../../php/config.php';
-include '../../php/objetos/profesional.php';
-session_start();
-$id_establecimiento = 1;
-
-$profesional = new profesional($_SESSION['id_usuario']);
-
-
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -200,33 +189,7 @@ $profesional = new profesional($_SESSION['id_usuario']);
 <!-- //////////////////////////////////////////////////////////////////////////// -->
 
 <!-- START HEADER -->
-<header id="header" class="page-topbar">
-    <!-- start header nav-->
-    <div class="navbar-fixed">
-        <nav class="grey lighten-2">
-            <div class="nav-wrapper">
-
-                <ul class="right hide-on-med-and-down black-text">
-                    <li style="font-size: 0.8em;">
-                        <div class="row">
-                            <div class="col l12"><?php echo $profesional->nombre; ?></div>
-
-                        </div>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="waves-effect waves-block blue-text toggle-fullscreen"><i class="mdi-action-settings-overscan"></i>
-                        </a>
-                    </li>
-                    <!-- Dropdown Trigger -->
-                    <li>
-                        <a href="#" data-activates="chat-out" class="waves-effect waves-block blue-text chat-collapse"><i class="mdi-editor-insert-chart"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-    <!-- end header nav-->
-</header>
+<?php include '../../php/html/header.php'; ?>
 <!-- END HEADER -->
 
 <!-- //////////////////////////////////////////////////////////////////////////// -->
@@ -256,7 +219,8 @@ $profesional = new profesional($_SESSION['id_usuario']);
         <aside id="right-sidebar-nav">
             <?php
 
-
+            include '../../php/config.php';
+            $id_establecimiento = 1;
 
 
             $sql_e = "select count(*) as total,

@@ -38,7 +38,18 @@ $talla =  $paciente->getParametro_AD('talla_edad');
                             <div class="col l12 m12 s12">
                                 <div class="row">
                                     <input type="hidden" name="fecha_imc" id="fecha_imc" value="<?php echo $fecha_registro; ?>" />
-                                    <div class="col l2 m2 s2 tooltipped IMC" data-position="bottom" data-delay="50" data-tooltip="DESNUTRICION">
+                                    <div class="col l1 m1 s1 tooltipped IMC" data-position="bottom" data-delay="50" data-tooltip="DESNUTRICION SECUNDARIA">
+                                        <div class="row center-align">
+                                            <label class="white-text" for="imc_dn2">
+                                                <img src="../../images/ad/DN.png" height="100px" /><br />
+                                            </label><br />
+                                            <input type="radio"
+                                                   style="position: relative;visibility: visible;left: 0px;"
+                                                   onclick="updateParametroAD_IMC('DN2')"
+                                                   id="imc_dn2" name="DN2" value="DN2" >
+                                        </div>
+                                    </div>
+                                    <div class="col l1 m1 s1 tooltipped IMC" data-position="bottom" data-delay="50" data-tooltip="DESNUTRICION">
                                         <div class="row center-align">
                                             <label class="white-text" for="imc_dn">
                                                 <img src="../../images/ad/DN.png" height="100px" /><br />
@@ -105,11 +116,20 @@ $talla =  $paciente->getParametro_AD('talla_edad');
                                         </div>
                                     </div>
 
+                                    <div class="col l12 m12 s12">
+                                        <input type="button"
+                                               class="btn-large"
+                                               style="width: 100%;"
+                                               onclick="updateParametroAD_IMC('<?php echo $imc; ?>')"
+                                               value="SIN CAMBIOS EN IMC" />
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
             <!-- ACTIVIDAD FISICA  -->
         </div>
@@ -157,7 +177,13 @@ $talla =  $paciente->getParametro_AD('talla_edad');
                                            id="cin_obad" name="cintura" value="OBAD" >
                                 </div>
                             </div>
-
+                            <div class="col l12 m12 s12">
+                                <input type="button"
+                                       class="btn-large"
+                                       style="width: 100%;"
+                                       onclick="updateParametroAD_CINTURA('<?php echo $cintura; ?>')"
+                                       value="SIN CAMBIOS EN CINTURA" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -230,6 +256,13 @@ $talla =  $paciente->getParametro_AD('talla_edad');
                                 </div>
                             </div>
 
+                            <div class="col l12 m12 s12">
+                                <input type="button"
+                                       class="btn-large"
+                                       style="width: 100%;"
+                                       onclick="updateParametroAD_TALLA('<?php echo $talla; ?>')"
+                                       value="SIN CAMBIOS EN TALLA" />
+                            </div>
 
                         </div>
                     </div>
@@ -297,16 +330,32 @@ $talla =  $paciente->getParametro_AD('talla_edad');
 
         });
     }
-    function updateIndicadorAD_consejeria(indicador,value) {
+    function updateIndicadorAD_consejeria(indicador,value,amigable) {
         var fecha = $("#fecha_antecedentes").val();
         $.post('db/update/ad_consejerias.php',{
             column:indicador,
             value:value,
             fecha_registro:fecha,
+            amigable:amigable,
             rut:'<?php echo $rut ?>'
         },function (data) {
             alertaLateral(data);
             loadHistorialRiesgosAD('<?php echo $rut; ?>','educacion');
+            load_ad_consejerias('<?php echo $rut; ?>');
+        });
+    }
+    function updateIndicadorAD_consejeria_amigable(indicador,value,amigable){
+        var fecha = $("#fecha_antecedentes").val();
+        $.post('db/update/ad_consejerias_amigable.php',{
+            column:indicador,
+            value:value,
+            fecha_registro:fecha,
+            amigable:amigable,
+            rut:'<?php echo $rut ?>'
+        },function (data) {
+            alertaLateral(data);
+            loadHistorialRiesgosAD('<?php echo $rut; ?>','educacion');
+            load_ad_consejerias('<?php echo $rut; ?>');
         });
     }
     function updateParametroAD_IMC(value) {

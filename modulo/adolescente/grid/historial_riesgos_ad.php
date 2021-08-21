@@ -14,9 +14,10 @@
     include '../../../php/objetos/persona.php';
 
     $rut = str_replace('.','',$_POST['rut']);
+    $tipo_riesgo = $_POST['tipo_riesgo'];
     $sql1 = "select * from riesgo_adolescente 
         inner join tipo_riesgo_adolescente using(id_tipo_riesgo) 
-        where rut='$rut'  
+        where rut='$rut'  AND tipo_area='$tipo_riesgo'
         order by fecha_registro desc";
 
     $res1 = mysql_query($sql1);

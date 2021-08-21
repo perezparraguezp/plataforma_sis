@@ -55,6 +55,7 @@ session_start();
     <div class="loader-section section-left"></div>
     <div class="loader-section section-right"></div>
 </div>
+
 <!-- End Page Loading -->
 <style type="text/css">
     @media only screen
@@ -80,82 +81,104 @@ session_start();
     }
 </style>
 <div id="login-page" class="row">
-    <div class="card-panel center" style="width: 98%;padding: 10px;">
-        <div class="col l12 m12 s12">
-            <div class="card-panel">
-                <div class="row">
-                    <div class="col l12 m12 s12">
-                        <strong>MODULOS DISPONIBLES</strong>
+    <div class="col l6 m6 s6">
+        <div class="card-panel center" style="width: 97%;padding: 10px;">
+            <div class="col l12 m12 s12">
+                <div class="card-panel">
+                    <div class="row">
+                        <div class="col l12 m12 s12">
+                            <strong>MODULOS DISPONIBLES</strong>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-panel PANEL_MENU_SIS" style="background-color: #f1ffc5;">
-                <div class="row">
-                    <div class="col l4 m4 s4">
-                        <i class="mdi-social-people"></i>
-                    </div>
-                    <div class="col l8 m8 s8">
-                        <a style="color: black" href="modulo/some/index.php" target="_blank">
-                            <strong>INGRESO DE PACIENTES</strong>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <?php
-            include('php/config.php');
-            session_start();
-            $id_establecimiento = $_SESSION['id_establecimiento'];
-            $rut = $_SESSION['rut'];
-
-            $sql = "select * from menu_usuario 
-                        inner join modulos_ehopen using(id_modulo)
-                        where rut='$rut' and id_establecimiento='$id_establecimiento' 
-                        order by id_modulo";
-
-            $res = mysql_query($sql);
-            while($row = mysql_fetch_array($res)){
-                echo  $row['html'];
-            }
-            ?>
-
-
-            <?php
-            if($_SESSION['tipo_usuario']=='ADMINISTRADOR'){
-                ?>
-                <div class="card-panel PANEL_MENU_SIS" style="background-color: #c282de;">
+                <div class="card-panel PANEL_MENU_SIS" style="background-color: #f1ffc5;">
                     <div class="row">
                         <div class="col l4 m4 s4">
-                            <i class="mdi-action-settings-applications"></i>
+                            <i class="mdi-social-people"></i>
                         </div>
                         <div class="col l8 m8 s8">
-                            <a style="color: black" href="modulo/default/index.php" target="_blank">
-                                <strong>AJUSTES GENERALES</strong>
+                            <a style="color: black" href="modulo/some/index.php" target="_blank">
+                                <strong>INGRESO DE PACIENTES</strong>
                             </a>
                         </div>
                     </div>
                 </div>
                 <?php
-            }
-            ?>
+                include('php/config.php');
+                session_start();
+                $id_establecimiento = $_SESSION['id_establecimiento'];
+                $rut = $_SESSION['rut'];
 
-        </div>
-        <hr class="row" />
-        <div class="row">
-            <div class="col l12 s12 m12">
-                <a href="salir.php" class="btn-large" style="width: 100%;" >CERRAR SESSION</a>
+                $sql = "select * from menu_usuario 
+                        inner join modulos_ehopen using(id_modulo)
+                        where rut='$rut' and id_establecimiento='$id_establecimiento' 
+                        order by id_modulo";
+
+                $res = mysql_query($sql);
+                while($row = mysql_fetch_array($res)){
+                    echo  $row['html'];
+                }
+                ?>
+
+
+                <?php
+                if($_SESSION['tipo_usuario']=='ADMINISTRADOR'){
+                    ?>
+                    <div class="card-panel PANEL_MENU_SIS" style="background-color: #c282de;">
+                        <div class="row">
+                            <div class="col l4 m4 s4">
+                                <i class="mdi-action-settings-applications"></i>
+                            </div>
+                            <div class="col l8 m8 s8">
+                                <a style="color: black" href="modulo/default/index.php" target="_blank">
+                                    <strong>AJUSTES GENERALES</strong>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
+
             </div>
-        </div>
-        <div class="card-panel" class="card-panel center" style="width: 98%;padding: 10px;">
+            <hr class="row" />
             <div class="row">
-                Para Obtener Soporte escribanos <a href="mailto:soporte@eh-open.com">SOPORTE@EH-OPEN.COM</a>
+                <div class="col l12 s12 m12">
+                    <a href="salir.php" class="btn-large" style="width: 100%;" >CERRAR SESSION</a>
+                </div>
+            </div>
+            <div class="card-panel" class="card-panel center" style="width: 98%;padding: 10px;">
+                <div class="row">
+                    Para Obtener Soporte escribanos <a href="mailto:soporte@eh-open.com">SOPORTE@EH-OPEN.COM</a>
+                </div>
             </div>
         </div>
     </div>
+    <div class="col l6 m6 s6">
+        <div class="card-panel center" style="width: 98%;padding: 10px;">
+            <div class="col l12 m12 s12">
+                <div class="card-panel">
+                    <div class="row">
+                        <div class="col l12 m12 s12">
+                            <strong>DATOS PERSONALES</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-panel" class="card-panel center" style="width: 98%;padding: 10px;">
+                    <div class="row">
+                        Para Obtener Soporte escribanos <a href="mailto:soporte@eh-open.com">SOPORTE@EH-OPEN.COM</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <!-- ================================================
   Scripts
   ================================================ -->
+
 
 <!-- jQuery Library -->
 <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>

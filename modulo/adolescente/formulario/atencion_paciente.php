@@ -62,6 +62,16 @@ $profesional = new profesional($_SESSION['id_usuario']);
             $("#"+div).html(data);
         });
     }
+    function load_ad_riesgos_gine(rut) {
+        var div = 'form_riesgos_gine';
+        loading_div(div);
+        $.post('formulario/riesgos_gine.php',{
+            rut:rut,
+            fecha_registro:'<?php echo $fecha_registro; ?>'
+        },function(data){
+            $("#"+div).html(data);
+        });
+    }
     function load_ad_consejerias(rut) {
         var div = 'form_consejerias';
         loading_div(div);
@@ -142,6 +152,7 @@ $profesional = new profesional($_SESSION['id_usuario']);
             <li style="margin-left: 30px;text-align: center" onclick="load_ad_antecedentes('<?php echo $rut; ?>')">ANTECEDENTES</li>
             <li style="margin-left: 30px;" onclick="load_ad_educacion_trabajo('<?php echo $rut; ?>')">EDUCACIÓN Y TRABAJO</li>
             <li style="margin-left: 30px;" onclick="load_ad_riesgos('<?php echo $rut; ?>')">AREAS DE RIESGO</li>
+            <li style="margin-left: 30px;" onclick="load_ad_riesgos_gine('<?php echo $rut; ?>')">GINECO UROLOGICO</li>
             <li style="margin-left: 30px;" onclick="load_ad_consejerias('<?php echo $rut; ?>')">CONSEJERIAS</li>
             <li style="background-color: #5cff9a;cursor: pointer;" onclick="boxAgendamiento()">FINALIZAR ATENCIÓN</li>
         </ul>
@@ -156,6 +167,10 @@ $profesional = new profesional($_SESSION['id_usuario']);
         <div>
             <!-- EDUCACIÓN Y TRABAJO -->
             <form name="form_riesgos" id="form_riesgos" class="col l12"></form>
+        </div>
+        <div>
+            <!-- EDUCACIÓN Y TRABAJO -->
+            <form name="form_riesgos_gine" id="form_riesgos_gine" class="col l12"></form>
         </div>
         <div>
             <!-- EDUCACIÓN Y TRABAJO -->

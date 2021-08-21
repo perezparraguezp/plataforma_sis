@@ -7,5 +7,5 @@ $value = $_POST['value'];
 $fecha = $_POST['fecha_registro'];
 $amigable = $_POST['amigable'];
 $p = new persona($rut);
-$p->update_consejeria_ad($column,$value,$amigable,$fecha);
+$p->update_conserjeria_ad_amigable($column,$value,$amigable,$fecha);
 echo 'ACTUALIZADO';

@@ -23,7 +23,7 @@ $educacion =  $paciente->getParametro_AD('educacion');
                         <div class="row">
                             <div class="col l12 m12 s12">
                                 <?php
-                                $sql1 = "select * from tipo_riesgo_adolescente where tipo_area='RIESGO' order by nombre_riesgo";
+                                $sql1 = "select * from tipo_riesgo_adolescente where tipo_area='GINE' order by nombre_riesgo";
                                 $res1 = mysql_query($sql1);
                                 while($row1 = mysql_fetch_array($res1)){
                                     ?>
@@ -32,13 +32,13 @@ $educacion =  $paciente->getParametro_AD('educacion');
                                         <div class="col l2 m2 s2">
                                             <input type="checkbox"
                                                    style="position: relative;visibility: visible;left: 0px;"
-                                                   <?php echo $paciente->getRiesgoAD($row1['id_tipo_riesgo'])=='SI'?'checked="checked"':''; ?>
+                                                <?php echo $paciente->getRiesgoAD($row1['id_tipo_riesgo'])=='SI'?'checked="checked"':''; ?>
 
                                                    onclick="updateIndicadorAD('riesgo','<?php echo $row1['id_tipo_riesgo']; ?>'),loadHistorialRiesgosAD('<?php echo $rut; ?>','educacion');"
                                                    name="riesgo[<?php echo $row1['id_tipo_riesgo']; ?>]" value="<?php echo $row1['id_tipo_riesgo']; ?>" />
                                         </div>
                                     </div>
-                                <?php
+                                    <?php
                                 }
                                 ?>
                             </div>
@@ -67,8 +67,7 @@ $educacion =  $paciente->getParametro_AD('educacion');
     function loadHistorialRiesgosAD(rut,indicador) {
         $.post('grid/historial_riesgos_ad.php',{
             rut:rut,
-            indicador:indicador,
-            tipo_riesgo:'RIESGO'
+            indicador:indicador
         },function(data){
             if(data !== 'ERROR_SQL'){
                 $("#infoHistotialRiesgos").html(data);

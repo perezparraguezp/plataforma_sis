@@ -41,15 +41,6 @@ $educacion =  $paciente->getParametro_AD('educacion');
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col l10 m10 s10">TRABAJO INFANTIL / JUVENIL</div>
-                                    <div class="col l2 m2 s2">
-                                        <input type="radio"
-                                               style="position: relative;visibility: visible;left: 0px;"
-                                               onclick="updateIndicadorEducacionAD('educacion','TRABAJO'),loadHistorialParametroAD('<?php echo $rut; ?>','educacion');"
-                                               id="ed_TRABAJO" name="educacion" value="TRABAJO" />
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="col l10 m10 s10">PEORES FORMA DE TRABAJO INFANTIL</div>
                                     <div class="col l2 m2 s2">
                                         <input type="radio"
@@ -58,6 +49,35 @@ $educacion =  $paciente->getParametro_AD('educacion');
                                                id="ed_PEOR" name="educacion" value="PEOR" />
                                     </div>
                                 </div>
+                                <?php
+                                if($paciente->edad_anios < 15 ){
+                                    ?>
+                                    <div class="row">
+                                        <div class="col l10 m10 s10">TRABAJO INFANTIL</div>
+                                        <div class="col l2 m2 s2">
+                                            <input type="radio"
+                                                   style="position: relative;visibility: visible;left: 0px;"
+                                                   onclick="updateIndicadorEducacionAD('educacion','TRABAJO_INFANTIL'),loadHistorialParametroAD('<?php echo $rut; ?>','educacion');"
+                                                   id="ed_TRABAJO" name="educacion" value="TRABAJO_INFANTIL" />
+                                        </div>
+                                    </div>
+                                    <?php
+                                }else{
+                                    ?>
+                                    <div class="row">
+                                        <div class="col l10 m10 s10">TRABAJO JUVENIL</div>
+                                        <div class="col l2 m2 s2">
+                                            <input type="radio"
+                                                   style="position: relative;visibility: visible;left: 0px;"
+                                                   onclick="updateIndicadorEducacionAD('educacion','TRABAJO_JUVENIL'),loadHistorialParametroAD('<?php echo $rut; ?>','educacion');"
+                                                   id="ed_TRABAJO" name="educacion" value="TRABAJO_JUVENIL" />
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+
+
                                 <div class="row">
                                     <div class="col l10 m10 s10">SERVICIO DOMESTICO NO REMUNERADO PELIGROSO</div>
                                     <div class="col l2 m2 s2">
