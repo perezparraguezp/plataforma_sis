@@ -8,7 +8,7 @@ $search = $_GET['query'];
 
 $sql = "select * from persona 
         inner join paciente_establecimiento using(rut)
-        where m_adultomayor='SI' AND (upper(persona.nombre_completo)
+        where m_adulto_mayor='SI' AND (upper(persona.nombre_completo)
         like upper('%$search%') 
         or upper(persona.rut) like upper('$search%'))
         group by rut";

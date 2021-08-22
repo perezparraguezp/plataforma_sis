@@ -58,6 +58,9 @@ $sql1 = "select * from sector_comunal
                 <option value="paciente_adolescente">PERIMETRO CINTURA</option>
                 <option value="paciente_adolescente">TALLA EDAD</option>
                 <option value="paciente_adolescente">EDUCACION</option>
+                <option value="riesgo_adolescente">AREA RIESGO</option>
+                <option value="riesgo_adolescente">GINECO URULOGIA</option>
+                <option value="consejerias_adolescente">CONCEJERIAS</option>
 
             </select>
             <script type="text/javascript">

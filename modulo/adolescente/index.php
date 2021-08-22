@@ -224,35 +224,34 @@
 
 
             $sql_e = "select count(*) as total,
-       sum(persona.sexo='M') as hombres,sum(persona.sexo='M')*100/count(*) as porcentaje_hombres,
-       sum(persona.sexo='F') as mujeres,sum(persona.sexo='F')*100/count(*) as porcentaje_mujeres,
-       sum(persona.edad_total>=10*12 and persona.edad_total<15*12) as menores14,
-       sum(persona.edad_total>=15*12 and persona.edad_total<20*12) as mayores14
-      from persona 
-      inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut 
-      where paciente_establecimiento.m_adolescente='SI'; ";
+                       sum(persona.sexo='M') as hombres,sum(persona.sexo='M')*100/count(*) as porcentaje_hombres,
+                       sum(persona.sexo='F') as mujeres,sum(persona.sexo='F')*100/count(*) as porcentaje_mujeres,
+                       sum(persona.edad_total>=10*12 and persona.edad_total<15*12) as menores14,
+                       sum(persona.edad_total>=15*12 and persona.edad_total<20*12) as mayores14
+                      from persona 
+                      inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut 
+                      where paciente_establecimiento.m_adolescente='SI'; ";
 
 
-            $row = mysql_fetch_array(mysql_query($sql_e))or die('1');
-            $total_pacientes = $row['total'];
-            $porcentaje_14 = $row['menores14']*100/$total_pacientes;
-            $porcentaje_15 = $row['mayores14']*100/$total_pacientes;
+                $row = mysql_fetch_array(mysql_query($sql_e))or die('1');
+                $total_pacientes = $row['total'];
+                $porcentaje_14 = $row['menores14']*100/$total_pacientes;
+                $porcentaje_15 = $row['mayores14']*100/$total_pacientes;
 
 
             $sql_e = "select
                        sum(paciente_adolescente.educacion='DESERCION') as desercion,
-                       sum(paciente_adolescente.educacion='TRABAJO' and persona.edad_total>=10*12 and persona.edad_total<15*12) as trabajo_infantil,
-                       sum(paciente_adolescente.educacion='TRABAJO' and persona.edad_total>=15*12 and persona.edad_total<20*12) as trabajo_juvenil,
+                       sum(paciente_adolescente.educacion='TRABAJO_INFANTIL' and persona.edad_total>=10*12 and persona.edad_total<15*12) as trabajo_infantil,
+                       sum(paciente_adolescente.educacion='TRABAJO_JUVENIL' and persona.edad_total>=15*12 and persona.edad_total<20*12) as trabajo_juvenil,
                        sum(paciente_adolescente.imc='DN') as DN,
                        sum(paciente_adolescente.imc='BP') as BP,
                        sum(paciente_adolescente.imc='N') as N,
                        sum(paciente_adolescente.imc='SP') as SP,
                        sum(paciente_adolescente.imc='OB') as OB,
                        sum(paciente_adolescente.imc='OBM') as OBM
-
                       from paciente_adolescente inner join persona using(rut)
                       inner join paciente_establecimiento on paciente_adolescente.rut=paciente_establecimiento.rut    
-                       where id_establecimiento='$id_establecimiento'; ";
+                       where id_establecimiento='$id_establecimiento' and m_adolescente='SI'; ";
             $row = mysql_fetch_array(mysql_query($sql_e))or die('1');
 
             $DN = $row['DN']*100/$total_pacientes;
@@ -359,10 +358,42 @@
                                     <div class="col s9 recent-activity-list-text">
 
                                         <p class="left-align">
-                                            <?php
-
-                                            ?>
                                         </p>
+<!--                                        <script type="text/javascript" src="../../js/chart.min.js"></script>-->
+<!--                                        <script type="text/javascript">-->
+<!---->
+<!--                                            //Sampel Pie Doughnut Chart-->
+<!--                                            var PieDoughnutChartSampleData = [-->
+<!--                                                {-->
+<!--                                                    value: 300,-->
+<!--                                                    color:"#F7464A",-->
+<!--                                                    highlight: "#FF5A5E",-->
+<!--                                                    label: "Red"-->
+<!--                                                },-->
+<!--                                                {-->
+<!--                                                    value: 50,-->
+<!--                                                    color: "#46BFBD",-->
+<!--                                                    highlight: "#5AD3D1",-->
+<!--                                                    label: "Green"-->
+<!--                                                },-->
+<!--                                                {-->
+<!--                                                    value: 100,-->
+<!--                                                    color: "#FDB45C",-->
+<!--                                                    highlight: "#FFC870",-->
+<!--                                                    label: "Yellow"-->
+<!--                                                }-->
+<!--                                            ]-->
+<!---->
+<!--                                            window.onload = function() {-->
+<!---->
+<!--                                                window.DoughnutChartSample = new Chart(document.getElementById("doughnut-chart-sample")).Pie(PieDoughnutChartSampleData,{-->
+<!--                                                    responsive:true-->
+<!--                                                });-->
+<!---->
+<!---->
+<!--                                            };-->
+<!--                                        </script>-->
+<!--                                        <div id="doughnut-chart-sample"></div>-->
                                     </div>
                                 </div>
                             </div>

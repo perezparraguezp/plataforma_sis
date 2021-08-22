@@ -11,7 +11,6 @@
 <div class="row">
     <div class="col l12">
         <div class="col l4">
-            <a class="btn waves-effect waves-light col s12" onclick="load_form_nuevo_am()"><i class="mdi-social-person"></i>REGISTRAR NUEVO PACIENTE</a>
         </div>
         <div class="col l4">
             <a class="btn waves-effect waves-light col s12" onclick="load_lista_am()"><i class="mdi-action-account-child"></i> VER LISTADO DE PACIENTES</a>

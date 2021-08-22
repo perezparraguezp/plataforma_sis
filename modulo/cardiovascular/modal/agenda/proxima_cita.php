@@ -194,7 +194,7 @@ $meses = Array("","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
         boxAgendamiento();
     }
     function noAgendar(){
-        loadMenu_CardioVascular('menu_1','registro_atencion','')
+        loadMenu_CardioVascular('menu_1','registro_atencion','');
         document.getElementById("close_modal").click();
     }
 </script>

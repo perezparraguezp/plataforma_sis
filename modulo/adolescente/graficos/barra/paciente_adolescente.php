@@ -82,10 +82,12 @@ if($comunal==true){
                                           and TIMESTAMPDIFF(DAY,historial_parametros_ad.fecha_registro,CURRENT_DATE)<365
                                           order by id_historial desc limit 1";
 
+
             $row_2 = mysql_fetch_array(mysql_query($sql_2));
             if($row_2){//dentro del año
                 $fecha = fechaNormal($row_2['fecha_registro']);
                 $indicador_json = $row_2['valor'];
+
 
                 if($indicador_json==$atributo){//segun indicador
                     //vigente segun opcion
@@ -489,6 +491,7 @@ if($comunal==true){
     }
 }
 
+
 $estado = $estado=='' ? 'PENDIENTE':$estado;
 
 ?>
@@ -714,6 +717,9 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                     </option>
                     <option VALUE="persona.edad_total>=15*12 and persona.edad_total<19*12 ">
                         15 A 19 AÑOS
+                    </option>
+                    <option VALUE="persona.edad_total>=10*12 and persona.edad_total<19*12 ">
+                        10 A 19 AÑOS
                     </option>
                 </select>
             </div>

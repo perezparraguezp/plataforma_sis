@@ -6,7 +6,7 @@ include "../../../php/objetos/persona.php";
 $rut = $_POST['rut'];
 $fecha_registro = $_POST['fecha_registro'];
 $paciente = new persona($rut);
-$riesgo_cv =  $paciente->getParametro_AM('riesgo_cv');
+$funcionalidad =  str_replace(" ","_",$paciente->getParametro_AM('funcionalidad'));
 
 
 ?>
@@ -27,7 +27,7 @@ $riesgo_cv =  $paciente->getParametro_AM('riesgo_cv');
                                         <input type="radio"
                                                style="position: relative;visibility: visible;left: 0px;"
                                                onclick="updateIndicadorAM_variable('funcionalidad','AUTOVALENTE SIN RIESGO'),loadHistorialParametroAM_funcionalidad('<?php echo $rut; ?>','funcionalidad');"
-                                               id="af_no" name="af" value="AUTOVALENTE SIN RIESGO" />
+                                               id="af_<?php echo $funcionalidad; ?>" name="af" value="AUTOVALENTE SIN RIESGO" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -36,7 +36,7 @@ $riesgo_cv =  $paciente->getParametro_AM('riesgo_cv');
                                         <input type="radio"
                                                style="position: relative;visibility: visible;left: 0px;"
                                                onclick="updateIndicadorAM_variable('funcionalidad','AUTOVALENTE CON RIESGO'),loadHistorialParametroAM_funcionalidad('<?php echo $rut; ?>','funcionalidad');"
-                                               id="af_no" name="af" value="AUTOVALENTE CON RIESGO" />
+                                               id="af_<?php echo $funcionalidad; ?>" name="af" value="AUTOVALENTE CON RIESGO" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -45,7 +45,7 @@ $riesgo_cv =  $paciente->getParametro_AM('riesgo_cv');
                                         <input type="radio"
                                                style="position: relative;visibility: visible;left: 0px;"
                                                onclick="updateIndicadorAM_variable('funcionalidad','RIESGO DEPENDENCIA'),loadHistorialParametroAM_funcionalidad('<?php echo $rut; ?>','funcionalidad');"
-                                               id="af_no" name="af" value="RIESGO DEPENDENCIA" />
+                                               id="af_<?php echo $funcionalidad; ?>" name="af" value="RIESGO DEPENDENCIA" />
                                     </div>
                                 </div>
                                 <p class="row"></p>
@@ -63,7 +63,7 @@ $riesgo_cv =  $paciente->getParametro_AM('riesgo_cv');
                                         <input type="radio"
                                                style="position: relative;visibility: visible;left: 0px;"
                                                onclick="updateIndicadorAM_variable('funcionalidad','DEPENDENCIA LEVE'),loadHistorialParametroAM_funcionalidad('<?php echo $rut; ?>','funcionalidad');"
-                                               id="af_no" name="af" value="DEPENDENCIA LEVE" />
+                                               id="af_<?php echo $funcionalidad; ?>" name="af" value="DEPENDENCIA LEVE" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -72,7 +72,7 @@ $riesgo_cv =  $paciente->getParametro_AM('riesgo_cv');
                                         <input type="radio"
                                                style="position: relative;visibility: visible;left: 0px;"
                                                onclick="updateIndicadorAM_variable('funcionalidad','DEPENDENCIA MODERADO'),loadHistorialParametroAM_funcionalidad('<?php echo $rut; ?>','funcionalidad');"
-                                               id="af_no" name="af" value="DEPENDENCIA MODERADO" />
+                                               id="af_<?php echo $funcionalidad; ?>" name="af" value="DEPENDENCIA MODERADO" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -81,7 +81,7 @@ $riesgo_cv =  $paciente->getParametro_AM('riesgo_cv');
                                         <input type="radio"
                                                style="position: relative;visibility: visible;left: 0px;"
                                                onclick="updateIndicadorAM_variable('funcionalidad','DEPENDENCIA GRAVE'),loadHistorialParametroAM_funcionalidad('<?php echo $rut; ?>','funcionalidad');"
-                                               id="af_no" name="af" value="DEPENDENCIA GRAVE" />
+                                               id="af_<?php echo $funcionalidad; ?>" name="af" value="DEPENDENCIA GRAVE" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -90,7 +90,7 @@ $riesgo_cv =  $paciente->getParametro_AM('riesgo_cv');
                                         <input type="radio"
                                                style="position: relative;visibility: visible;left: 0px;"
                                                onclick="updateIndicadorAM_variable('funcionalidad','DEPENDENCIA TOTAL'),loadHistorialParametroAM_funcionalidad('<?php echo $rut; ?>','funcionalidad');"
-                                               id="af_no" name="af" value="DEPENDENCIA TOTAL" />
+                                               id="af_<?php echo $funcionalidad; ?>" name="af" value="DEPENDENCIA TOTAL" />
                                     </div>
                                 </div>
                             </div>
@@ -138,6 +138,7 @@ $riesgo_cv =  $paciente->getParametro_AM('riesgo_cv');
         //DM
         loadHistorialParametroAM_funcionalidad('<?php echo $rut; ?>','funcionalidad');
         $('.tooltipped').tooltip({delay: 50});
+        $("#af_<?php echo strtolower($funcionalidad); ?>").attr('checked','cheched');
     });
     function loadHistorialParametroAM_funcionalidad(rut,indicador) {
         $.post('grid/historial_parametros_am.php',{

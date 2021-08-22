@@ -1354,8 +1354,9 @@ class persona{
                         values('$this->rut',upper('$value'))";
         }
         mysql_query($sql1);
-
+        $this->addHistorial('SIS ADULTO MAYOR','REGISTRO EN '.$column.' con el Valor '.$value.' en la fecha '.$fecha);
         $this->insert_historial_parametro_am($column,$value,$fecha);
+
     }
     function update_parametro_ad($column,$value,$fecha){
         $sql = "select * from paciente_adolescente 

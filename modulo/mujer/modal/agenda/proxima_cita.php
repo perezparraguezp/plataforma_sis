@@ -163,7 +163,7 @@ $meses = Array("","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
                 if(confirm('QUIERE AGREGAR OTRO AGENDAMIENTO')){
                     boxAgendamiento();
                 }else{
-                    volverFichaSearch_1();
+                    // volverFichaSearch_1();
                     document.getElementById("close_modal").click();
                 }
 
@@ -188,12 +188,12 @@ $meses = Array("","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
             {
                 id:id
             },function(data){
-                volverFichaSearch();
+                boxAgendamiento();
                 document.getElementById("close_modal").click();
             });
     }
     function noAgendar(){
-        volverFichaSearch();
+        // volverFichaSearch();
         document.getElementById("close_modal").click();
     }
 </script>

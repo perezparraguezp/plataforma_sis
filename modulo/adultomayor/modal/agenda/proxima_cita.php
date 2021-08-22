@@ -5,7 +5,6 @@ include '../../../../php/objetos/persona.php';
 $myId = $_SESSION['id_usuario'];
 $rut = $_POST['rut'];
 $p = new persona($rut);
-
 $meses = Array("","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
 ?>
 <form id="form_agendamiento" class="modal-content">
@@ -155,7 +154,7 @@ $meses = Array("","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
 </div>
 <script type="text/javascript">
     function insertAgendamiento() {
-        $.post('db/insert/agendamiento.php',
+        $.post('../default/db/insert/agendamiento.php',
             $("#form_agendamiento").serialize(),function(data){
                 alertaLateral(data);
                 if(confirm('QUIERE AGREGAR OTRO AGENDAMIENTO')){
@@ -170,12 +169,12 @@ $meses = Array("","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
     }
 
     function finalizarCitaSalud(id){
-        $.post('db/update/agendamiento.php',
+        $.post('../default/db/update/agendamiento.php',
             {
                 id:id
                 },function(data){
                 boxAgendamiento();
-                document.getElementById("close_modal").click();
+                // document.getElementById("close_modal").click();
             });
     }
     function deleteAgendamiento(id){
@@ -191,7 +190,7 @@ $meses = Array("","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
         }
     }
     function noAgendar(){
-        // volverFichaSearch();
+
         document.getElementById("close_modal").click();
     }
 </script>

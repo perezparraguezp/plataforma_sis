@@ -70,7 +70,7 @@ $ARAII = $row_e['ARAII']*100/$total_pacientes;
                         <a href="#">Pacientes Registrados <?php echo $row['total']; ?></a>
                         <p class="left-align">
                             <?php
-                            echo 'HOMBRES '.number_format($row['porcentaje_hombres'],0).'%<br />';
+                            echo 'HOMBRESss asa'.number_format($row['porcentaje_hombres'],0).'%<br />';
                             echo 'MUJERES '.number_format($row['porcentaje_mujeres'],0).'%<br />';
                             ?>
                         </p>

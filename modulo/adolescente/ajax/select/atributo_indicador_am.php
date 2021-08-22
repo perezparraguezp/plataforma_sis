@@ -3,6 +3,7 @@
         id="atributo">
     <option selected disabled value="">SELECCIONAR ATRIBUTO</option>
     <?php
+    include "../../../../php/config.php";
     $indicador = $_POST['indicador'];//parametro de la table
     $table_sql = $_POST['table_sql'];//tabla
     $tiene_estado = true;
@@ -29,7 +30,7 @@
         }
         case 'TALLA EDAD':{
             ?>
-            <option value="BP#talla_edad">BAJA</option>
+            <option value="BAJA#talla_edad">BAJA</option>
             <option value="NBAJA#talla_edad">NORMAL BAJA</option>
             <option value="NORMAL#talla_edad">NORMAL</option>
             <option value="NALTA#talla_edad">NORMAL ALTA</option>
@@ -41,10 +42,44 @@
             ?>
             <option value="ESTUDIANTE#educacion">ESTUDIANTE</option>
             <option value="DESERCION#educacion">DESERCIÓN ESCOLAR</option>
-            <option value="TRABAJO#educacion">TRABAJO INFANTIL / JUVENIL</option>
+            <option value="TRABAJO_INFANTIL#educacion">TRABAJO INFANTIL</option>
+            <option value="TRABAJO_JUVENIL#educacion">TRABAJO JUVENIL</option>
             <option value="PEOR#educacion">PEORES FORMA DE TRABAJO INFANTIL</option>
             <option value="SERVICIO#educacion">SERVICIO DOMESTICO NO REMUNERADO PELIGROSO</option>
             <?php
+            break;
+        }
+        case 'AREA RIESGO':{
+            $sql = "select * from tipo_riesgo_adolescente where tipo_area='RIESGO' ORDER BY nombre_riesgo;";
+            $res = mysql_query($sql);
+            while($row = mysql_fetch_array($res)){
+                ?>
+                <option value="<?php echo $row['id_tipo_riesgo']; ?>#estado_riesgo"><?php echo $row['nombre_riesgo']; ?></option>
+                <?php
+            }
+
+            break;
+        }
+        case 'GINECO URULOGIA':{
+            $sql = "select * from tipo_riesgo_adolescente where tipo_area='GINE' ORDER BY nombre_riesgo;";
+            $res = mysql_query($sql);
+            while($row = mysql_fetch_array($res)){
+                ?>
+                <option value="<?php echo $row['id_tipo_riesgo']; ?>#estado_riesgo"><?php echo $row['nombre_riesgo']; ?></option>
+                <?php
+            }
+
+            break;
+        }
+        case 'CONCEJERIAS':{
+            $sql = "select * from tipo_consejerias_adolescente  ORDER BY nombre_consejeria;";
+            $res = mysql_query($sql);
+            while($row = mysql_fetch_array($res)){
+                ?>
+                <option value="<?php echo $row['id_tipo_consejeria']; ?>#nombre_consejeria"><?php echo $row['nombre_consejeria']; ?></option>
+                <?php
+            }
+
             break;
         }
     }

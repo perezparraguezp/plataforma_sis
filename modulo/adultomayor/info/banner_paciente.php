@@ -18,7 +18,7 @@ list($establecimiento,$sector_interno,$sector_comunal) = explode(":",$paciente->
         <?php $imagen = $paciente->sexo=='F'?'mujer.png':'hombre.png'; ?>
         <img src="images/AM_<?php echo $imagen; ?>" width="100%" />
     </div>
-    <div class="col l4">
+    <div class="col l4" style="padding-left: 10px;">
         <div class="row">
             <strong><?php echo $paciente->nombre; ?></strong>
         </div>
@@ -30,6 +30,12 @@ list($establecimiento,$sector_interno,$sector_comunal) = explode(":",$paciente->
         </div>
         <div class="row">
             <?php echo $paciente->rut ?>
+        </div>
+        <div class="row">
+            Pueblo Originario <strong><?php echo $paciente->pueblo; ?></strong>
+        </div>
+        <div class="row">
+            Migrante <strong><?php echo $paciente->migrante; ?></strong>
         </div>
     </div>
     <div class="col l1">

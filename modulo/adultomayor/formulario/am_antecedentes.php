@@ -82,6 +82,13 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                         </div>
 
                                     </div>
+                                    <div class="col l12 m12 s12">
+                                        <input type="button"
+                                               class="btn-large"
+                                               style="width: 100%;"
+                                               onclick="updateParametroAM_IMC('<?php echo $imc; ?>')"
+                                               value="SIN CAMBIOS EN IMC" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="col l2 center-align">
@@ -124,6 +131,13 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                                    onclick="updateIndicadorAM_variable('actividad_fisica','NO')"
                                                    id="af_no" name="af" value="NO" >
                                         </div>
+                                    </div>
+                                    <div class="col l12 m12 s12">
+                                        <input type="button"
+                                               class="btn-large"
+                                               style="width: 100%;"
+                                               onclick="updateIndicadorAM_variable('<?php echo $activiadad_fisica; ?>')"
+                                               value="SIN CAMBIOS EN ACTIVIDAD FISICA" />
                                     </div>
                                 </div>
                             </div>
