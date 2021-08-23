@@ -34,7 +34,7 @@
 
         var cellLinkRegistroTarjetero = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
             return ''+
-                '<a onclick="loadMenu_AM(\'menu_1\',\'registro_atencion\',\''+value+'\')"  style="color: black;" >' +
+                '<a onclick="loadMenu_M(\'menu_1\',\'registro_atencion\',\''+value+'\')"  style="color: black;" >' +
                 '<i class="mdi-hardware-keyboard-return"></i> IR' +
                 '</a>';
         }

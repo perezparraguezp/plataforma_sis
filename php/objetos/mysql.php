@@ -373,6 +373,19 @@ class mysql {
             return 0;
         }
     }
+    //mujer
+    function insert_hormona($rut,$tipo,$vencimiento,$fecha_registro){
+        $sql = "insert into mujer_historial_hormonal(fecha_registro,id_profesional,tipo,vencimiento,rut) 
+              values('$fecha_registro','$this->idId','$tipo','$vencimiento','$rut')";
+        mysql_query($sql)or die($this->result=false);
+        $this->result = true;
+    }
+    function deleteHormona($rut,$id_historial){
+        $sql = "delete from mujer_historial_hormonal 
+                    where rut='$rut' and id_historial='$id_historial' ";
+        mysql_query($sql)or die($this->result=false);
+        $this->result = true;
+    }
 
 }
 

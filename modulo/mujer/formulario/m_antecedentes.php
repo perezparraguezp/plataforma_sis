@@ -11,9 +11,12 @@ $paciente = new persona($rut);
 
 $imc =  $paciente->getParametro_M('imc');
 
-$patologia_diabetes  = $paciente->getParametro_M('patologia_diabetes');
-$patologia_hipertension  = $paciente->getParametro_M('patologia_hipertension');
+$patologia_diabetes  = $paciente->getParametro_M('patologia_dm');
+$patologia_hipertension  = $paciente->getParametro_M('patologia_hta');
 $patologia_vih  = $paciente->getParametro_M('patologia_vih');
+
+
+$esatdo  = $paciente->getParametro_M('estado_paciente');
 
 
 
@@ -54,7 +57,7 @@ $patologia_vih  = $paciente->getParametro_M('patologia_vih');
                                             </label><br />
                                             <input type="radio"
                                                    style="position: relative;visibility: visible;left: 0px;"
-                                                   onclick="updateParametroAM_IMC('N')"
+                                                   onclick="updateParametroM_IMC('N')"
                                                    id="imc_n" name="imc" value="N" >
                                         </div>
                                     </div>
@@ -65,7 +68,7 @@ $patologia_vih  = $paciente->getParametro_M('patologia_vih');
                                             </label><br />
                                             <input type="radio"
                                                    style="position: relative;visibility: visible;left: 0px;"
-                                                   onclick="updateParametroAM_IMC('SP')"
+                                                   onclick="updateParametroM_IMC('SP')"
                                                    id="imc_sp" name="imc" value="SP" >
                                         </div>
                                     </div>
@@ -76,10 +79,17 @@ $patologia_vih  = $paciente->getParametro_M('patologia_vih');
                                             </label><br />
                                             <input type="radio"
                                                    style="position: relative;visibility: visible;left: 0px;"
-                                                   onclick="updateParametroAM_IMC('OB')"
+                                                   onclick="updateParametroM_IMC('OB')"
                                                    id="imc_ob" name="imc" value="OB" >
                                         </div>
 
+                                    </div>
+                                    <div class="col l12 m12 s12">
+                                        <input type="button"
+                                               class="btn-large"
+                                               style="width: 100%;"
+                                               onclick="updateParametroM_IMC('<?php echo $imc; ?>')"
+                                               value="SIN CAMBIOS EN IMC" />
                                     </div>
                                 </div>
                             </div>
@@ -102,26 +112,26 @@ $patologia_vih  = $paciente->getParametro_M('patologia_vih');
                             <div class="col l9 m6 s12">
                                 <div class="row">
                                     <div class="col l12 m12 s12">
-                                        <input type="checkbox" id="patologia_diabetes"
-                                               onchange="updateIndicadorM('patologia_diabetes')"
+                                        <input type="checkbox" id="patologia_dm"
+                                               onchange="updateIndicadorM_check('patologia_dm')"
                                             <?php echo $patologia_diabetes=='SI'?'checked="checked"':'' ?>
-                                               name="patologia_diabetes"  />
-                                        <label class="white-text" for="patologia_diabetes">DIABETES MELLITUS</label>
+                                               name="patologia_dm"  />
+                                        <label class="white-text" for="patologia_dm">DIABETES MELLITUS</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col l12 m12 s12">
-                                        <input type="checkbox" id="patologia_hipertension"
-                                               onchange="updateIndicadorPSCV('patologia_hipertension')"
+                                        <input type="checkbox" id="patologia_hta"
+                                               onchange="updateIndicadorM_check('patologia_hta')"
                                             <?php echo $patologia_hipertension=='SI'?'checked="checked"':'' ?>
-                                               name="patologia_hipertension"  />
-                                        <label class="white-text" for="patologia_hipertension">Hipertensión Arterial</label>
+                                               name="patologia_hta"  />
+                                        <label class="white-text" for="patologia_hta">Hipertensión Arterial</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col l12 m12 s12">
                                         <input type="checkbox" id="patologia_vih"
-                                               onchange="updateIndicadorPSCV('patologia_vih')"
+                                               onchange="updateIndicadorM_check('patologia_vih')"
                                             <?php echo $patologia_vih=='SI'?'checked="checked"':'' ?>
                                                name="patologia_vih"  />
                                         <label class="white-text" for="patologia_vih">VIH</label>
@@ -153,8 +163,8 @@ $patologia_vih  = $paciente->getParametro_M('patologia_vih');
                                             </label><br />
                                             <input type="radio"
                                                    style="position: relative;visibility: visible;left: 0px;"
-                                                   onclick="updateEstadoPacienteMujer('RESS')"
-                                                   id="estado_paciente_RESS" name="estado_paciente" value="RESS" >
+                                                   onclick="updateEstadoPacienteMujer('FERTIL')"
+                                                   id="estado_paciente_FERTIL" name="estado_paciente" value="FERTIL" >
                                         </div>
                                     </div>
                                     <div class="col l12 m12 s12 tooltipped hoverClass"
@@ -219,11 +229,71 @@ $patologia_vih  = $paciente->getParametro_M('patologia_vih');
 <script type="text/javascript">
     $(function () {
         $('.tooltipped').tooltip({delay: 50});
-        $("#imc_<?php echo strtolower($imc); ?>").attr('checked','cheched');
+        $("#imc_<?php echo strtolower($imc); ?>").attr('checked','checked');
+        $("#estado_paciente_<?php echo $esatdo; ?>").attr('checked','checked');
+        <?php
+        echo 'var '.$esatdo.';';
+        if($esatdo=='GESTANTE'){
+            ?>
+            $('#tabs_registro').jqxTabs('enableAt', 2);
+            <?PHP
+        }else{
+            ?>
+            $('#tabs_registro').jqxTabs('disableAt', 2);
+            <?PHP
+        }
+        ?>
+
+
+
+
+
+        jQuery("input[name='estado_paciente']").each(function() {
+            if(this.value==='GESTANTE' && this.checked==='true'){
+                $('#tabs_registro').jqxTabs('enableAt', 2);
+            }else{
+               // $('#tabs_registro').jqxTabs('disableAt', 2);
+            }
+
+        });
+
+
 
     });
 
-
+    function updateEstadoPacienteMujer(estado){
+        var fecha = $("#fecha_antecedentes").val();
+        $.post('db/update/m_indicador.php',{
+            column:'estado_paciente',
+            value:estado,
+            fecha_registro:fecha,
+            rut:'<?php echo $rut ?>'
+        },function (data) {
+            alertaLateral(data);
+            if(estado==='GESTANTE'){
+                $('#tabs_registro').jqxTabs('enableAt', 2);
+            }else{
+                $('#tabs_registro').jqxTabs('disableAt', 2);
+            }
+        });
+    }
+    function updateIndicadorM_check(indicador) {
+        var value = '';
+        if($('#'+indicador).prop('checked')){
+            value = 'SI';
+        }else{
+            value = 'NO';
+        }
+        var fecha = $("#fecha_antecedentes").val();
+        $.post('db/update/m_indicador.php',{
+            column:indicador,
+            value:value,
+            fecha_registro:fecha,
+            rut:'<?php echo $rut ?>'
+        },function (data) {
+            alertaLateral(data);
+        });
+    }
     function updateIndicadorM(indicador) {
         var value = $('#'+indicador).val();
         var fecha = $("#fecha_antecedentes").val();

@@ -20,6 +20,7 @@ $profesional = new profesional($_SESSION['id_usuario']);
         loadInfoPaciente('<?php echo $rut; ?>');
         load_m_antecedentes('<?php echo $rut; ?>');
         load_m_sexualidad('<?php echo $rut; ?>');
+        load_m_gestaciones('<?php echo $rut; ?>');
         //load_am_funcionalidad('<?php //echo $rut; ?>//');
 
     });
@@ -46,6 +47,16 @@ $profesional = new profesional($_SESSION['id_usuario']);
         var div = 'form_sexualidad';
         loading_div(div);
         $.post('formulario/m_sexualidad.php',{
+            rut:rut,
+            fecha_registro:'<?php echo $fecha_registro; ?>'
+        },function(data){
+            $("#"+div).html(data);
+        });
+    }
+    function load_m_gestaciones(rut){
+        var div = 'form_gestaciones';
+        loading_div(div);
+        $.post('formulario/m_gestaciones.php',{
             rut:rut,
             fecha_registro:'<?php echo $fecha_registro; ?>'
         },function(data){
@@ -134,6 +145,7 @@ $profesional = new profesional($_SESSION['id_usuario']);
         <ul>
             <li style="margin-left: 30px;text-align: center">ANTECEDENTES</li>
             <li style="margin-left: 30px;" onclick="load_m_sexualidad('<?php echo $rut; ?>')">FERTILIDAD Y SALUD SEXUAL</li>
+            <li style="margin-left: 30px;" onclick="load_m_gestaciones('<?php echo $rut; ?>')">GESTACIONES</li>
             <li style="background-color: #5cff9a;cursor: pointer;" onclick="boxAgendamiento()">FINALIZAR ATENCIÓN</li>
         </ul>
         <div>
@@ -144,6 +156,10 @@ $profesional = new profesional($_SESSION['id_usuario']);
             <!-- FUNCIONALIDAD -->
             <form name="form_sexualidad" id="form_sexualidad" class="col l12"></form>
         </div>
+        <div>
+            <!-- FUNCIONALIDAD -->
+            <form name="form_gestaciones" id="form_gestaciones" class="col l12"></form>
+        </div>
         <div></div>
 
     </div>
@@ -151,7 +167,7 @@ $profesional = new profesional($_SESSION['id_usuario']);
         <div class="col l12">
             <input type="button"
                    style="width: 100%;"
-                   onclick="loadMenu_AM('menu_1','registro_atencion','<?php echo $rut; ?>')"
+                   onclick="loadMenu_M('menu_1','registro_atencion','<?php echo $rut; ?>')"
                    class="btn-large red lighten-2 white-text"
                    value=" <-- VOLVER" />
         </div>

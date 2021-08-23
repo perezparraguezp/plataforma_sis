@@ -1318,6 +1318,23 @@ class persona{
 
         $this->insert_historial_parametro_m($column,$value,$fecha);
     }
+    function update_sexualidad_m($column,$value,$fecha){
+        $sql = "select * from paciente_mujer 
+                where rut='$this->rut' limit 1";
+
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            $sql1 = "update paciente_mujer 
+                            set $column=upper('$value') 
+                            where rut='$this->rut' ";
+        }else{
+            $sql1 = "insert into paciente_mujer(rut,$column) 
+                        values('$this->rut',upper('$value'))";
+        }
+        mysql_query($sql1);
+
+        $this->insert_historial_parametro_m($column,$value,$fecha);
+    }
     function insert_historial_parametro_m($column,$value,$fecha){
         $sql0 = "delete from historial_parametros_m where rut='$this->rut' and indicador='$column' and fecha_registro='$fecha' ";
         mysql_query($sql0);

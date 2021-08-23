@@ -154,7 +154,7 @@
         }
         function loadMenu_AM(menu,php,rut) {
             var div = 'content';
-            loading_div(div);
+            // loading_div(div);
             $.post('menu/'+php+'.php',{
                 rut:rut
             },function(data){

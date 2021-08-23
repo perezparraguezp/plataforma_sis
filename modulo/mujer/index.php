@@ -152,7 +152,7 @@
 
             });
         }
-        function loadMenu_AM(menu,php,rut) {
+        function loadMenu_M(menu,php,rut) {
             var div = 'content';
             $.post('menu/'+php+'.php',{
                 rut:rut
@@ -171,7 +171,7 @@
 
 </head>
 
-<body onload="loadMenu_AM('menu_0','dashboard','');init();">
+<body onload="loadMenu_M('menu_0','dashboard','');init();">
 <a id="btn-modal" class="modal-trigger" href="#modal"></a>
 <div id="modal" class="modal modal-fixed-footer">
 </div>

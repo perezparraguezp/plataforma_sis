@@ -3,9 +3,7 @@
 include "../../../php/config.php";
 include '../../../php/objetos/persona.php';
 include '../../../php/objetos/profesional.php';
-
-list($rut,$nombre) = explode(" | ",$_POST['rut']);
-$rut = str_replace('.','',$rut);
+$rut = str_replace('.','',$_POST['rut']);
 $fecha_registro = $_POST['fecha_registro'];
 
 if($fecha_registro==''){
@@ -13,15 +11,14 @@ if($fecha_registro==''){
 }
 
 $paciente = new persona($rut);
-
 list($establecimiento,$sector_interno,$sector_comunal) = explode(":",$paciente->getEstablecimiento());
 ?>
 <div class="row">
     <div class="col l1 center">
         <?php $imagen = $paciente->sexo=='F'?'mujer.png':'hombre.png'; ?>
-        <img src="images/<?php echo $imagen; ?>" width="100%" />
+        <img src="images/AD_<?php echo $imagen; ?>" width="100%" />
     </div>
-    <div class="col l4">
+    <div class="col l4" style="padding-left: 10px;">
         <div class="row">
             <strong><?php echo $paciente->nombre; ?></strong>
         </div>
@@ -33,6 +30,12 @@ list($establecimiento,$sector_interno,$sector_comunal) = explode(":",$paciente->
         </div>
         <div class="row">
             <?php echo $paciente->rut ?>
+        </div>
+        <div class="row">
+            Pueblo Originario <strong><?php echo $paciente->pueblo; ?></strong>
+        </div>
+        <div class="row">
+            Migrante <strong><?php echo $paciente->migrante; ?></strong>
         </div>
     </div>
     <div class="col l1">

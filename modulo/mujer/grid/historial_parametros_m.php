@@ -15,7 +15,7 @@ include '../../../php/objetos/persona.php';
 
 $rut = str_replace('.','',$_POST['rut']);
 $indicador = $_POST['indicador'];
-$sql1 = "select * from historial_parametros_am 
+$sql1 = "select * from historial_parametros_m 
         where rut='$rut' and valor!='' 
         and indicador='$indicador'
         group by fecha_registro,indicador 
