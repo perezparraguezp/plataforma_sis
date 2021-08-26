@@ -1507,5 +1507,48 @@ class persona{
         }
     }
 
+    //mujer
+    function update_mgestacion($id_gestacion,$column,$value,$fecha){
+        $sql = "update gestacion_mujer 
+                            set $column=upper('$value')
+                            where id_gestacion='$id_gestacion' 
+                            and rut='$this->rut' ";
+        echo $sql;
+        mysql_query($sql);
+
+        $this->insert_historial_m($column,$value,$fecha);
+
+    }
+    function insert_historial_m($column,$value,$fecha){
+        $sql0 = "delete from historial_gestacion_m 
+                where rut='$this->rut' 
+                  and indicador='$column' 
+                  and fecha_registro='$fecha' ";
+        mysql_query($sql0);//borramos en caso de modificar el mismo indicador la misma fecha
+        if($fecha!=''){
+            $fecha_dias = $this->calcularEdadDias($fecha);
+            $sql = "insert into historial_gestacion_m(rut,id_profesional,indicador,valor,fecha_registro,edad_dias) 
+                values('$this->rut','$this->myID','$column','$value','$fecha','$fecha_dias')";
+            mysql_query($sql);
+
+        }
+    }
+    function getIdGestacion(){
+        $sql = "select * from gestacion_mujer 
+                    where rut='$this->rut' 
+                    and estado_gestacion='ACTIVA' 
+                    limit 1";
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            return $row['id_gestacion'];
+        }else{
+            return 0;
+        }
+    }
+    function crearGestacion(){
+        $sql = "insert into gestacion_mujer(rut) values('$this->rut')";
+        mysql_query($sql);
+    }
+
 
 }

@@ -145,7 +145,7 @@ $profesional = new profesional($_SESSION['id_usuario']);
         <ul>
             <li style="margin-left: 30px;text-align: center">ANTECEDENTES</li>
             <li style="margin-left: 30px;" onclick="load_m_sexualidad('<?php echo $rut; ?>')">FERTILIDAD Y SALUD SEXUAL</li>
-            <li style="margin-left: 30px;" onclick="load_m_gestaciones('<?php echo $rut; ?>')">GESTACIONES</li>
+            <li style="margin-left: 30px;" onclick="load_m_gestaciones('<?php echo $rut; ?>')">GESTANTES</li>
             <li style="background-color: #5cff9a;cursor: pointer;" onclick="boxAgendamiento()">FINALIZAR ATENCIÓN</li>
         </ul>
         <div>
