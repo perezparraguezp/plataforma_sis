@@ -6,5 +6,6 @@ $column = $_POST['column'];
 $value = $_POST['value'];
 $fecha = $_POST['fecha_registro'];
 $p = new persona($rut);
+
 $p->update_parametro_m($column,$value,$fecha);
 echo 'ACTUALIZADO';

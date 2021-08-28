@@ -1,9 +1,11 @@
 <?php
+include "php/objetos/profesional.php";
 $LOGIN = $_GET['LOGIN'];
 if($LOGIN=='TRUE'){
     //header('Location: escritorio.php');
 }
 session_start();
+
 
 ?>
 <!DOCTYPE html>
@@ -80,9 +82,9 @@ session_start();
         cursor: pointer;
     }
 </style>
-<div id="login-page" class="row">
-    <div class="col l6 m6 s6">
-        <div class="card-panel center" style="width: 97%;padding: 10px;">
+<div class="row">
+    <div class="col l6 m6 s12" style="position: relative;top: 0px;left: 0px;">
+        <div class="card-panel center" >
             <div class="col l12 m12 s12">
                 <div class="card-panel">
                     <div class="row">
@@ -108,6 +110,9 @@ session_start();
                 session_start();
                 $id_establecimiento = $_SESSION['id_establecimiento'];
                 $rut = $_SESSION['rut'];
+                $myId = $_SESSION['id_usuario'];
+
+                $profesional = new profesional($myId);
 
                 $sql = "select * from menu_usuario 
                         inner join modulos_ehopen using(id_modulo)
@@ -154,19 +159,51 @@ session_start();
             </div>
         </div>
     </div>
-    <div class="col l6 m6 s6">
-        <div class="card-panel center" style="width: 98%;padding: 10px;">
-            <div class="col l12 m12 s12">
-                <div class="card-panel">
-                    <div class="row">
-                        <div class="col l12 m12 s12">
-                            <strong>DATOS PERSONALES</strong>
+    <div class="col l6 m6 s12" style="position: relative;top: 0px;right: 0px;">
+        <div class="card-panel">
+            <div class="card-panel" style="font-size: 0.8;">
+                <div class="row">
+                    <div class="col l12">DATOS PERSONALES</div>
+                </div>
+                <hr class="row" />
+                <div class="row">
+                    <div class="col l4">fto</div>
+                    <div class="col l8" style="text-align: left;">
+                        <div class="row">
+                            <div class="col l12"><label>Nombre Completo</label></div>
+                        </div>
+                        <div class="row">
+                            <div class="col l12"><?php echo $profesional->nombre; ?></div>
+                        </div>
+                        <hr class="row" />
+                        <div class="row">
+                            <div class="col l12"><label>Teléfono</label></div>
+                        </div>
+                        <div class="row">
+                            <div class="col l12"><?php echo $profesional->telefono; ?></div>
+                        </div>
+                        <hr class="row" />
+                        <div class="row">
+                            <div class="col l12"><label>E-mail</label></div>
+                        </div>
+                        <div class="row">
+                            <div class="col l12"><?php echo $profesional->email; ?></div>
                         </div>
                     </div>
                 </div>
-                <div class="card-panel" class="card-panel center" style="width: 98%;padding: 10px;">
-                    <div class="row">
-                        Para Obtener Soporte escribanos <a href="mailto:soporte@eh-open.com">SOPORTE@EH-OPEN.COM</a>
+                <hr class="row" />
+                <div class="row">
+                    <div class="col l4" style="font-size: 0.7em;text-align: right;">Usuario:</div>
+                    <div class="col l8" style="font-size: 0.7em;text-align: left;"><?PHP echo $_SESSION['tipo_usuario']; ?></div>
+                </div>
+                <div class="row">
+                    <div class="col l4"  style="font-size: 0.7em;text-align: right;">Último Ingreso:</div>
+                    <div class="col l8"  style="font-size: 0.7em;text-align: left;"><?PHP echo $_SESSION['ultimo_ingreso']; ?></div>
+                </div>
+                <hr class="row" />
+                <div class="row">
+                    <div class="col l12">
+                        <a>EDITAR INFORMACION</a>
                     </div>
                 </div>
             </div>

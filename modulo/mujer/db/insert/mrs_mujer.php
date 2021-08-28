@@ -5,13 +5,10 @@ session_start();
 $rut = $_POST['rut'];//rut paciente
 
 $fecha = $_POST['fecha'];
-$tipo_examen = $_POST['tipo_examen'];
-$origen_examen = $_POST['origen_examen'];
-$valor_examen = $_POST['valor_examen'];
 $obs = $_POST['obs'];
-
+$mrs = $_POST['valor_examen'];
 
 $paciente = new persona($rut);
 
-$paciente->insertExamen_M($origen_examen,$tipo_examen,$fecha,$valor_examen,$obs);
+$paciente->insert_pauta_mrs($fecha,$mrs,$obs);
 echo 'REGISTRADO';

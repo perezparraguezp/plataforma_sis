@@ -1533,6 +1533,15 @@ class persona{
     }
 
     //mujer
+    function getParametro_M_table($tabla,$column){
+        $sql = "select * from $tabla where rut='$this->rut' limit 1";
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            return $row[$column];
+        }else{
+            return 0;
+        }
+    }
     function update_mgestacion($id_gestacion,$column,$value,$fecha){
         $sql = "update gestacion_mujer 
                             set $column=upper('$value')
@@ -1564,6 +1573,48 @@ class persona{
         mysql_query($sql);
 
         $texto = "Se Registro un Examen de Tipo ".$tipo." en la fecha ".fechaNormal($fecha)." de origen ".$origen.', Con Resultado '.$valor;
+        $this->addHistorial($texto,'SIS MUJER');
+    }
+    function insertTALLER_CLIMATERIO_M($fecha,$obs){
+        $sql = "insert into talleres_climaterio(rut,id_profesional,fecha_taller,obs_taller) 
+                values('$this->rut','$this->myID','$fecha',upper('$obs'))";
+        mysql_query($sql);
+
+        $texto = "Se Registro un taller en la fecha ".fechaNormal($fecha);
+        $this->addHistorial($texto,'SIS MUJER');
+    }
+    function insert_pauta_mrs($fecha,$valor,$obs){
+        $sql = "insert into pauta_mrs(rut,id_profesional,fecha_pauta,estado_pauta,obs_pauta) 
+                values('$this->rut','$this->myID','$fecha','$valor',upper('$obs'))";
+        mysql_query($sql);
+
+        $texto = "Se Registro una Evaluacion de Pauta MRS en la fecha ".fechaNormal($fecha);
+        $this->addHistorial($texto,'SIS MUJER');
+    }
+    function deletePautaMRS($id){
+        $sql = "delete from pauta_mrs where id_pauta='$id' limit 1";
+        mysql_query($sql);
+        $texto = "El profesional codigo #".$this->myID." elimino la Pauta MRS";
+        $this->addHistorial($texto,'SIS MUJER');
+    }
+    function deleteTallerClimaterio($id){
+        $sql = "delete from talleres_climaterio where id_taller='$id' limit 1";
+        mysql_query($sql);
+        $texto = "El profesional codigo #".$this->myID." elimino el Taller Educativo";
+        $this->addHistorial($texto,'SIS MUJER');
+    }
+    function deleteHormonaReemplazo($id){
+        $sql = "delete from hormona_reemplazo_m where id_hormona='$id' limit 1";
+        mysql_query($sql);
+        $texto = "El profesional codigo #".$this->myID." elimino Hormona de Reemplazo";
+        $this->addHistorial($texto,'SIS MUJER');
+    }
+    function insert_hormona_reemplazo($tipo,$desde,$obs){
+        $sql = "insert into hormona_reemplazo_m(rut,id_profesional,fecha_desde,tipo_hormona,obs_hormona) 
+                values('$this->rut','$this->myID','$desde','$tipo',upper('$obs'))";
+        mysql_query($sql);
+
+        $texto = "Se Registro una Evaluacion de Pauta MRS en la fecha ".fechaNormal($fecha);
         $this->addHistorial($texto,'SIS MUJER');
     }
     function deleteExamen_M($tipo,$id){

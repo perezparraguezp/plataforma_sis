@@ -19,7 +19,6 @@ class profesional{
                 inner join persona using(rut)
                 where usuarios.id_profesional='$id' limit 1";
 
-
         $row = mysql_fetch_array(mysql_query($sql));
         if($row){
             $this->id_profesional = $row['id_profesional'];

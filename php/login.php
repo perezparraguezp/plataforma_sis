@@ -28,9 +28,11 @@ if($row){
     $_SESSION['rut'] = $row['rut'];
     $_SESSION['id_establecimiento'] = $row['id_establecimiento'];
     $_SESSION['tipo_usuario'] = $row['tipo_contrato'];
+    $_SESSION['ultimo_ingreso'] = $row['ultimo_ingreso'];
 
     $_SESSION['login'] = 'true';
     //actualizamos las edades
+    mysql_query("UPDATE usuario SET ultimo_ingreso=now() where rut='$username' ");
     mysql_query("UPDATE persona SET edad_total=TIMESTAMPDIFF(MONTH, fecha_nacimiento, current_date())");
     mysql_query("UPDATE persona SET edad_total_dias=TIMESTAMPDIFF(DAY , fecha_nacimiento, current_date());");
     header('Location: ../i.php?LOGIN=TRUE');

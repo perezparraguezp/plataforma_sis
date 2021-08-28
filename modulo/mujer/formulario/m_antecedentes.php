@@ -193,19 +193,6 @@ $esatdo  = $paciente->getParametro_M('estado_paciente');
                                                    id="estado_paciente_CLIMATERIO" name="estado_paciente" value="CLIMATERIO" >
                                         </div>
                                     </div>
-                                    <div class="col l12 m12 s12 tooltipped hoverClass"
-                                         data-position="bottom" data-delay="50"
-                                         data-tooltip="PAP">
-                                        <div class="row center-align">
-                                            <label class="black-text" for="estado_paciente">
-                                                PAP
-                                            </label><br />
-                                            <input type="radio"
-                                                   style="position: relative;visibility: visible;left: 0px;"
-                                                   onclick="updateEstadoPacienteMujer('PAP')"
-                                                   id="estado_paciente_PAP" name="estado_paciente" value="PAP" >
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="col l2 center-align">
