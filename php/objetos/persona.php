@@ -1318,6 +1318,7 @@ class persona{
 
         $this->insert_historial_parametro_m($column,$value,$fecha);
     }
+
     function update_sexualidad_m($column,$value,$fecha){
         $sql = "select * from paciente_mujer 
                 where rut='$this->rut' limit 1";
@@ -1354,6 +1355,30 @@ class persona{
             return $row[$column];
         }else{
             return  '';
+        }
+    }
+    function getParametroGestacion_M($column,$id_gestacion){
+        $sql = "select * from gestacion_mujer 
+                where rut='$this->rut' 
+                  and id_gestacion='$id_gestacion' 
+                limit 1";
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            return $row[$column];
+        }else{
+            return  '';
+        }
+    }
+    function getTotalGestaciones($tipo){
+        $sql = "select count(*) as total from gestacion_mujer 
+                where rut='$this->rut' 
+                and estado_gestacion='$tipo' 
+                limit 1";
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            return $row['total'];
+        }else{
+            return 0;
         }
     }
     //ADULTO MAYOR
@@ -1513,13 +1538,13 @@ class persona{
                             set $column=upper('$value')
                             where id_gestacion='$id_gestacion' 
                             and rut='$this->rut' ";
-        echo $sql;
+
         mysql_query($sql);
 
-        $this->insert_historial_m($column,$value,$fecha);
+        $this->insert_historial_m($column,$value,$fecha,$id_gestacion);
 
     }
-    function insert_historial_m($column,$value,$fecha){
+    function insert_historial_m($column,$value,$fecha,$id_gestacion){
         $sql0 = "delete from historial_gestacion_m 
                 where rut='$this->rut' 
                   and indicador='$column' 
@@ -1527,11 +1552,25 @@ class persona{
         mysql_query($sql0);//borramos en caso de modificar el mismo indicador la misma fecha
         if($fecha!=''){
             $fecha_dias = $this->calcularEdadDias($fecha);
-            $sql = "insert into historial_gestacion_m(rut,id_profesional,indicador,valor,fecha_registro,edad_dias) 
-                values('$this->rut','$this->myID','$column','$value','$fecha','$fecha_dias')";
+            $sql = "insert into historial_gestacion_m(rut,id_profesional,indicador,valor,fecha_registro,edad_dias,id_gestacion) 
+                values('$this->rut','$this->myID','$column','$value','$fecha','$fecha_dias','$id_gestacion')";
             mysql_query($sql);
 
         }
+    }
+    function insertExamen_M($origen,$tipo,$fecha,$valor,$obs){
+        $sql = "insert into examen_mujer(rut,id_profesional,fecha_examen,origen_examen,tipo_examen,valor_examen,obs_examen) 
+                values('$this->rut','$this->myID','$fecha','$origen','$tipo','$valor',upper('$obs'))";
+        mysql_query($sql);
+
+        $texto = "Se Registro un Examen de Tipo ".$tipo." en la fecha ".fechaNormal($fecha)." de origen ".$origen.', Con Resultado '.$valor;
+        $this->addHistorial($texto,'SIS MUJER');
+    }
+    function deleteExamen_M($tipo,$id){
+        $sql = "delete from examen_mujer where id_examen='$id' and tipo_examen='$tipo' limit 1";
+        mysql_query($sql);
+        $texto = "El profesional codigo #".$this->myID." elimino el examen tipo ".$tipo;;
+        $this->addHistorial($texto,'SIS MUJER');
     }
     function getIdGestacion(){
         $sql = "select * from gestacion_mujer 

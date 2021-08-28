@@ -27,7 +27,7 @@ $lubricante  = $paciente->getParametro_M('lubricante');
                     <div class="card-panel green lighten-2">
                         <div class="row">
                             <div class="col l8 m8 s8">
-                                <strong style="line-height: 2em;font-size: 1.5em;">HISTORIAL HORMONAL <strong class="tooltipped"
+                                <strong style="line-height: 2em;font-size: 1.5em;">REGULACION DE FERTILIDAD <strong class="tooltipped"
                                                                                                               style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
                             </div>
                             <div class="col l4 m4 s4">
@@ -186,7 +186,7 @@ $lubricante  = $paciente->getParametro_M('lubricante');
     function boxRetiroHormonalAnticipado(id_historial){
         $.post('formulario/retiro_hormonal_anticipado.php',{
             rut:'<?php echo $rut ?>',
-            id_historial:id_historial,
+            id_historial:id_historial
         },function(data){
             if(data !== 'ERROR_SQL'){
                 $("#modal").html(data);

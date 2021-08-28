@@ -45,10 +45,6 @@ $row = mysql_fetch_array(mysql_query($sql));
 </div>
 <script type="text/javascript">
     $(function(){
-        $('#tipo_hormona').jqxDropDownList({
-            width: '100%',
-            height: '25px'
-        });
 
     });
     function updateHormona(){

@@ -19,6 +19,8 @@ $profesional = new profesional($_SESSION['id_usuario']);
         $('#tabs_registro').jqxTabs({ width: '100%', height: 450, position: 'top',scrollPosition: 'both'});
         loadInfoPaciente('<?php echo $rut; ?>');
         load_m_antecedentes('<?php echo $rut; ?>');
+        load_m_examenes('<?php echo $rut; ?>');
+        load_m_climaterio('<?php echo $rut; ?>');
         load_m_sexualidad('<?php echo $rut; ?>');
         load_m_gestaciones('<?php echo $rut; ?>');
         //load_am_funcionalidad('<?php //echo $rut; ?>//');
@@ -37,6 +39,27 @@ $profesional = new profesional($_SESSION['id_usuario']);
         var div = 'form_antecedentes';
         loading_div(div);
         $.post('formulario/m_antecedentes.php',{
+            rut:rut,
+            fecha_registro:'<?php echo $fecha_registro; ?>'
+        },function(data){
+            $("#"+div).html(data);
+        });
+    }
+    function load_m_examenes(rut) {
+        var div = 'form_examenes';
+        loading_div(div);
+        $.post('formulario/m_examenes.php',{
+            rut:rut,
+            fecha_registro:'<?php echo $fecha_registro; ?>'
+        },function(data){
+            $("#"+div).html(data);
+        });
+    }
+
+    function load_m_climaterio(rut) {
+        var div = 'form_climaterio';
+        loading_div(div);
+        $.post('formulario/m_climaterio.php',{
             rut:rut,
             fecha_registro:'<?php echo $fecha_registro; ?>'
         },function(data){
@@ -144,13 +167,19 @@ $profesional = new profesional($_SESSION['id_usuario']);
     <div id="tabs_registro" style="font-size: 0.8em;">
         <ul>
             <li style="margin-left: 30px;text-align: center">ANTECEDENTES</li>
+            <li style="margin-left: 30px;text-align: center" onclick="load_m_examenes('<?php echo $rut; ?>')">EXAMENES</li>
             <li style="margin-left: 30px;" onclick="load_m_sexualidad('<?php echo $rut; ?>')">FERTILIDAD Y SALUD SEXUAL</li>
             <li style="margin-left: 30px;" onclick="load_m_gestaciones('<?php echo $rut; ?>')">GESTANTES</li>
+            <li style="margin-left: 30px;" onclick="load_m_climaterio('<?php echo $rut; ?>')">CLIMATERIO</li>
             <li style="background-color: #5cff9a;cursor: pointer;" onclick="boxAgendamiento()">FINALIZAR ATENCIÓN</li>
         </ul>
         <div>
             <!-- ANTECEDENTES -->
             <form name="form_antecedentes" id="form_antecedentes" class="col l12"></form>
+        </div>
+        <div>
+            <!-- EXAMENES -->
+            <form name="form_examenes" id="form_examenes" class="col l12"></form>
         </div>
         <div>
             <!-- FUNCIONALIDAD -->
@@ -159,6 +188,10 @@ $profesional = new profesional($_SESSION['id_usuario']);
         <div>
             <!-- FUNCIONALIDAD -->
             <form name="form_gestaciones" id="form_gestaciones" class="col l12"></form>
+        </div>
+        <div>
+            <!-- CLIMATERIO -->
+            <form name="form_climaterio" id="form_climaterio" class="col l12"></form>
         </div>
         <div></div>
 

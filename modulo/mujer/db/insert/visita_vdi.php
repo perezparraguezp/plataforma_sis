@@ -1,7 +1,7 @@
 <?php
 include '../../../../php/config.php';
 include '../../../../php/objetos/mysql.php';
-
+session_start();
 $rut = $_POST['rut'];//rut paciente
 
 $fecha = $_POST['fecha_vdi'];

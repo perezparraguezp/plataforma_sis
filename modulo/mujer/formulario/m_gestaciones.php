@@ -14,6 +14,8 @@ if($id_gestacion==0){
     $id_gestacion = $paciente->getIdGestacion();
 }
 
+$riesgo_biopsicosocial = $paciente->getParametroGestacion_M('riesgo_biopsicosocial',$id_gestacion);
+
 
 ?>
 
@@ -28,10 +30,18 @@ if($id_gestacion==0){
                     </div>
                     <hr class="row" />
                     <div class="row">
-                        <div class="col l12 s12 m12">GESTACIONES EXITOSAS</div>
+                        <div class="col l12 s12 m12" style="cursor: pointer;font-size: 2em;">
+                            <div class="card-panel blue darken-3 white-text" onclick="boxGestionGestacion_Finalizada('EXITOSA')">
+                                EXITOSAS <?php echo $paciente->getTotalGestaciones('EXITOSA'); ?>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="col l12 s12 m12">GESTACIONES INTERRUMPIDAS</div>
+                        <div class="col l12 s12 m12" style="cursor: pointer;font-size: 2em;">
+                            <div class="card-panel  red darken-3 white-text" onclick="boxGestionGestacion_Finalizada('INTERRUMPIDA')">
+                                INTERRUMPIDAS <?php echo $paciente->getTotalGestaciones('INTERRUMPIDA'); ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -55,23 +65,31 @@ if($id_gestacion==0){
                         <div class="col l0 s0 m10">RIESGO BIOPSICOSOCIAL</div>
                         <div class="col l2 s2 m2 center-align">
                             <i class="mdi-editor-insert-chart"
-                               onclick="loadHistorialGestacion('<?php echo $rut ?>','riesgo_biopsicosocial')"></i>
+                               onclick="loadHistorialGestacion('<?php echo $rut ?>','riesgo_biopsicosocial','<?php echo $id_gestacion; ?>')"></i>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col l12 s12 m12">
                             <select name="riesgo_biopsicosocial" id="riesgo_biopsicosocial">
-                                <option></option>
+                                <option><?php echo $riesgo_biopsicosocial; ?></option>
+                                <option disabled="disabled">-------------------------------------</option>
+                                <option>SIN RIESGO</option>
                                 <option>CON RIESGO BIOPSICOSOCIAL</option>
                                 <option>PRESENTA VIOLENCIA DE GENERO</option>
                                 <option>PRESENTA ARO (alto riesgo obstétrico)</option>
                             </select>
                             <script type="text/javascript">
                                 $(function(){
+                                    $('.tooltipped').tooltip({delay: 50});
                                     $('#riesgo_biopsicosocial').jqxDropDownList({
                                         width: '100%',
                                         height: '25px'
                                     });
+                                    if($("#riesgo_biopsicosocial").val() !=='SIN RIESGO'){
+                                        $('#div_vdi').show();
+                                    }else{
+                                        $('#div_vdi').hide();
+                                    }
                                     $("#riesgo_biopsicosocial").on('change',function(){
                                         var val = $("#riesgo_biopsicosocial").val();
                                         $.post('db/update/m_gestante.php',{
@@ -83,6 +101,11 @@ if($id_gestacion==0){
                                         },function(data){
                                             alertaLateral(data);
                                             $('.tooltipped').tooltip({delay: 50});
+                                            if($("#riesgo_biopsicosocial").val() !=='SIN RIESGO'){
+                                                $('#div_vdi').show();
+                                            }else{
+                                                $('#div_vdi').hide();
+                                            }
                                         });
 
                                     });
@@ -92,7 +115,7 @@ if($id_gestacion==0){
                     </div>
                 </div>
                 <!-- otro riesgo -->
-                <div class="card-panel lime lighten-2">
+                <div class="card-panel lime lighten-2" id="div_vdi" style="display:none;">
                     <div class="row">
                         <div class="col l8 s8 m8">VDI CON RIESGO</div>
                         <div class="col l4 s4 m4">
@@ -118,6 +141,40 @@ if($id_gestacion==0){
                         <div class="row" style="border: dotted 1px black;padding: 2px;">
                             <div class="col l10 s10 m10"><?php echo $obs; ?></div>
                             <div class="col l2 s2 m2"><?php echo fechaNormal($row1['fecha_vdi']); ?></div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <!--CONTROLES NUTRICIONALES -->
+                <div class="card-panel lime lighten-2">
+                    <div class="row">
+                        <div class="col l8 s8 m8">CONTROL NUTRICIONAL</div>
+                        <div class="col l4 s4 m4">
+                            <div class="btn blue" onclick="boxNewNutri()"> + AGREGAR </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row"  >
+                        <div class="col l4 s4 m4">TIPO CONTROL</div>
+                        <div class="col l4 s4 m4">IMC</div>
+                        <div class="col l4 s4 m4">FECHA</div>
+                    </div>
+                    <hr />
+                    <?php
+                    $sql1 = "select * from control_nutricional_gestacion 
+                                    where id_gestacion='$id_gestacion' 
+                                        order by id_control desc";
+
+                    $res1 = mysql_query($sql1);
+                    while($row1 = mysql_fetch_array($res1)){
+                        ?>
+                        <div class="row tooltipped"  style="border: dotted 1px black;padding: 2px;" style="cursor: help"
+                             data-position="bottom" data-delay="50"
+                             data-tooltip="<?php echo $row1['obs_control']; ?>">
+                            <div class="col l4 s4 m4"><?php echo $row1['tipo_control']; ?></div>
+                            <div class="col l4 s4 m4"><?php echo $row1['imc']; ?></div>
+                            <div class="col l4 s4 m4"><?php echo fechaNormal($row1['fecha_control']); ?></div>
                         </div>
                         <?php
                     }
@@ -167,6 +224,19 @@ if($id_gestacion==0){
             }
         });
     }
+    function boxNewNutri(){
+        $.post('formulario/new_nutri_gestacion.php',{
+            rut:'<?php echo $rut ?>',
+            id_gestacion:$("#id_gestacion").val(),
+            fecha_registro:'<?php echo $fecha_registro ?>',
+        },function(data){
+            if(data !== 'ERROR_SQL'){
+                $("#modal").html(data);
+                $("#modal").css({'width':'800px'});
+                document.getElementById("btn-modal").click();
+            }
+        });
+    }
     function boxNewVDI(){
         $.post('formulario/new_vdi.php',{
             rut:'<?php echo $rut ?>',
@@ -193,10 +263,24 @@ if($id_gestacion==0){
             }
         });
     }
-    function loadHistorialGestacion(rut,indicador) {
+    function boxGestionGestacion_Finalizada(tipo){
+        $.post('formulario/ver_gestaciones.php',{
+            rut:'<?php echo $rut ?>',
+            tipo:tipo,
+            fecha_registro:'<?php echo $fecha_registro ?>',
+        },function(data){
+            if(data !== 'ERROR_SQL'){
+                $("#modal").html(data);
+                $("#modal").css({'width':'800px'});
+                document.getElementById("btn-modal").click();
+            }
+        });
+    }
+    function loadHistorialGestacion(rut,indicador,id) {
         $.post('grid/historial_gestacion.php',{
             rut:rut,
-            indicador:indicador
+            indicador:indicador,
+            id_gestacion:id
         },function(data){
             if(data !== 'ERROR_SQL'){
                 $("#modal").html(data);

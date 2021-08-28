@@ -382,14 +382,14 @@ class mysql {
     }
     function insert_ecografia($id_gestacion,$rut,$tipo,$fecha,$trimestre){
         $sql = "insert into ecografias_mujer(tipo_eco,id_profesional,fecha_eco,trimestre,rut,id_gestacion) 
-              values('$tipo','$this->idId','$fecha','$trimestre','$rut','$id_gestacion')";
+              values('$tipo','$this->myId','$fecha','$trimestre','$rut','$id_gestacion')";
 
         mysql_query($sql)or die($this->result=false);
         $this->result = true;
     }
     function insert_VDI($id_gestacion,$fecha,$obs,$rut){
         $sql = "insert into visita_vdi(id_gestacion,rut,fecha_vdi,obs_vdi,id_profesional) 
-              values('$id_gestacion','$rut','$fecha','$obs','$this->idId')";
+              values('$id_gestacion','$rut','$fecha','$obs','$this->myId')";
 
         mysql_query($sql)or die($this->result=false);
         $this->result = true;
