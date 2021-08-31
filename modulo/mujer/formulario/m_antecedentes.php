@@ -222,11 +222,11 @@ $esatdo  = $paciente->getParametro_M('estado_paciente');
         echo 'var '.$esatdo.';';
         if($esatdo=='GESTANTE'){
             ?>
-            $('#tabs_registro').jqxTabs('enableAt', 2);
+            $('#tabs_registro').jqxTabs('enableAt', 3);
             <?PHP
         }else{
             ?>
-            $('#tabs_registro').jqxTabs('disableAt', 2);
+            $('#tabs_registro').jqxTabs('disableAt', 3);
             <?PHP
         }
         ?>
@@ -237,7 +237,7 @@ $esatdo  = $paciente->getParametro_M('estado_paciente');
 
         jQuery("input[name='estado_paciente']").each(function() {
             if(this.value==='GESTANTE' && this.checked==='true'){
-                $('#tabs_registro').jqxTabs('enableAt', 2);
+                $('#tabs_registro').jqxTabs('enableAt', 3);
             }else{
                // $('#tabs_registro').jqxTabs('disableAt', 2);
             }
@@ -258,9 +258,9 @@ $esatdo  = $paciente->getParametro_M('estado_paciente');
         },function (data) {
             alertaLateral(data);
             if(estado==='GESTANTE'){
-                $('#tabs_registro').jqxTabs('enableAt', 2);
+                $('#tabs_registro').jqxTabs('enableAt', 3);
             }else{
-                $('#tabs_registro').jqxTabs('disableAt', 2);
+                $('#tabs_registro').jqxTabs('disableAt', 3);
             }
         });
     }

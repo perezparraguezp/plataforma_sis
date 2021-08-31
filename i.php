@@ -51,6 +51,9 @@ session_start();
 </head>
 
 <body class="cyan">
+<a id="btn-modal" class="modal-trigger" href="#modal"></a>
+<div id="modal" class="modal modal-fixed-footer">
+</div>
 <!-- Start Page Loading -->
 <div id="loader-wrapper">
     <div id="loader"></div>
@@ -167,7 +170,9 @@ session_start();
                 </div>
                 <hr class="row" />
                 <div class="row">
-                    <div class="col l4">fto</div>
+                    <div class="col l4">
+                        <img src="avatar.png" width="90%;" />
+                    </div>
                     <div class="col l8" style="text-align: left;">
                         <div class="row">
                             <div class="col l12"><label>Nombre Completo</label></div>
@@ -203,9 +208,22 @@ session_start();
                 <hr class="row" />
                 <div class="row">
                     <div class="col l12">
-                        <a>EDITAR INFORMACION</a>
+                        <a onclick="boxEditarInfoProfesional()">EDITAR INFORMACION</a>
                     </div>
                 </div>
+                <script type="text/javascript">
+                    function boxEditarInfoProfesional(){
+                        $.post('modulo/default/formulario/editar_my_perfil.php',{
+                            rut:'<?php echo $myId ?>',
+                        },function(data){
+                            if(data !== 'ERROR_SQL'){
+                                $("#modal").html(data);
+                                $("#modal").css({'width':'800px'});
+                                document.getElementById("btn-modal").click();
+                            }
+                        });
+                    }
+                </script>
             </div>
         </div>
     </div>

@@ -31,6 +31,7 @@ class profesional{
             $this->clave = $row['clave'];
             $this->fecha_inicio = $row['fecha_inicio'];
             $this->fecha_termino = $row['fecha_termino'];
+
             $this->existe = true;
             $this->updateVigencia();
         }else{
@@ -58,6 +59,18 @@ class profesional{
         mysql_query($sql2);
     }
 
+    function updateDatosPersonales($column,$value){
+        $sql = "update persona set $column=upper('$value') where rut='$this->rut' limit 1";
+        mysql_query($sql);
+    }
+    function updateDatosProfesional($column,$value){
+        $sql = "update personal_establecimiento set $column=upper('$value') where rut='$this->rut' limit 1";
+        mysql_query($sql);
+    }
+    function updateDatosUsuario($column,$value){
+        $sql = "update usuarios set $column=upper('$value') where rut='$this->rut' limit 1";
+        mysql_query($sql);
+    }
 
 
 }
