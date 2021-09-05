@@ -374,15 +374,15 @@ class mysql {
         }
     }
     //mujer
-    function insert_hormona($rut,$tipo,$vencimiento,$fecha_registro){
-        $sql = "insert into mujer_historial_hormonal(fecha_registro,id_profesional,tipo,vencimiento,rut) 
-              values('$fecha_registro','$this->idId','$tipo','$vencimiento','$rut')";
+    function insert_hormona($rut,$tipo,$vencimiento,$fecha_registro,$obs){
+        $sql = "insert into mujer_historial_hormonal(fecha_registro,id_profesional,tipo,vencimiento,rut,observacion) 
+              values('$fecha_registro','$this->idId','$tipo','$vencimiento','$rut',upper('$obs'))";
         mysql_query($sql)or die($this->result=false);
         $this->result = true;
     }
-    function insert_ecografia($id_gestacion,$rut,$tipo,$fecha,$trimestre){
-        $sql = "insert into ecografias_mujer(tipo_eco,id_profesional,fecha_eco,trimestre,rut,id_gestacion) 
-              values('$tipo','$this->myId','$fecha','$trimestre','$rut','$id_gestacion')";
+    function insert_ecografia($id_gestacion,$rut,$tipo,$fecha,$trimestre,$obs){
+        $sql = "insert into ecografias_mujer(tipo_eco,id_profesional,fecha_eco,trimestre,rut,id_gestacion,observacion) 
+              values('$tipo','$this->myId','$fecha','$trimestre','$rut','$id_gestacion',upper('$obs'))";
 
         mysql_query($sql)or die($this->result=false);
         $this->result = true;

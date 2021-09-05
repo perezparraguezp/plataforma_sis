@@ -14,12 +14,23 @@ include "../../../php/config.php";
 include '../../../php/objetos/persona.php';
 
 $rut = str_replace('.','',$_POST['rut']);
+
 $indicador = $_POST['indicador'];
-$sql1 = "select * from historial_parametros_m 
+if($indicador =='estado_paciente'){
+    $sql1 = "select * from historial_parametros_m 
+        where rut='$rut' and valor!='' 
+        and (
+            indicador='regulacion_fertilidad' or indicador='climaterio' or indicador='gestacion' ) 
+        group by fecha_registro,indicador 
+        order by fecha_registro desc";
+}else{
+    $sql1 = "select * from historial_parametros_m 
         where rut='$rut' and valor!='' 
         and indicador='$indicador'
         group by fecha_registro,indicador 
         order by fecha_registro desc";
+}
+
 
 $res1 = mysql_query($sql1);
 while($row1 = mysql_fetch_array($res1)){

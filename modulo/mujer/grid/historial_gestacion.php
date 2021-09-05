@@ -41,7 +41,9 @@ while($row1 = mysql_fetch_array($res1)){
 
     if($value!=''){
         ?>
-        <div class="row">
+        <div class="row tooltipped"
+                data-position="bottom" data-delay="50"
+                data-tooltip='OBS: <?php echo $row1['obs']; ?>'>
             <div class="col l2">
                 <?php echo fechaNormal($row1['fecha_registro']); ?>
             </div>

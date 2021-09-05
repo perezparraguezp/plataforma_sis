@@ -91,23 +91,7 @@ $riesgo_biopsicosocial = $paciente->getParametroGestacion_M('riesgo_biopsicosoci
                                         $('#div_vdi').hide();
                                     }
                                     $("#riesgo_biopsicosocial").on('change',function(){
-                                        var val = $("#riesgo_biopsicosocial").val();
-                                        $.post('db/update/m_gestante.php',{
-                                            rut:'<?php echo $rut; ?>',
-                                            val:val,
-                                            id_gestacion:$("#id_gestacion").val(),
-                                            column:'riesgo_biopsicosocial',
-                                            fecha_registro:'<?php echo $fecha_registro; ?>'
-                                        },function(data){
-                                            alertaLateral(data);
-                                            $('.tooltipped').tooltip({delay: 50});
-                                            if($("#riesgo_biopsicosocial").val() !=='SIN RIESGO'){
-                                                $('#div_vdi').show();
-                                            }else{
-                                                $('#div_vdi').hide();
-                                            }
-                                        });
-
+                                        boxRegistrarBiopsicosocial();
                                     });
                                 })
                             </script>
@@ -216,6 +200,22 @@ $riesgo_biopsicosocial = $paciente->getParametroGestacion_M('riesgo_biopsicosoci
             rut:'<?php echo $rut ?>',
             id_gestacion:$("#id_gestacion").val(),
             fecha_registro:'<?php echo $fecha_registro ?>',
+        },function(data){
+            if(data !== 'ERROR_SQL'){
+                $("#modal").html(data);
+                $("#modal").css({'width':'800px'});
+                document.getElementById("btn-modal").click();
+            }
+        });
+    }
+    function boxRegistrarBiopsicosocial(){
+        var val = $("#riesgo_biopsicosocial").val();
+        $.post('formulario/new_biopsicosocial.php',{
+            rut:'<?php echo $rut ?>',
+            val:val,
+            id_gestacion:$("#id_gestacion").val(),
+            fecha_registro:'<?php echo $fecha_registro ?>',
+            column:'riesgo_biopsicosocial',
         },function(data){
             if(data !== 'ERROR_SQL'){
                 $("#modal").html(data);

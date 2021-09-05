@@ -33,6 +33,12 @@ $id_gestacion = $_POST['id_gestacion'];
         </div>
     </div>
     <div class="row">
+        <div class="col l4 s4 m4">OBSERVACIONES</div>
+        <div class="col l8 s8 m8">
+            <textarea name="obs"></textarea>
+        </div>
+    </div>
+    <div class="row">
         <div class="btn blue" style="width: 100%;" onclick="insertEcografia()"> REGISTRAR ECOGRAFIA</div>
     </div>
 

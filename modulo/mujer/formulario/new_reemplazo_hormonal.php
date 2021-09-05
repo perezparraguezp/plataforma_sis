@@ -15,6 +15,7 @@ $fecha_registro = $_POST['fecha_registro'];
                 <option>PROGESTERONA MICRONIZADA 200mg</option>
                 <option>NONMEGESTROL 5mg COMP.</option>
                 <option>TIBOLONA 2,5mg COMP.</option>
+                <option>OTROS</option>
             </select>
         </div>
     </div>

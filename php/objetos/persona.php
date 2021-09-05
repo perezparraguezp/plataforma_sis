@@ -1332,6 +1332,25 @@ class persona{
             $sql1 = "insert into paciente_mujer(rut,$column) 
                         values('$this->rut',upper('$value'))";
         }
+
+        mysql_query($sql1);
+
+        $this->insert_historial_parametro_m($column,$value,$fecha);
+    }
+    function update_sexualidad_m_fertilidad($column,$value,$fecha){
+        $sql = "select * from practica_sexual_mujer 
+                where rut='$this->rut' limit 1";
+
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            $sql1 = "update practica_sexual_mujer 
+                            set $column=upper('$value') 
+                            where rut='$this->rut' ";
+        }else{
+            $sql1 = "insert into practica_sexual_mujer(rut,$column) 
+                        values('$this->rut',upper('$value'))";
+        }
+
         mysql_query($sql1);
 
         $this->insert_historial_parametro_m($column,$value,$fecha);
@@ -1350,6 +1369,15 @@ class persona{
     }
     function getParametro_M($column){
         $sql = "select * from paciente_mujer where rut='$this->rut' limit 1";
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            return $row[$column];
+        }else{
+            return  '';
+        }
+    }
+    function getParametroTabla_M($tabla,$column){
+        $sql = "select * from $tabla where rut='$this->rut' limit 1";
         $row = mysql_fetch_array(mysql_query($sql));
         if($row){
             return $row[$column];
@@ -1547,9 +1575,7 @@ class persona{
                             set $column=upper('$value')
                             where id_gestacion='$id_gestacion' 
                             and rut='$this->rut' ";
-
         mysql_query($sql);
-
         $this->insert_historial_m($column,$value,$fecha,$id_gestacion);
 
     }
@@ -1563,6 +1589,21 @@ class persona{
             $fecha_dias = $this->calcularEdadDias($fecha);
             $sql = "insert into historial_gestacion_m(rut,id_profesional,indicador,valor,fecha_registro,edad_dias,id_gestacion) 
                 values('$this->rut','$this->myID','$column','$value','$fecha','$fecha_dias','$id_gestacion')";
+
+            mysql_query($sql);
+
+        }
+    }
+    function insert_historial_m_obs($column,$value,$fecha,$id_gestacion,$obs){
+        $sql0 = "delete from historial_gestacion_m 
+                where rut='$this->rut' 
+                  and indicador='$column' 
+                  and fecha_registro='$fecha' ";
+        mysql_query($sql0);//borramos en caso de modificar el mismo indicador la misma fecha
+        if($fecha!=''){
+            $fecha_dias = $this->calcularEdadDias($fecha);
+            $sql = "insert into historial_gestacion_m(rut,id_profesional,indicador,valor,fecha_registro,edad_dias,id_gestacion,obs) 
+                values('$this->rut','$this->myID','$column','$value','$fecha','$fecha_dias','$id_gestacion',upper('$obs'))";
             mysql_query($sql);
 
         }
@@ -1587,6 +1628,7 @@ class persona{
         $sql = "insert into pauta_mrs(rut,id_profesional,fecha_pauta,estado_pauta,obs_pauta) 
                 values('$this->rut','$this->myID','$fecha','$valor',upper('$obs'))";
         mysql_query($sql);
+        $this->update_parametro_m('pauta_mrs',$valor,$fecha);
 
         $texto = "Se Registro una Evaluacion de Pauta MRS en la fecha ".fechaNormal($fecha);
         $this->addHistorial($texto,'SIS MUJER');

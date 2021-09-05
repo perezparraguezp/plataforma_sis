@@ -150,6 +150,52 @@ $paciente = new persona($rut);
                 }
                 ?>
             </div>
+            <!-- ECO-MAMARIA -->
+            <div class="card-panel green lighten-2">
+                <div class="row">
+                    <div class="col l8 m8 s8">
+                        <strong style="line-height: 2em;font-size: 1.5em;">ECO MAMARIA <strong class="tooltipped"
+                                                                                               style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
+                    </div>
+                    <div class="col l4 m4 s4">
+                        <div class="btn blue" onclick="boxNewEcoMamaria()"> + AGREGAR </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col l2 s2 m2">FECHA</div>
+                    <div class="col l3 s3 m3">ORIGEN</div>
+                    <div class="col l5 s5 m5"></div>
+                    <div class="col l2 s2 m2"></div>
+                </div>
+                <hr class="row" />
+                <?php
+                $sql1 = "select * from examen_mujer 
+                            where rut='$rut'  
+                            AND tipo_examen='ECO-MAMARIA'
+                            order by id_examen desc";
+                $res1 = mysql_query($sql1);
+                while($row1 = mysql_fetch_array($res1)){
+                    ?>
+                    <div class="row tooltipped rowInfoSis"
+                         data-position="bottom" data-delay="50" data-tooltip="OBS: <?php echo $row1['obs_examen']; ?>" >
+                        <div class="col l2 s4 m2"><?PHP echo fechaNormal($row1['fecha_examen']); ?></div>
+                        <div class="col l3 s3 m3"><?PHP echo $row1['origen_examen']; ?></div>
+                        <div class="col l5 s5 m5"></div>
+                        <div class="col l2 s2 m2">
+                            <?PHP
+                            IF($row1['fecha_examen']==date('Y-m-d')){
+                                ?>
+                                <a href="#" onclick="delte_examen('MAMOGRAFIA','<?php echo $row1['id_examen']; ?> ')">ELIMINAR</a>
+                                <?php
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
             <!-- EXAMEN FISICO MAMAS -->
             <div class="card-panel green lighten-2">
                 <div class="row">
@@ -229,6 +275,18 @@ $paciente = new persona($rut);
     }
     function boxNewVph(){
         $.post('formulario/new_vph.php',{
+            rut:'<?php echo $rut ?>',
+            fecha_registro:'<?php echo $fecha_registro ?>',
+        },function(data){
+            if(data !== 'ERROR_SQL'){
+                $("#modal").html(data);
+                $("#modal").css({'width':'800px'});
+                document.getElementById("btn-modal").click();
+            }
+        });
+    }
+    function boxNewEcoMamaria(){
+        $.post('formulario/new_ecomamaria.php',{
             rut:'<?php echo $rut ?>',
             fecha_registro:'<?php echo $fecha_registro ?>',
         },function(data){

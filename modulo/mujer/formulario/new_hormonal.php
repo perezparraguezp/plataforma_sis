@@ -18,7 +18,7 @@ $fecha_registro = $_POST['fecha_registro'];
                 <option disabled="disabled">-----------------</option>
                 <option>SOLO PRESERVATIVO MAC</option>
                 <option disabled="disabled">-----------------</option>
-                <option>D.I.U. T DE COBRA (10 AÑOS)</option>
+                <option>D.I.U. T DE COBRE (10 AÑOS)</option>
                 <option>D.I.U. CON LEVORGESTREL (6 AÑOS)</option>
                 <option disabled="disabled">-----------------</option>
                 <option>ESTERILIZACION QUIRURGICA</option>
@@ -29,6 +29,12 @@ $fecha_registro = $_POST['fecha_registro'];
         <div class="col l4 s4 m4">VENCIMIENTO</div>
         <div class="col l8 s8 m8">
             <input type="date" name="vencimiento" id="vencimiento" value="<?php echo date('Y-m-d'); ?>" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col l4 s4 m4">OBSERVACION</div>
+        <div class="col l8 s8 m8">
+            <textarea name="obs"></textarea>
         </div>
     </div>
     <div class="row">

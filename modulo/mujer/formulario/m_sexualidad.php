@@ -11,7 +11,11 @@ $paciente = new persona($rut);
 
 $imc =  $paciente->getParametro_M('imc');
 
-$lubricante  = $paciente->getParametro_M('lubricante');
+$lubricante  = $paciente->getParametroTabla_M('practica_sexual_mujer','lubricante');
+$regulacion_mas_preservativo  = $paciente->getParametroTabla_M('practica_sexual_mujer','regulacion_mas_preservativo');
+$condon_femenino  = $paciente->getParametroTabla_M('practica_sexual_mujer','condon_femenino');
+$preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer','preservativo_masculino');
+
 
 
 
@@ -27,8 +31,8 @@ $lubricante  = $paciente->getParametro_M('lubricante');
                     <div class="card-panel green lighten-2">
                         <div class="row">
                             <div class="col l8 m8 s8">
-                                <strong style="line-height: 2em;font-size: 1.5em;">REGULACION DE FERTILIDAD <strong class="tooltipped"
-                                                                                                              style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
+                                <strong style="line-height: 2em;font-size: 1.5em;">REGULACION DE FERTILIDAD <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
+                                <br /><strong onclick="$('.H_SUSPENDIDA').show();$('.H_VENCIDA').show()">VER HISTORIAL</strong>
                             </div>
                             <div class="col l4 m4 s4">
                                 <div class="btn blue" onclick="boxNewHormonal()"> + AGREGAR </div>
@@ -46,8 +50,8 @@ $lubricante  = $paciente->getParametro_M('lubricante');
                         $res1 = mysql_query($sql1);
                         while($row1 = mysql_fetch_array($res1)){
                             ?>
-                            <div class="row tooltipped rowInfoSis"
-                                 data-position="bottom" data-delay="50" data-tooltip="Estado: <?php echo $row1['estado_hormona']; ?>" >
+                            <div class="row tooltipped rowInfoSis <?php echo 'H_'.$row1['estado_hormona']; ?>"
+                                 data-position="bottom" data-delay="50" data-tooltip='Estado: <?php echo $row1['estado_hormona']; ?> | Obs: <?php echo $row1['observacion']; ?>' >
                                 <div class="col l2 s4 m2"><?PHP echo fechaNormal($row1['fecha_registro']); ?></div>
                                 <div class="col l4 s4 m8"><?PHP echo $row1['tipo']; ?></div>
                                 <div class="col l2 s4 m2"><?PHP echo fechaNormal($row1['vencimiento']); ?></div>
@@ -77,6 +81,26 @@ $lubricante  = $paciente->getParametro_M('lubricante');
                             <?php
                         }
                         ?>
+                        <hr class="row" />
+                        <div class="row H_VENCIDA right-align">
+                            <strong onclick="$('.H_SUSPENDIDA').hide();$('.H_VENCIDA').hide()">OCULTAR HISTORIAL</strong>
+                        </div>
+                        <style type="text/css">
+                            .H_ACTIVA{
+                                display: block;
+                                cursor: pointer;
+                            }
+                            .H_SUSPENDIDA{
+                                display: none;
+                                background-color: #ff5f69;
+                                cursor: pointer;
+                            }
+                            .H_VENCIDA{
+                                display: none;
+                                background-color: yellow;
+                                cursor: pointer;
+                            }
+                        </style>
                     </div>
                 </div>
             </div>
@@ -94,8 +118,8 @@ $lubricante  = $paciente->getParametro_M('lubricante');
                                 <div class="row">
                                     <div class="col l12 m12 s12">
                                         <input type="checkbox" id="regulacion_fertilidad"
-                                               onchange="updateIndicadorM('regulacion_fertilidad')"
-                                            <?php echo $lubricante=='SI'?'checked="checked"':'' ?>
+                                               onchange="updateIndicadorM_sexual('regulacion_fertilidad')"
+                                            <?php echo $regulacion_mas_preservativo=='SI'?'checked="checked"':'' ?>
                                                name="regulacion_fertilidad"  />
                                         <label class="white-text" for="regulacion_fertilidad">REGULACIÓN FERTILIDAD MAS PRESERVATIVO</label>
                                     </div>
@@ -105,7 +129,7 @@ $lubricante  = $paciente->getParametro_M('lubricante');
                                 <div class="row">
                                     <div class="col l12 m12 s12">
                                         <input type="checkbox" id="lubricante"
-                                               onchange="updateIndicadorM('lubricante')"
+                                               onchange="updateIndicadorM_sexual('lubricante')"
                                             <?php echo $lubricante=='SI'?'checked="checked"':'' ?>
                                                name="lubricante"  />
                                         <label class="white-text" for="lubricante">LUBRICANTE</label>
@@ -116,8 +140,8 @@ $lubricante  = $paciente->getParametro_M('lubricante');
                                 <div class="row">
                                     <div class="col l12 m12 s12">
                                         <input type="checkbox" id="condon_femenino"
-                                               onchange="updateIndicadorM('condon_femenino')"
-                                            <?php echo $lubricante=='SI'?'checked="checked"':'' ?>
+                                               onchange="updateIndicadorM_sexual('condon_femenino')"
+                                            <?php echo $condon_femenino=='SI'?'checked="checked"':'' ?>
                                                name="condon_femenino"  />
                                         <label class="white-text" for="condon_femenino">CONDÓN FEMENINO</label>
                                     </div>
@@ -127,8 +151,8 @@ $lubricante  = $paciente->getParametro_M('lubricante');
                                 <div class="row">
                                     <div class="col l12 m12 s12">
                                         <input type="checkbox" id="preservativo_masculino"
-                                               onchange="updateIndicadorM('preservativo_masculino')"
-                                            <?php echo $lubricante=='SI'?'checked="checked"':'' ?>
+                                               onchange="updateIndicadorM_sexual('preservativo_masculino')"
+                                            <?php echo $preservativo_masculino=='SI'?'checked="checked"':'' ?>
                                                name="preservativo_masculino"  />
                                         <label class="white-text" for="preservativo_masculino">PRESERVATIVO MASCULINO</label>
                                     </div>
@@ -196,6 +220,23 @@ $lubricante  = $paciente->getParametro_M('lubricante');
         });
     }
 
+    function updateIndicadorM_sexual(indicador){
+        var value = '';
+        if($('#'+indicador).prop('checked')){
+            value = 'SI';
+        }else{
+            value = 'NO';
+        }
+        var fecha = $("#fecha_antecedentes").val();
+        $.post('db/update/m_indicador_sexualidad.php',{
+            column:indicador,
+            value:value,
+            fecha_registro:fecha,
+            rut:'<?php echo $rut ?>'
+        },function (data) {
+            alertaLateral(data);
+        });
+    }
     function updateIndicadorM(indicador) {
         var value = $('#'+indicador).val();
         var fecha = $("#fecha_antecedentes").val();

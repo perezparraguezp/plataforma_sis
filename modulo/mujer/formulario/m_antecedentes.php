@@ -15,6 +15,10 @@ $patologia_diabetes  = $paciente->getParametro_M('patologia_dm');
 $patologia_hipertension  = $paciente->getParametro_M('patologia_hta');
 $patologia_vih  = $paciente->getParametro_M('patologia_vih');
 
+$regulacion_fertilidad  = $paciente->getParametro_M('patologia_vih');
+$gestacion  = $paciente->getParametro_M('gestacion');
+$climaterio  = $paciente->getParametro_M('climaterio');
+
 
 $esatdo  = $paciente->getParametro_M('estado_paciente');
 
@@ -149,56 +153,43 @@ $esatdo  = $paciente->getParametro_M('estado_paciente');
                 <div class="col l12 m12 s12">
                     <div class="card-panel green lighten-2">
                         <div class="row">
-                            <div class="col l12 m12 s12" >
-                                <strong style="line-height: 2em;font-size: 1.5em;">ESTADO DEL PACIENTE <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
+                            <div class="col l10 m10 s10" >
+                                <strong style="line-height: 2em;font-size: 1.5em;">TIPO DE PACIENTE <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
+                            </div>
+                            <div class="col l2 m2 s2 center-align">
+                                <i class="mdi-editor-insert-chart"
+                                   onclick="loadHistorialParametro_M('<?php echo $rut ?>','estado_paciente')"></i>
                             </div>
                             <div class="col l12 m12 s12">
                                 <div class="row">
-                                    <div class="col l12 m12 s12 tooltipped hoverClass"
-                                         data-position="bottom" data-delay="50"
-                                         data-tooltip="REGULACION DE FERTILIDAD Y SALUD SEXUAL">
-                                        <div class="row center-align">
-                                            <label class="black-text" for="estado_paciente">
-                                                REGULACION DE FERTILIDAD Y SALUD SEXUAL
-                                            </label><br />
-                                            <input type="radio"
-                                                   style="position: relative;visibility: visible;left: 0px;"
-                                                   onclick="updateEstadoPacienteMujer('FERTIL')"
-                                                   id="estado_paciente_FERTIL" name="estado_paciente" value="FERTIL" >
-                                        </div>
+                                    <div class="col l12 m12 s12">
+                                        <input type="checkbox" id="regulacion_fertilidad"
+                                               onchange="updateIndicadorM_check('regulacion_fertilidad')"
+                                            <?php echo $regulacion_fertilidad=='SI'?'checked="checked"':'' ?>
+                                               name="regulacion_fertilidad"  />
+                                        <label class="white-text" for="regulacion_fertilidad">REGULACION DE FERTILIDAD Y SALUD SEXUAL</label>
                                     </div>
-                                    <div class="col l12 m12 s12 tooltipped hoverClass"
-                                         data-position="bottom" data-delay="50"
-                                         data-tooltip="GESTANTE">
-                                        <div class="row center-align">
-                                            <label class="black-text" for="estado_paciente">
-                                                GESTANTE
-                                            </label><br />
-                                            <input type="radio"
-                                                   style="position: relative;visibility: visible;left: 0px;"
-                                                   onclick="updateEstadoPacienteMujer('GESTANTE')"
-                                                   id="estado_paciente_GESTANTE" name="estado_paciente" value="GESTANTE" >
-                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col l12 m12 s12">
+                                        <input type="checkbox" id="gestacion"
+                                               onchange="updateIndicadorM_check('gestacion')"
+                                            <?php echo $gestacion=='SI'?'checked="checked"':'' ?>
+                                               name="gestacion"  />
+                                        <label class="white-text" for="gestacion">GESTACIÓN</label>
                                     </div>
-                                    <div class="col l12 m12 s12 tooltipped hoverClass"
-                                         data-position="bottom" data-delay="50"
-                                         data-tooltip="CLIMATERIO">
-                                        <div class="row center-align">
-                                            <label class="black-text" for="estado_paciente">
-                                                CLIMATERIO
-                                            </label><br />
-                                            <input type="radio"
-                                                   style="position: relative;visibility: visible;left: 0px;"
-                                                   onclick="updateEstadoPacienteMujer('CLIMATERIO')"
-                                                   id="estado_paciente_CLIMATERIO" name="estado_paciente" value="CLIMATERIO" >
-                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col l12 m12 s12">
+                                        <input type="checkbox" id="climaterio"
+                                               onchange="updateIndicadorM_check('climaterio')"
+                                            <?php echo $climaterio=='SI'?'checked="checked"':'' ?>
+                                               name="climaterio"  />
+                                        <label class="white-text" for="climaterio">CLIMATERIO</label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col l2 center-align">
-                                <i class="mdi-editor-insert-chart"
-                                   onclick="loadHistorialParametro_M('<?php echo $rut ?>','imc')"></i>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -218,31 +209,7 @@ $esatdo  = $paciente->getParametro_M('estado_paciente');
         $('.tooltipped').tooltip({delay: 50});
         $("#imc_<?php echo strtolower($imc); ?>").attr('checked','checked');
         $("#estado_paciente_<?php echo $esatdo; ?>").attr('checked','checked');
-        <?php
-        echo 'var '.$esatdo.';';
-        if($esatdo=='GESTANTE'){
-            ?>
-            $('#tabs_registro').jqxTabs('enableAt', 3);
-            <?PHP
-        }else{
-            ?>
-            $('#tabs_registro').jqxTabs('disableAt', 3);
-            <?PHP
-        }
-        ?>
 
-
-
-
-
-        jQuery("input[name='estado_paciente']").each(function() {
-            if(this.value==='GESTANTE' && this.checked==='true'){
-                $('#tabs_registro').jqxTabs('enableAt', 3);
-            }else{
-               // $('#tabs_registro').jqxTabs('disableAt', 2);
-            }
-
-        });
 
 
 
