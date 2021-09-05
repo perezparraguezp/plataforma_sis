@@ -31,7 +31,7 @@ $paciente = new persona($rut);
         $i = 1;
         while($row = mysql_fetch_array($res)){
             ?>
-            <li>GESTACIÓN Nº<?PHP echo $i; ?></li>
+            <li>GESTACIÓN Nº <?PHP echo $i; ?></li>
             <?php
             $i++;
         }
@@ -47,6 +47,7 @@ $paciente = new persona($rut);
     $i = 1;
     while($row = mysql_fetch_array($res)){
         $id_gestacion = $row['id_gestacion'];
+
         ?>
         <div>
             <div class="container" style="padding: 10px;">
@@ -55,7 +56,10 @@ $paciente = new persona($rut);
                     <div class="col l8"><?php echo $row['numero_gestacion']; ?></div>
                 </div>
                 <div class="row">
-                    <div class="col l4">RIESGO BIOPSICOSOCIAL</div>
+                    <div class="col l4">
+                        <i class="mdi-editor-insert-chart"
+                           onclick="loadHistorialGestacion('<?php echo $rut ?>','riesgo_biopsicosocial','<?php echo $id_gestacion; ?>')"></i>
+                        RIESGO BIOPSICOSOCIAL </div>
                     <div class="col l8"><?php echo $row['riesgo_biopsicosocial']; ?></div>
                 </div>
                 <fieldset>
