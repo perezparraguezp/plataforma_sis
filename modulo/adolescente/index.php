@@ -267,10 +267,49 @@
             $trabajo_juvenil = $row['trabajo_juvenil']*100/$total_pacientes;
 
 
+//RIESGO OTRO
+            $sql_e = "select
+                       sum(tipo_riesgo_adolescente.nombre_riesgo='ADOLESCENTE CON CONDUCTA ACTIVA') as CONDUCTA_ACTIVA,
+                       sum(tipo_riesgo_adolescente.nombre_riesgo='USO ACTUAL DE METODO ANTICONCEPTIVO') as ANTICONCEPTIVO,
+                       sum(tipo_riesgo_adolescente.nombre_riesgo='ADOLESCENTE CON ANTECEDENTES DE UN PRIMER EMBARAZO') as PRIMER_EMBARAZO,
+                       sum(tipo_riesgo_adolescente.nombre_riesgo='ADOLESCENTE CON ANTECEDENTES DE MAS DE UN EMBARAZO') as MAS_EMBARAZOS,
+                       sum(tipo_riesgo_adolescente.nombre_riesgo='ADOLESCENTE CON ANTECEDENTE DE ABORTO') as ANTECENTE_ABORTO,
+                       sum(tipo_riesgo_adolescente.nombre_riesgo='ADOLESCENTE QUE PRESENTA VIOLENCIA DE PAREJA/POLOLO') as VIOLENCIA_PAREJA,
+                       sum(tipo_riesgo_adolescente.nombre_riesgo='ADOLESCENTE QUE PRESENTA O HA SIDO VICTIMA DE VIOLENCIA SEXUAL') as VIOLENCIA_SEXUAL
+                      from riesgo_adolescente
+                      inner join persona using(rut)
+                      INNER JOIN tipo_riesgo_adolescente on riesgo_adolescente.id_tipo_riesgo=tipo_riesgo_adolescente.id_tipo_riesgo
+                      inner join paciente_establecimiento on riesgo_adolescente.rut=paciente_establecimiento.rut    
+                       where id_establecimiento='$id_establecimiento' and m_adolescente='SI'; ";
+
+            $row = mysql_fetch_array(mysql_query($sql_e))or die('1');
+
+            $conducta_activa = $row['CONDUCTA_ACTIVA']*100/$total_pacientes;
+            $anticonceptivo = $row['ANTICONCEPTIVO']*100/$total_pacientes;
+            $primer_embarazo = $row['PRIMER_EMBARAZO']*100/$total_pacientes;
+            $mas_emabarazo = $row['MAS_EMBARAZOS']*100/$total_pacientes;
+            $aborto = $row['ANTECENTE_ABORTO']*100/$total_pacientes;
+            $violencia_pareja = $row['VIOLENCIA_PAREJA']*100/$total_pacientes;
+            $violencia_sexual = $row['VIOLENCIA_SEXUAL']*100/$total_pacientes;
 
 
 
+//RIESGO
+            $sql_e = "select
+                       sum(tipo_riesgo_adolescente.nombre_riesgo='IDEACION SUICIDA') as IDEACION_SUICIDA,
+                       sum(tipo_riesgo_adolescente.nombre_riesgo='INTENTO SUICIDA') as INTENTO_SUICIDA,
+                       sum(tipo_riesgo_adolescente.nombre_riesgo='CONSUMO ALCOHOL Y DROGAS') as CONSUMO_ALCOHOL
+                      from riesgo_adolescente
+                      inner join persona using(rut)
+                      INNER JOIN tipo_riesgo_adolescente on riesgo_adolescente.id_tipo_riesgo=tipo_riesgo_adolescente.id_tipo_riesgo
+                      inner join paciente_establecimiento on riesgo_adolescente.rut=paciente_establecimiento.rut    
+                       where id_establecimiento='$id_establecimiento' and m_adolescente='SI'; ";
 
+            $row = mysql_fetch_array(mysql_query($sql_e))or die('1');
+
+            $ideacion_suicida = $row['IDEACION_SUICIDA']*100/$total_pacientes;
+            $intento_suicida = $row['INTENTO_SUICIDA']*100/$total_pacientes;
+            $consumo_alcohol = $row['CONSUMO_ALCOHOL']*100/$total_pacientes;
 
 
 
@@ -316,12 +355,12 @@
                                     <div class="col s9 recent-activity-list-text">
                                         <p class="left-align">
                                             <?php
-                                            echo 'DESNUTRICION '.number_format($DN,0).'%<br />';
-                                            echo 'BAJO PESO '.number_format($BP,0).'%<br />';
-                                            echo 'NORMAL '.number_format($N,0).'%<br />';
-                                            echo 'SOBREPESO '.number_format($SP,0).'%<br />';
-                                            echo 'OBESIDAD '.number_format($OB,0).'%<br />';
-                                            echo 'OBESIDAD MORBIDA '.number_format($OBM,0).'%<br />';
+                                            echo 'DESNUTRICION <br />'.number_format($DN,0).'%<br />';
+                                            echo 'BAJO PESO <br />'.number_format($BP,0).'%<br />';
+                                            echo 'NORMAL <br />'.number_format($N,0).'%<br />';
+                                            echo 'SOBREPESO <br />'.number_format($SP,0).'%<br />';
+                                            echo 'OBESIDAD <br />'.number_format($OB,0).'%<br />';
+                                            echo 'OBESIDAD MORBIDA <br />'.number_format($OBM,0).'%<br />';
                                             ?>
                                         </p>
                                     </div>
@@ -339,9 +378,9 @@
 
                                         <p class="left-align">
                                             <?php
-                                            echo 'DESERCIÓN ESCOLAR '.number_format($desercion,0).'%<br />';
-                                            echo 'TRABAJO INFANTIL '.number_format($trabajo_infantil,0).'%<br />';
-                                            echo 'TRABAJO JUVENIL '.number_format($trabajo_juvenil,0).'%<br />';
+                                            echo 'DESERCIÓN ESCOLAR <br />'.number_format($desercion,0).'%<br />';
+                                            echo 'TRABAJO INFANTIL <br />'.number_format($trabajo_infantil,0).'%<br />';
+                                            echo 'TRABAJO JUVENIL <br />'.number_format($trabajo_juvenil,0).'%<br />';
                                             ?>
                                         </p>
                                     </div>
@@ -358,42 +397,12 @@
                                     <div class="col s9 recent-activity-list-text">
 
                                         <p class="left-align">
+                                            <?php
+                                            echo 'IDEACION SUICIDA <br />'.number_format($ideacion_suicida,0).'%<br />';
+                                            echo 'INTENTO SUICIDA <br />'.number_format($intento_suicida,0).'%<br />';
+                                            echo 'CONSUMO ALCOHOL Y DROGRAS <br />'.number_format($consumo_alcohol,0).'%<br />';
+                                            ?>
                                         </p>
-<!--                                        <script type="text/javascript" src="../../js/chart.min.js"></script>-->
-<!--                                        <script type="text/javascript">-->
-<!---->
-<!--                                            //Sampel Pie Doughnut Chart-->
-<!--                                            var PieDoughnutChartSampleData = [-->
-<!--                                                {-->
-<!--                                                    value: 300,-->
-<!--                                                    color:"#F7464A",-->
-<!--                                                    highlight: "#FF5A5E",-->
-<!--                                                    label: "Red"-->
-<!--                                                },-->
-<!--                                                {-->
-<!--                                                    value: 50,-->
-<!--                                                    color: "#46BFBD",-->
-<!--                                                    highlight: "#5AD3D1",-->
-<!--                                                    label: "Green"-->
-<!--                                                },-->
-<!--                                                {-->
-<!--                                                    value: 100,-->
-<!--                                                    color: "#FDB45C",-->
-<!--                                                    highlight: "#FFC870",-->
-<!--                                                    label: "Yellow"-->
-<!--                                                }-->
-<!--                                            ]-->
-<!---->
-<!--                                            window.onload = function() {-->
-<!---->
-<!--                                                window.DoughnutChartSample = new Chart(document.getElementById("doughnut-chart-sample")).Pie(PieDoughnutChartSampleData,{-->
-<!--                                                    responsive:true-->
-<!--                                                });-->
-<!---->
-<!---->
-<!--                                            };-->
-<!--                                        </script>-->
-<!--                                        <div id="doughnut-chart-sample"></div>-->
                                     </div>
                                 </div>
                             </div>
@@ -409,7 +418,13 @@
 
                                         <p class="left-align">
                                             <?php
-
+                                            echo 'CONDUCTA ACTIVA <br />'.number_format($conducta_activa,0).'%<br />';
+                                            echo 'METODO ANTICONCEPTIVO <br />'.number_format($anticonceptivo,0).'%<br />';
+                                            echo 'PRIMER EMBARAZO <br />'.number_format($primer_embarazo,0).'%<br />';
+                                            echo 'MAS DE UN EMBARAZO <br />'.number_format($mas_emabarazo,0).'%<br />';
+                                            echo 'ANTECEDENTE DE ABORTO <br />'.number_format($aborto,0).'%<br />';
+                                            echo 'VIOLENCIA DE PAREJA <br />'.number_format($violencia_pareja,0).'%<br />';
+                                            echo 'VIOLENCIA SEXUAL <br />'.number_format($violencia_sexual,0).'%<br />';
                                             ?>
                                         </p>
                                     </div>

@@ -15,12 +15,21 @@ $sector_interno = explode(",",$_POST['sector_interno']);
 
 list($atributo,$indicador)       = explode("#",$_POST['atributo']);//parametro
 
-$TITULO_GRAFICO = strtoupper(str_replace("_"," ",$indicador));
+$sql = "select * from tipo_consejerias_adolescente 
+            where id_tipo_consejeria='$atributo' 
+            limit 1";
+$row = mysql_fetch_array(mysql_query($sql));
+
+
+$TITULO_GRAFICO = strtoupper(str_replace("_"," ",$row['nombre_consejeria']));
+
 
 $rango_edad = $_POST['edad'];
 $filtro_edad = " and persona.edad_total>=10*12 and persona.edad_total<=19*12 ";
 if($rango_edad!=''){
     $filtro_edad = " and ".$rango_edad;
+}else{
+    $rango_edad = 'persona.edad_total>=10*12 and persona.edad_total<19*12 ';
 }
 
 $filtro = '';
@@ -94,6 +103,7 @@ if($comunal==true){
                 //no sumamos
             }
             $indicador_json = $row_1['nombre_consejeria'];
+            $nombre_grafico = $indicador_json;
 
             $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'"}';
             $total_pacientes++;
@@ -472,6 +482,7 @@ if($comunal==true){
 }
 
 
+
 $estado = $estado=='' ? 'PENDIENTE':$estado;
 
 ?>
@@ -689,9 +700,6 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
             <div class="row">
                 <div class="col l2">
                     <select name="edad" onchange="loadGrafico_AM_filtro()" id="edad">
-                        <option VALUE="">
-                            TODOS
-                        </option>
                         <option VALUE="persona.edad_total>=10*12 and persona.edad_total<15*12 ">
                             10 A 14 AÑOS
                         </option>

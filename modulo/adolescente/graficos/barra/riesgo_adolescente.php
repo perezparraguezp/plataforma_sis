@@ -21,6 +21,8 @@ $rango_edad = $_POST['edad'];
 $filtro_edad = " and persona.edad_total>=10*12 and persona.edad_total<=19*12 ";
 if($rango_edad!=''){
     $filtro_edad = " and ".$rango_edad;
+}else{
+    $rango_edad = 'persona.edad_total>=10*12 and persona.edad_total<19*12 ';
 }
 
 $filtro = '';
@@ -60,7 +62,6 @@ if($comunal==true){
                                     $filtro_edad
                                      ";
 
-
     $res_0  = mysql_query($sql_0);
     $total_pacientes = 0;
     $total_pendiente = 0;
@@ -69,12 +70,14 @@ if($comunal==true){
     $mujeres_pendientes = 0;
     $hombres = 0;
     $mujeres = 0;
+
     while ($row_0 = mysql_fetch_array($res_0)){
         $persona = new persona($row_0['rut']);
 
         $sql_1 = "select * from riesgo_adolescente  
                     inner join tipo_riesgo_adolescente using(id_tipo_riesgo)
-                    where trim(rut)=trim('$persona->rut')
+                    where trim(rut)=trim('$persona->rut') 
+                    and tipo_area='RIESGO'
                     and estado_riesgo='SI' ";
         $res_1 = mysql_query($sql_1);
         $i = 0;
@@ -98,10 +101,10 @@ if($comunal==true){
             $indicador_json = $row_1['nombre_riesgo'];
 
             $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'"}';
-            $total_pacientes++;
             $json_coma++;
             $i++;
         }
+
         if($i==0){
             if($json_coma>0){
                 $json.=',';
@@ -114,9 +117,9 @@ if($comunal==true){
                 $mujeres_pendientes++;
             }
             $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'"}';
-            $total_pacientes++;
             $json_coma++;
         }
+        $total_pacientes++;
     }
     //para todos los sectores comunales
 
@@ -189,6 +192,7 @@ if($comunal==true){
                 $sql_1 = "select * from riesgo_adolescente  
                     inner join tipo_riesgo_adolescente using(id_tipo_riesgo)
                     where trim(rut)=trim('$persona->rut')
+                    and tipo_area='RIESGO'
                     and estado_riesgo='SI' ";
                 $res_1 = mysql_query($sql_1);
                 $i = 0;
@@ -212,7 +216,7 @@ if($comunal==true){
                     $indicador_json = $row_1['nombre_riesgo'];
 
                     $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'"}';
-                    $total_pacientes++;
+
                     $json_coma++;
                     $i++;
                 }
@@ -228,9 +232,10 @@ if($comunal==true){
                         $mujeres_pendientes++;
                     }
                     $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'"}';
-                    $total_pacientes++;
+
                     $json_coma++;
                 }
+                $total_pacientes++;
 
             }
 
@@ -303,7 +308,9 @@ if($comunal==true){
                     $sql_1 = "select * from riesgo_adolescente  
                     inner join tipo_riesgo_adolescente using(id_tipo_riesgo)
                     where trim(rut)=trim('$persona->rut')
+                      and tipo_area='RIESGO'
                     and estado_riesgo='SI' ";
+
                     $res_1 = mysql_query($sql_1);
                     $i = 0;
                     while($row_1 = mysql_fetch_array($res_1)){
@@ -326,7 +333,7 @@ if($comunal==true){
                         $indicador_json = $row_1['nombre_riesgo'];
 
                         $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'"}';
-                        $total_pacientes++;
+
                         $json_coma++;
                         $i++;
                     }
@@ -342,9 +349,10 @@ if($comunal==true){
                             $mujeres_pendientes++;
                         }
                         $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'"}';
-                        $total_pacientes++;
+
                         $json_coma++;
                     }
+                    $total_pacientes++;
                 }
                 $total_indicador = $total_vigente;
 
@@ -420,6 +428,7 @@ if($comunal==true){
                     $sql_1 = "select * from riesgo_adolescente  
                     inner join tipo_riesgo_adolescente using(id_tipo_riesgo)
                     where trim(rut)=trim('$persona->rut')
+                      and tipo_area='RIESGO'
                     and estado_riesgo='SI' ";
                     $res_1 = mysql_query($sql_1);
                     $i = 0;
@@ -443,7 +452,7 @@ if($comunal==true){
                         $indicador_json = $row_1['nombre_riesgo'];
 
                         $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'"}';
-                        $total_pacientes++;
+
                         $json_coma++;
                         $i++;
                     }
@@ -459,9 +468,10 @@ if($comunal==true){
                             $mujeres_pendientes++;
                         }
                         $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'"}';
-                        $total_pacientes++;
+
                         $json_coma++;
                     }
+                    $total_pacientes++;
                 }
                 $total_indicador = $total_vigente;
 
@@ -697,9 +707,6 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
         <div class="row">
             <div class="col l2">
                 <select name="edad" onchange="loadGrafico_AM_filtro()" id="edad">
-                    <option VALUE="">
-                        TODOS
-                    </option>
                     <option VALUE="persona.edad_total>=10*12 and persona.edad_total<15*12 ">
                         10 A 14 AÑOS
                     </option>

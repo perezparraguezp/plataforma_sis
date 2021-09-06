@@ -304,6 +304,7 @@ $talla =  $paciente->getParametro_AD('talla_edad');
             rut:'<?php echo $rut ?>'
         },function (data) {
             alertaLateral(data);
+            load_ad_antecedentes('<?php echo $rut; ?>');
         });
     }
     function updateIndicadorEducacionAD(indicador,value) {
@@ -315,6 +316,7 @@ $talla =  $paciente->getParametro_AD('talla_edad');
             rut:'<?php echo $rut ?>'
         },function (data) {
             alertaLateral(data);
+            load_ad_educacion_trabajo('<?php echo $rut ?>');
 
         });
     }
@@ -327,6 +329,8 @@ $talla =  $paciente->getParametro_AD('talla_edad');
             rut:'<?php echo $rut ?>'
         },function (data) {
             alertaLateral(data);
+            load_ad_riesgos('<?php echo $rut ?>');
+            load_ad_riesgos_gine('<?php echo $rut ?>');
 
         });
     }

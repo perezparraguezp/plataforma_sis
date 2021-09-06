@@ -21,6 +21,8 @@ $rango_edad = $_POST['edad'];
 $filtro_edad = " and persona.edad_total>=10*12 and persona.edad_total<=19*12 ";
 if($rango_edad!=''){
     $filtro_edad = " and ".$rango_edad;
+}else{
+    $rango_edad = 'persona.edad_total>=10*12 and persona.edad_total<19*12 ';
 }
 
 $filtro = '';
@@ -709,9 +711,6 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
         <div class="row">
             <div class="col l2">
                 <select name="edad" onchange="loadGrafico_AM_filtro()" id="edad">
-                    <option VALUE="">
-                        TODOS
-                    </option>
                     <option VALUE="persona.edad_total>=10*12 and persona.edad_total<15*12 ">
                         10 A 14 AÑOS
                     </option>

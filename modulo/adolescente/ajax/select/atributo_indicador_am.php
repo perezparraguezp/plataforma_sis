@@ -50,7 +50,9 @@
             break;
         }
         case 'AREA RIESGO':{
-            $sql = "select * from tipo_riesgo_adolescente where tipo_area='RIESGO' ORDER BY nombre_riesgo;";
+            $sql = "select * from tipo_riesgo_adolescente 
+                                where tipo_area='RIESGO' 
+                                ORDER BY nombre_riesgo;";
             $res = mysql_query($sql);
             while($row = mysql_fetch_array($res)){
                 ?>
@@ -61,11 +63,14 @@
             break;
         }
         case 'GINECO URULOGIA':{
-            $sql = "select * from tipo_riesgo_adolescente where tipo_area='GINE' ORDER BY nombre_riesgo;";
+            $sql = "select * from tipo_riesgo_adolescente 
+                        where tipo_area='GINE' ORDER BY nombre_riesgo;";
             $res = mysql_query($sql);
             while($row = mysql_fetch_array($res)){
+                $tipo_gine = str_replace("ADOLESCENTE CON ","",$row['nombre_riesgo']);
+                $tipo_gine = str_replace("ADOLESCENTE QUE ","",$tipo_gine);
                 ?>
-                <option value="<?php echo $row['id_tipo_riesgo']; ?>#estado_riesgo"><?php echo $row['nombre_riesgo']; ?></option>
+                <option value="<?php echo $row['id_tipo_riesgo']; ?>#estado_riesgo"><?php echo $tipo_gine; ?></option>
                 <?php
             }
 

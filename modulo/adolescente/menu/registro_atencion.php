@@ -7,7 +7,6 @@ $rut = $_POST['rut'];
          style="font-size: 0.8em;">
         <ul>
             <li style="margin-left: 30px;text-align: center">REGISTRO POR RUT</li>
-            <li style="margin-left: 30px;">REGISTRO MEDIANTE IMPORTACIÓN</li>
         </ul>
         <div style="padding-left: 10px;">
             <!-- REGISTRO POR RUT -->
