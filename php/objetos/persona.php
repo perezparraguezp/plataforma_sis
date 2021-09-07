@@ -75,6 +75,20 @@ class persona{
             $this->existe = false;
         }
     }
+    function getModuloPaciente($modulo){
+        $sql = "select * from paciente_establecimiento where rut='$this->rut' limit 1";
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            $modulo = $row[$modulo];
+            if($modulo!=''){
+                return $modulo;
+            }else{
+                return 'NO';
+            }
+        }else{
+            return 'NO';
+        }
+    }
     function getUltimoHistorial(){
         $sql1 = "select * from historial_paciente where rut='$this->rut' order by id_historial desc limit 1";
         $row1 = mysql_fetch_array(mysql_query($sql1));

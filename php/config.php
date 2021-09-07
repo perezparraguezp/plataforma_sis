@@ -60,6 +60,10 @@ function valida_rut($rut)
     else
         return false;
 }
+function formatoRUT($rut){
+    list($rut,$dv) = explode("-",$rut);
+    return number_format($rut,0,'','.')."-".$dv;
+}
 function rut_establecimiento($rut){
     $id_establecimiento = $_SESSION['id_establecimiento'];
 

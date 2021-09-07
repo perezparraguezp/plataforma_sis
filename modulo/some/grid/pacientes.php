@@ -164,7 +164,9 @@
                         <option>TODOS</option>
                         <option>INFANTIL</option>
                         <option>CARDIOVASCULAR</option>
-
+                        <option>ADULTO MAYOR</option>
+                        <option>ADOLESCENTE</option>
+                        <option>DE LA MUJER</option>
                     </select>
                 </div>
                 <div class="col l4 m6 s6">

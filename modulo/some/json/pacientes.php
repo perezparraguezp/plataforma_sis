@@ -19,7 +19,9 @@ if($tipo!='TODOS'){
                 if($tipo=='ADULTO MAYOR'){
                     $filtro_tipo = " and m_adultomayor='SI' ";
                 }else{
-
+                    if($tipo=='DE LA MUJER'){
+                        $filtro_tipo = " and m_mujer='SI' ";
+                    }
                 }
             }
         }
@@ -30,7 +32,8 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
 
 $sql = "select * from persona inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut 
                  where paciente_establecimiento.id_establecimiento='$id_establecimiento' 
-                 $filtro_tipo ";
+                 $filtro_tipo 
+                 group by persona.rut";
 //echo $sql;
 $res = mysql_query($sql);
 $i = 0;

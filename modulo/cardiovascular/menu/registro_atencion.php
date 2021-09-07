@@ -7,7 +7,7 @@ $rut = $_POST['rut'];
          style="font-size: 0.8em;">
         <ul>
             <li style="margin-left: 30px;text-align: center">REGISTRO POR RUT</li>
-            <li style="margin-left: 30px;">REGISTRO MEDIANTE IMPORTACIÓN</li>
+
         </ul>
         <div style="padding-left: 10px;">
             <!-- REGISTRO POR RUT -->
@@ -64,15 +64,6 @@ $rut = $_POST['rut'];
         </div>
         <div id="div_registro_importacion">
             <!-- REGISTRO POR IMPORTACION -->
-            <div class="row">
-                <div class="col l12">
-                    <div class="col l12">
-                        <a href="https://sis.eh-open.com/importar/plantillas/pscv_plantilla.xlsx"
-                           target="_blank" class="btn green darken-2 col 12 s12 m12 white-text"><i class="mdi-image-grid-on right-align"></i> DESCARGAR PLANTILLA</a>
-                    </div>
-                </div>
-            </div>
-
 
             <div class="row" style="margin-top: 10px;">
 

@@ -12,8 +12,44 @@ if($fecha_registro==''){
 
 $paciente = new persona($rut);
 $profesional = new profesional($_SESSION['id_usuario']);
-if($paciente->existe==false){
-    echo "ERROR_RUT";
+if($paciente->getModuloPaciente('m_cardiovascular')=='NO'){
+    ?>
+    <div class="container">
+        <div class="row">
+            <div class="col l4 center-align">
+                <img src="../no_modulo.png" width="200" />
+            </div>
+            <div class="col l8 center-align">
+                <fieldset>
+                    <legend>INFORMACIÓN</legend>
+                    <p><header>EL RUN <strong><?php echo formatoRUT($rut); ?></strong> ES VALIDO, PERO NO SE ENCUENTRA EN LOS REGISTROS DE ESTE MODULO.</header></p>
+                    <p>DEBE DIRIGIRSE AL MODULO DE INGRESO DE PACIENTES Y VERIFICAR ESTA INFORMACIÓN.</p>
+                    <div class="card-panel PANEL_MENU_SIS" style="background-color: #f1ffc5;">
+                        <div class="row">
+                            <div class="col l4 m4 s4">
+                                <i class="mdi-social-people"></i>
+                            </div>
+                            <div class="col l8 m8 s8">
+                                <a style="color: black" href="../some/index.php" target="_blank">
+                                    <strong>INGRESO DE PACIENTES</strong>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col l12">
+                <input type="button"
+                       style="width: 100%;"
+                       onclick="loadMenu_AM('menu_1','registro_atencion','<?php echo $rut; ?>')"
+                       class="btn-large red lighten-2 white-text"
+                       value=" <-- VOLVER" />
+            </div>
+        </div>
+    </div>
+    <?php
 }else{
     ?>
     <script type="text/javascript">
