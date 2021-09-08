@@ -217,10 +217,12 @@
         <!-- //////////////////////////////////////////////////////////////////////////// -->
         <!-- START RIGHT SIDEBAR NAV-->
         <aside id="right-sidebar-nav">
+            <ul id="chat-out" class="side-nav rightside-navigation">
             <?php
 
-            include '../../php/config.php';
-            $id_establecimiento = 1;
+            include '../php/config.php';
+
+            $id_establecimiento = $_SESSION['id_establecimiento'];
 
 
             $sql_e = "select count(*) as total,
@@ -232,11 +234,12 @@
                       inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut 
                       where paciente_establecimiento.m_adolescente='SI'; ";
 
-
                 $row = mysql_fetch_array(mysql_query($sql_e))or die('1');
                 $total_pacientes = $row['total'];
                 $porcentaje_14 = $row['menores14']*100/$total_pacientes;
                 $porcentaje_15 = $row['mayores14']*100/$total_pacientes;
+            $hombres = $row['porcentaje_hombres'];
+            $mujeres = $row['porcentaje_mujeres'];
 
 
             $sql_e = "select
@@ -313,9 +316,8 @@
 
 
 
-            ?>
 
-            <ul id="chat-out" class="side-nav rightside-navigation right-aligned ps-container ps-active-y">
+            ?>
                 <li class="li-hover">
                     <ul class="chat-collapsible" data-collapsible="">
                         <li>
@@ -328,8 +330,8 @@
                                         <a href="#">Pacientes Registrados <?php echo $row['total']; ?></a>
                                         <p class="left-align">
                                             <?php
-                                            echo 'HOMBRES '.number_format($row['porcentaje_hombres'],0).'%<br />';
-                                            echo 'MUJERES '.number_format($row['porcentaje_mujeres'],0).'%<br />';
+                                            echo 'HOMBRES '.number_format($hombres,0).'%<br />';
+                                            echo 'MUJERES '.number_format($mujeres,0).'%<br />';
                                             ?>
                                         </p>
                                         <hr class="row" />

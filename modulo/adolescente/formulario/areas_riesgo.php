@@ -23,7 +23,7 @@ $educacion =  $paciente->getParametro_AD('educacion');
                         <div class="row">
                             <div class="col l12 m12 s12">
                                 <?php
-                                $sql1 = "select * from tipo_riesgo_adolescente where tipo_area='RIESGO' order by nombre_riesgo";
+                                $sql1 = "select * from tipo_riesgo_adolescente where tipo_area='RIESGO' order by orden asc";
                                 $res1 = mysql_query($sql1);
                                 while($row1 = mysql_fetch_array($res1)){
                                     ?>

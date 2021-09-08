@@ -237,7 +237,7 @@
             <ul id="chat-out" class="side-nav rightside-navigation">
                 <?php
 
-                include '../../php/config.php';
+                include '../php/config.php';
                 $id_establecimiento = 1;
 
                 $sql_e = "select count(*) as total,
@@ -250,7 +250,11 @@
                       inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut 
                        where m_adulto_mayor='SI'; ";
                 $row = mysql_fetch_array(mysql_query($sql_e))or die('error');
+
                 $total_pacientes = $row['total'];
+                $hombres = $row['porcentaje_hombres'];
+                $mujeres = $row['porcentaje_mujeres'];
+
                 //PATOLOGIAS
                 $sql_e = "select 
                        sum(paciente_adultomayor.funcionalidad='AUTOVALENTE CON RIESGO') as con_riesgo,
@@ -271,8 +275,9 @@
                       inner join paciente_establecimiento on paciente_adultomayor.rut=paciente_establecimiento.rut    
                        where id_establecimiento='$id_establecimiento'; ";
                 $row = mysql_fetch_array(mysql_query($sql_e))or die($sql_e);
-                $total_pacientes = $row['total'];
-                $riesgo_dependencia = $row['riesgo_dependencia']*100/$total_pacientes;
+
+
+                $riesgo_dependencia = $row['risgo_dependencia']*100/$total_pacientes;
                 $auto_sin_riesgo = $row['sin_riesgo']*100/$total_pacientes;
                 $auto_con_riesgo = $row['con_riesgo']*100/$total_pacientes;
                 $d_leve = $row['dependencia_leve']*100/$total_pacientes;
@@ -304,8 +309,8 @@
                                         <a href="#">Pacientes Registrados <?php echo $row['total']; ?></a>
                                         <p class="left-align">
                                             <?php
-                                            echo 'HOMBRES '.number_format($row['porcentaje_hombres'],0).'%<br />';
-                                            echo 'MUJERES '.number_format($row['porcentaje_mujeres'],0).'%<br />';
+                                            echo 'HOMBRES '.number_format($hombres,0).'%<br />';
+                                            echo 'MUJERES '.number_format($mujeres,0).'%<br />';
                                             ?>
                                         </p>
                                         <hr class="row" />

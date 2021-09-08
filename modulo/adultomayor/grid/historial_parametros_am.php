@@ -15,6 +15,7 @@ include '../../../php/objetos/persona.php';
 
 $rut = str_replace('.','',$_POST['rut']);
 $indicador = $_POST['indicador'];
+$funcion_javascript = $_POST['funcion'];
 $sql1 = "select * from historial_parametros_am 
         where rut='$rut' and valor!='' 
         and indicador='$indicador'
@@ -78,7 +79,7 @@ while($row1 = mysql_fetch_array($res1)){
             },function (data) {
                 if(data!=='ERROR_SQL'){
                     alertaLateral('REGISTRO ELIMINADO');
-                    loadHistorialDiabetesPSCV('<?php echo $rut ?>','<?php echo $indicador ?>')
+                    <?php echo $funcion_javascript; ?>
                 }
             });
         }

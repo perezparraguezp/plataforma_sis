@@ -110,6 +110,18 @@ class persona{
             return 'PENDIENTE';
         }
     }
+    function getDatosNacimiento($column){
+        $sql1 = "select * from datos_nacimiento
+                            where rut='$this->rut' 
+                            limit 1";
+
+        $row1 = mysql_fetch_array(mysql_query($sql1));
+        if($row1){
+            return $row1[$column];
+        }else{
+            return '';
+        }
+    }
     function getDatosComunas(){
         $comuna = $this->comuna;
         $sql1 = "select regiones.id as id_region,

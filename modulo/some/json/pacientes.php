@@ -17,7 +17,7 @@ if($tipo!='TODOS'){
                 $filtro_tipo = " and m_adolescente='SI' ";
             }else{
                 if($tipo=='ADULTO MAYOR'){
-                    $filtro_tipo = " and m_adultomayor='SI' ";
+                    $filtro_tipo = " and m_adulto_mayor='SI' ";
                 }else{
                     if($tipo=='DE LA MUJER'){
                         $filtro_tipo = " and m_mujer='SI' ";

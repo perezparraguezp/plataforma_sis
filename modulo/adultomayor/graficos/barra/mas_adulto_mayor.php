@@ -113,7 +113,7 @@ if($comunal==true){
             }
         }
 
-        $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","MAS_ADULTO_MAYOR":"'.$persona->getParametro_AM('mas_adulto_mayor').'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'"}';
+        $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","MAS_ADULTO_MAYOR":"'.$persona->getParametro_AM('mas_adulto_mayor').'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
         $total_pacientes++;
         $json_coma++;
     }
@@ -233,7 +233,7 @@ if($comunal==true){
                     }
                 }
 
-                $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","MAS_ADULTO_MAYOR":"'.$persona->getParametro_AM('mas_adulto_mayor').'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'"}';
+                $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","MAS_ADULTO_MAYOR":"'.$persona->getParametro_AM('mas_adulto_mayor').'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
                 $total_pacientes++;
                 $json_coma++;
             }
@@ -351,7 +351,7 @@ if($comunal==true){
                         }
                     }
 
-                    $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","MAS_ADULTO_MAYOR":"'.$persona->getParametro_AM('mas_adulto_mayor').'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'"}';
+                    $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","MAS_ADULTO_MAYOR":"'.$persona->getParametro_AM('mas_adulto_mayor').'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
                     $total_pacientes++;
                     $json_coma++;
                 }
@@ -473,7 +473,7 @@ if($comunal==true){
                         }
                     }
 
-                    $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","MAS_ADULTO_MAYOR":"'.$persona->getParametro_AM('mas_adulto_mayor').'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'"}';
+                    $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","MAS_ADULTO_MAYOR":"'.$persona->getParametro_AM('mas_adulto_mayor').'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador_json.'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
                     $total_pacientes++;
                     $json_coma++;
                 }
@@ -571,9 +571,10 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                     { name: 'RUT', type: 'string' },
                     { name: 'NOMBRE', type: 'string' },
                     { name: 'EDAD', type: 'string' },
-                    { name: 'ANIO', type: 'number' },
-                    { name: 'MESES', type: 'number' },
-                    { name: 'DIAS', type: 'number' },
+                    { name: 'MAS_ADULTO_MAYOR', type: 'string' },
+                    { name: 'anios', type: 'number' },
+                    { name: 'meses', type: 'number' },
+                    { name: 'dias', type: 'number' },
                     { name: 'COMUNAL', type: 'string' },
                     { name: 'ESTABLECIMIENTO', type: 'string' },
                     { name: 'SECTOR_INTERNO', type: 'string' },
@@ -628,9 +629,9 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                             return renderstring;
                         }},
                     { text: '+ADULTO MAYOR', dataField: 'MAS_ADULTO_MAYOR', cellsalign: 'center', width: 150,filtertype: 'checkedlist'},
-                    { text: 'AÑOS', dataField: 'ANIO', cellsalign: 'center', width: 100},
-                    { text: 'MESES', dataField: 'MESES', cellsalign: 'center', width: 100},
-                    { text: 'DIAS', dataField: 'DIAS', cellsalign: 'center', width: 100},
+                    { text: 'AÑOS', dataField: 'anios', cellsalign: 'center', width: 100},
+                    { text: 'MESES', dataField: 'meses', cellsalign: 'center', width: 100},
+                    { text: 'DIAS', dataField: 'dias', cellsalign: 'center', width: 100},
                     { text: '<?php echo $TITULO_GRAFICO; ?>', dataField: 'INDICADOR', cellsalign: 'left', width: 250,filtertype: 'checkedlist' },
                     { text: 'S. COMUNAL', dataField: 'COMUNAL', cellsalign: 'left', width: 250,filtertype: 'checkedlist' },
                     { text: 'ESTABLECIMIENTO', dataField: 'ESTABLECIMIENTO', cellsalign: 'left', width: 250,filtertype: 'checkedlist' },

@@ -6,7 +6,7 @@ include "../../../php/objetos/persona.php";
 $rut = $_POST['rut'];
 $fecha_registro = $_POST['fecha_registro'];
 $paciente = new persona($rut);
-$funcionalidad =  str_replace(" ","_",$paciente->getParametro_AM('funcionalidad'));
+//$funcionalidad =  str_replace(" ","_",$paciente->getParametro_AM('funcionalidad'));
 
 
 ?>
@@ -18,10 +18,10 @@ $funcionalidad =  str_replace(" ","_",$paciente->getParametro_AM('funcionalidad'
             <!-- IMC  -->
             <div class="row">
                 <div class="col l12 m12 s12">
-                    <div class="card-panel green lighten-2" style="font-size: 1em;">
+                    <div class="card-panel green lighten-2" style="font-size: 1.3em;">
                         <div class="row">
                             <div class="col l12 m12 s12">
-                                <div class="row">
+                                <div class="row IMC">
                                     <div class="col l10 m10 s10">AUTOVALENTE SIN RIESGO</div>
                                     <div class="col l2 m2 s2">
                                         <input type="radio"
@@ -30,7 +30,7 @@ $funcionalidad =  str_replace(" ","_",$paciente->getParametro_AM('funcionalidad'
                                                id="af_<?php echo $funcionalidad; ?>" name="af" value="AUTOVALENTE SIN RIESGO" />
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row IMC">
                                     <div class="col l10 m10 s10">AUTOVALENTE CON RIESGO</div>
                                     <div class="col l2 m2 s2">
                                         <input type="radio"
@@ -39,7 +39,7 @@ $funcionalidad =  str_replace(" ","_",$paciente->getParametro_AM('funcionalidad'
                                                id="af_<?php echo $funcionalidad; ?>" name="af" value="AUTOVALENTE CON RIESGO" />
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row IMC">
                                     <div class="col l10 m10 s10">RIESGO DEPENDENCIA</div>
                                     <div class="col l2 m2 s2">
                                         <input type="radio"
@@ -57,7 +57,7 @@ $funcionalidad =  str_replace(" ","_",$paciente->getParametro_AM('funcionalidad'
                                 </div>
                                 <p class="row"></p>
                                 <p class="row"></p>
-                                <div class="row">
+                                <div class="row IMC">
                                     <div class="col l10 m10 s10">DEPENDENCIA LEVE</div>
                                     <div class="col l2 m2 s2">
                                         <input type="radio"
@@ -66,7 +66,7 @@ $funcionalidad =  str_replace(" ","_",$paciente->getParametro_AM('funcionalidad'
                                                id="af_<?php echo $funcionalidad; ?>" name="af" value="DEPENDENCIA LEVE" />
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row IMC">
                                     <div class="col l10 m10 s10">DEPENDENCIA MODERADO</div>
                                     <div class="col l2 m2 s2">
                                         <input type="radio"
@@ -75,7 +75,7 @@ $funcionalidad =  str_replace(" ","_",$paciente->getParametro_AM('funcionalidad'
                                                id="af_<?php echo $funcionalidad; ?>" name="af" value="DEPENDENCIA MODERADO" />
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row IMC">
                                     <div class="col l10 m10 s10">DEPENDENCIA GRAVE</div>
                                     <div class="col l2 m2 s2">
                                         <input type="radio"
@@ -84,7 +84,7 @@ $funcionalidad =  str_replace(" ","_",$paciente->getParametro_AM('funcionalidad'
                                                id="af_<?php echo $funcionalidad; ?>" name="af" value="DEPENDENCIA GRAVE" />
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row IMC">
                                     <div class="col l10 m10 s10">DEPENDENCIA TOTAL</div>
                                     <div class="col l2 m2 s2">
                                         <input type="radio"
@@ -138,7 +138,7 @@ $funcionalidad =  str_replace(" ","_",$paciente->getParametro_AM('funcionalidad'
         //DM
         loadHistorialParametroAM_funcionalidad('<?php echo $rut; ?>','funcionalidad');
         $('.tooltipped').tooltip({delay: 50});
-        $("#af_<?php echo strtolower($funcionalidad); ?>").attr('checked','cheched');
+        //$("#af_<?php //echo strtolower($funcionalidad); ?>//").attr('checked','cheched');
     });
     function loadHistorialParametroAM_funcionalidad(rut,indicador) {
         $.post('grid/historial_parametros_am.php',{
@@ -147,7 +147,7 @@ $funcionalidad =  str_replace(" ","_",$paciente->getParametro_AM('funcionalidad'
         },function(data){
             if(data !== 'ERROR_SQL'){
                 $("#infoHistotialFuncionalidad").html(data);
-                $("input:radio[value='<?php echo $paciente->getParametro_AM('funcionalidad'); ?>']").prop('checked',true);
+                //$("input:radio[value='<?php //echo $paciente->getParametro_AM('funcionalidad'); ?>//']").prop('checked',true);
             }
         });
     }

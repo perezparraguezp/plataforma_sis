@@ -21,7 +21,12 @@ $yesavage = $paciente->getParametro_AM('yesavage');
 
 
 ?>
-
+<style type="text/css">
+    .IMC:hover{
+        background-color: #f1ffc5;
+        cursor: help;
+    }
+</style>
 <form class="content card-panel">
     <input type="hidden" name="fecha_antecedentes" id="fecha_antecedentes" value="<?php echo $fecha_registro; ?>" />
     <div class="row">
@@ -37,7 +42,8 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                             <div class="col l7 m6 s12">
                                 <div class="row">
                                     <input type="hidden" name="fecha_imc" id="fecha_imc" value="<?php echo $fecha_registro; ?>" />
-                                    <div class="col l3 m3 s3">
+                                    <div class="col l3 m3 s3 tooltipped IMC"
+                                         data-position="bottom" data-delay="50" data-tooltip="BAJO PESO">
                                         <div class="row center-align">
                                             <label class="white-text" for="imc_bp">
                                                 <img src="../../images/pscv/bp.png" height="100px" />
@@ -48,7 +54,8 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                                    id="imc_bp" name="imc" value="BP" >
                                         </div>
                                     </div>
-                                    <div class="col l3 m3 s3">
+                                    <div class="col l3 m3 s3 tooltipped IMC"
+                                         data-position="bottom" data-delay="50" data-tooltip="NORMAL">
                                         <div class="row center-align">
                                             <label class="white-text" for="imc_n">
                                                 <img src="../../images/pscv/n.png" height="100px" />
@@ -59,7 +66,8 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                                    id="imc_n" name="imc" value="N" >
                                         </div>
                                     </div>
-                                    <div class="col l3 m3 s3">
+                                    <div class="col l3 m3 s3 tooltipped IMC"
+                                         data-position="bottom" data-delay="50" data-tooltip="SOBRE PESO">
                                         <div class="row center-align">
                                             <label class="white-text" for="imc_sp">
                                                 <img src="../../images/pscv/sp.png" height="100px"  />
@@ -70,7 +78,8 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                                    id="imc_sp" name="imc" value="SP" >
                                         </div>
                                     </div>
-                                    <div class="col l3 m3 s3">
+                                    <div class="col l3 m3 s3 tooltipped IMC"
+                                         data-position="bottom" data-delay="50" data-tooltip="OBESIDAD">
                                         <div class="row center-align">
                                             <label class="white-text" for="imc_ob">
                                                 <img src="../../images/pscv/ob.png" height="100px"  />
@@ -82,13 +91,7 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                         </div>
 
                                     </div>
-                                    <div class="col l12 m12 s12">
-                                        <input type="button"
-                                               class="btn-large"
-                                               style="width: 100%;"
-                                               onclick="updateParametroAM_IMC('<?php echo $imc; ?>')"
-                                               value="SIN CAMBIOS EN IMC" />
-                                    </div>
+
                                 </div>
                             </div>
                             <div class="col l2 center-align">
@@ -109,7 +112,8 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                             </div>
                             <div class="col l7 m6 s12">
                                 <div class="row">
-                                    <div class="col l6 m6 s6">
+                                    <div class="col l6 m6 s6 tooltipped IMC"
+                                         data-position="bottom" data-delay="50" data-tooltip="CON ACTIVIDAD">
                                         <div class="row center-align" title="SI">
                                             <label class="white-text" for="af_si">
                                                 <img src="../../images/am/activiad_fisica_si.png" height="100px" />
@@ -120,7 +124,8 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                                    id="af_si" name="af" value="SI" >
                                         </div>
                                     </div>
-                                    <div class="col l6 m6 s6">
+                                    <div class="col l6 m6 s6 tooltipped IMC"
+                                         data-position="bottom" data-delay="50" data-tooltip="SIN ACTIVIDAD">
                                         <div class="row center-align">
                                             <label class="white-text" for="af_no">
                                                 <img src="../../images/am/activiad_fisica_no.png"
@@ -132,13 +137,7 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                                    id="af_no" name="af" value="NO" >
                                         </div>
                                     </div>
-                                    <div class="col l12 m12 s12">
-                                        <input type="button"
-                                               class="btn-large"
-                                               style="width: 100%;"
-                                               onclick="updateIndicadorAM_variable('<?php echo $activiadad_fisica; ?>')"
-                                               value="SIN CAMBIOS EN ACTIVIDAD FISICA" />
-                                    </div>
+
                                 </div>
                             </div>
                             <div class="col l2 center-align">
@@ -166,7 +165,7 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                             style="font-size: 1.5em"
                                             name="riesgo_caida" id="riesgo_caida"
                                             onchange="updateIndicadorAM('riesgo_caida')">
-                                        <option><?php echo $riesgo_caidas; ?></option>
+                                        <option></option>
                                         <option>NORMAL</option>
                                         <option>LEVE</option>
                                         <option>ALTO</option>
@@ -194,7 +193,7 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                             style="font-size: 1.5em"
                                             name="estacion_unipodal" id="estacion_unipodal"
                                             onchange="updateIndicadorAM('estacion_unipodal')">
-                                        <option><?php echo $riesgo_caidas; ?></option>
+                                        <option></option>
                                         <option>NORMAL</option>
                                         <option>ALTERADO</option>
                                     </select>
@@ -202,7 +201,7 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                             </div>
                             <div class="col l2 center-align">
                                 <i class="mdi-editor-insert-chart"
-                                   onclick="loadHistorialParametroAM('<?php echo $rut ?>','riesgo_caida')"></i>
+                                   onclick="loadHistorialParametroAM('<?php echo $rut ?>','estacion_unipodal')"></i>
                             </div>
                         </div>
                     </div>
@@ -221,7 +220,7 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                             style="font-size: 1.5em"
                                             name="sospecha_maltrato" id="sospecha_maltrato"
                                             onchange="updateIndicadorAM('sospecha_maltrato')">
-                                        <option><?php echo $sospecha_maltrato; ?></option>
+                                        <option></option>
                                         <option>SI</option>
                                         <option>NO</option>
                                     </select>
@@ -248,7 +247,7 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                             style="font-size: 1.5em"
                                             name="yesavage" id="yesavage"
                                             onchange="updateIndicadorAM('yesavage')">
-                                        <option><?php echo $yesavage; ?></option>
+                                        <option></option>
                                         <option>NORMAL</option>
                                         <option>DEPRESION LEVE</option>
                                         <option>DEPRESION ESTABLECIDA</option>
@@ -276,8 +275,8 @@ $yesavage = $paciente->getParametro_AM('yesavage');
         $('.tooltipped').tooltip({delay: 50});
 
 
-        $("#imc_<?php echo strtolower($imc); ?>").attr('checked','cheched');
-        $("#af_<?php echo strtolower($activiadad_fisica); ?>").attr('checked','cheched');
+        //$("#imc_<?php //echo strtolower($imc); ?>//").attr('checked','cheched');
+        //$("#af_<?php //echo strtolower($activiadad_fisica); ?>//").attr('checked','cheched');
 
     });
 
