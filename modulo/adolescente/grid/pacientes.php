@@ -45,7 +45,7 @@
         var cellEditarPaciente = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
 
             return '<i class="mdi-editor-mode-edit" ' +
-                'onclick="boxEditarPaciente_PSCV(\''+value+'\')"></i>';
+                'onclick="boxEditarPaciente_SOME(\''+value+'\')"></i>';
 
         }
         var cellEdadAnios = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
@@ -161,6 +161,18 @@
             }
         });
     }
+    function boxEditarPaciente_SOME(rut) {
+        $.post('../default/formulario/editar_paciente.php',{
+            rut:rut,
+        },function(data){
+            if(data !== 'ERROR_SQL'){
+                $("#modal").html(data);
+                $("#modal").css({'width':'1100px'});
+                document.getElementById("btn-modal").click();
+            }
+        });
+    }
+
     function cargarListado(){
         // prepare the data
 

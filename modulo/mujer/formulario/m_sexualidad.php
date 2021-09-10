@@ -9,7 +9,6 @@ $fecha_registro = $_POST['fecha_registro'];
 $paciente = new persona($rut);
 
 
-$imc =  $paciente->getParametro_M('imc');
 
 $lubricante  = $paciente->getParametroTabla_M('practica_sexual_mujer','lubricante');
 $regulacion_mas_preservativo  = $paciente->getParametroTabla_M('practica_sexual_mujer','regulacion_mas_preservativo');
@@ -179,7 +178,6 @@ $preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer
 <script type="text/javascript">
     $(function () {
         $('.tooltipped').tooltip({delay: 50});
-        $("#imc_<?php echo strtolower($imc); ?>").attr('checked','cheched');
 
     });
     function deleteHormonaSQL(historial){

@@ -36,7 +36,7 @@ $id_gestacion = $_POST['id_gestacion'];
         <div class="col l4 s4 m4">TIPO CONTROL</div>
         <div class="col l8 s8 m8">
             <select name="tipo_control" id="tipo_control">
-                <option>NORMAL</option>
+                <option>REGULAR</option>
                 <option>3º MES POST PARTO</option>
                 <option>6º MES POST PARTO</option>
             </select>

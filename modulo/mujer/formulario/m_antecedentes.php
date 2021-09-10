@@ -9,7 +9,8 @@ $fecha_registro = $_POST['fecha_registro'];
 $paciente = new persona($rut);
 
 
-$imc =  $paciente->getParametro_M('imc');
+//$imc =  $paciente->getParametro_M('imc');
+$imc =  'null';
 
 $patologia_diabetes  = $paciente->getParametro_M('patologia_dm');
 $patologia_hipertension  = $paciente->getParametro_M('patologia_hta');
@@ -88,13 +89,7 @@ $esatdo  = $paciente->getParametro_M('estado_paciente');
                                         </div>
 
                                     </div>
-                                    <div class="col l12 m12 s12">
-                                        <input type="button"
-                                               class="btn-large"
-                                               style="width: 100%;"
-                                               onclick="updateParametroM_IMC('<?php echo $imc; ?>')"
-                                               value="SIN CAMBIOS EN IMC" />
-                                    </div>
+
                                 </div>
                             </div>
                             <div class="col l2 center-align">
@@ -207,12 +202,8 @@ $esatdo  = $paciente->getParametro_M('estado_paciente');
 <script type="text/javascript">
     $(function () {
         $('.tooltipped').tooltip({delay: 50});
-        $("#imc_<?php echo strtolower($imc); ?>").attr('checked','checked');
+        //$("#imc_<?php //echo strtolower($imc); ?>//").attr('checked','checked');
         $("#estado_paciente_<?php echo $esatdo; ?>").attr('checked','checked');
-
-
-
-
     });
 
     function updateEstadoPacienteMujer(estado){

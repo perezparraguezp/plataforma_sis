@@ -12,7 +12,7 @@ if($fecha_registro==''){
 
 $paciente = new persona($rut);
 $profesional = new profesional($_SESSION['id_usuario']);
-if($paciente->getModuloPaciente('m_infancia')=='NO'){
+if($paciente->getModuloPaciente('m_mujer')=='NO'){
     ?>
     <div class="container">
         <div class="row">

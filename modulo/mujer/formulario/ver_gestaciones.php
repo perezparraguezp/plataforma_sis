@@ -72,6 +72,40 @@ $paciente = new persona($rut);
                     <div class="col l3">TERMINO GESTACIÓN</div>
                     <div class="col l3"><?php echo fechaNormal($row['fecha_termino']); ?></div>
                 </div>
+                <div class="row">
+                    <div class="col l4">IMC 8º MES POST-PARTO</div>
+                    <div class="col l8">
+                        <select name="imc_post_parto_<?php echo $id_gestacion; ?>"
+                                id="imc_post_parto_<?php echo $id_gestacion; ?>">
+                            <option></option>
+                            <option>OBESA</option>
+                            <option>SOBREPESO</option>
+                            <option>NORMAL</option>
+                            <option>BAJO PESO</option>
+                        </select>
+                        <script type="text/javascript">
+                            $(function(){
+                                $('.tooltipped').tooltip({delay: 50});
+                                $('#imc_post_parto_<?php echo $id_gestacion; ?>').jqxDropDownList({
+                                    width: '100%',
+                                    height: '25px'
+                                });
+
+                                $("#imc_post_parto_<?php echo $id_gestacion; ?>").on('change',function(){
+                                    $.post('db/update/m_gestante.php',{
+                                        id_gestacion:'<?php echo $id_gestacion; ?>',
+                                        value:$('#imc_post_parto_<?php echo $id_gestacion; ?>').val(),
+                                        column:'imc_post_parto',
+                                        fecha_registro:'<?php echo $fecha_registro; ?>',
+                                        rut:'<?php echo $rut ?>'
+                                    },function (data) {
+                                        alertaLateral(data);
+                                    });
+                                });
+                            })
+                        </script>
+                    </div>
+                </div>
                 <hr class="row" />
                 <div class="row" style="font-size: 0.9em;">
                     <div class="col l6">

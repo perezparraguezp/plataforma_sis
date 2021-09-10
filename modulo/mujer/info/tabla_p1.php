@@ -813,7 +813,7 @@ $filtro_rango_seccion_a = [
                 <header>SECCION F: MUJERES EN CONTROL DE CLIMATERIO </header>
             </div>
         </div>
-        <table id="table_seccion_c" style="width: 100%;border: solid 1px black;" border="1">
+        <table id="table_seccion_f" style="width: 100%;border: solid 1px black;" border="1">
             <tr>
                 <td style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
                     Población
@@ -1037,5 +1037,300 @@ $filtro_rango_seccion_a = [
         </table>
     </section>
 
+    <section id="seccion_g" style="width: 100%;overflow-y: scroll;">
+        <div class="row">
+            <div class="col l10">
+                <header>SECCION G: GESTANTES EN CONTROL CON ECOGRAFÍA POR TRIMESTRE DE GESTACION (EN EL SEMESTRE)</header>
+            </div>
+        </div>
+        <table id="table_seccion_g" style="width: 100%;border: solid 1px black;" border="1">
+            <tr>
+                <td style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
+                    POBLACION
+                </td>
+                <td>PRIMER TRIMESTRE</td>
+                <td>SEGUNDO TRIMESTRE</td>
+                <td>TERCER TRIMESTRE</td>
+                <td>TOTAL DE GESTANTES CON ECOGRAFIAS DEL EXTRASISTEMA</td>
+            </tr>
+
+            <?php
+
+            $INDICES = [
+                "Menor de 15",
+                "15 - 19 ",
+                "20 - 24",
+                "25 - 29",
+                "30 - 34",
+                "35 - 39",
+                "40 - 44",
+                "45 - 49",
+                "50 - 54",
+                "TOTAL",
+            ];
+            $filtro_sql = [
+                "and gestacion_mujer.estado_gestacion='ACTIVA' and  ecografias_mujer.trimestre='PRIMER' ",
+                "and gestacion_mujer.estado_gestacion='ACTIVA' and  ecografias_mujer.trimestre='SEGUNDO' ",
+                "and gestacion_mujer.estado_gestacion='ACTIVA' and  ecografias_mujer.trimestre='TERCERO' ",
+                "and gestacion_mujer.estado_gestacion='ACTIVA' 
+                and  (ecografias_mujer.trimestre='TERCERO' OR ecografias_mujer.trimestre='SEGUNDO' OR ecografias_mujer.trimestre='PRIMER') 
+                and tipo_eco='EXTRASISTEMA' ",
+            ];
+
+            $filtro_rango_seccion_a = [
+                'and persona.edad_total<15*12 ',
+                'and persona.edad_total>=15*12 and persona.edad_total<20*12 ',
+                'and persona.edad_total>=20*12 and persona.edad_total<25*12 ',
+                'and persona.edad_total>=25*12 and persona.edad_total<30*12 ',
+                'and persona.edad_total>=30*12 and persona.edad_total<35*12 ',
+                'and persona.edad_total>=35*12 and persona.edad_total<40*12 ',
+                'and persona.edad_total>=40*12 and persona.edad_total<45*12 ',
+                'and persona.edad_total>=45*12 and persona.edad_total<50*12 ',
+                'and persona.edad_total>=50*12 and persona.edad_total<55*12 ',
+                'and persona.edad_total>=1*12 ',
+            ];
+
+            foreach ($filtro_rango_seccion_a as $i => $filtro_fila) {
+                $texto_fila = $INDICES[$i];
+                $fila = '';
+                foreach ($filtro_sql as $column => $filtro_column){
+                    if ($id_centro != '') {
+                        $sql = "select count(*) as total from persona 
+                                  inner join paciente_mujer on persona.rut=paciente_mujer.rut
+                                  inner join gestacion_mujer on persona.rut=gestacion_mujer.rut
+                                  inner join ecografias_mujer on ecografias_mujer.id_gestacion=gestacion_mujer.id_gestacion 
+                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno,
+                                  where sectores_centros_internos.id_centro_interno='$id_centro'
+                                  and m_mujer='SI' and id_establecimiento='$id_establecimiento' 
+                                  and paciente_mujer.gestacion='SI' ";
+                    } else {
+                        $sql = "select count(*) as total from persona 
+                                  inner join paciente_mujer on persona.rut=paciente_mujer.rut
+                                  inner join gestacion_mujer on persona.rut=gestacion_mujer.rut
+                                  inner join ecografias_mujer on ecografias_mujer.id_gestacion=gestacion_mujer.id_gestacion
+                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                                  where m_mujer='SI' and id_establecimiento='$id_establecimiento' 
+                                  and paciente_mujer.gestacion='SI' ";
+                    }
+                    $sql .= $filtro_fila.$filtro_column;
+//                    echo $sql;
+                    $row = mysql_fetch_array(mysql_query($sql));
+                    if($row){
+                        $total = $row['total'];
+                    }else{
+                        $total = 0;
+                    }
+
+                    $fila .= "<td>$total</td>";
+                }
+                $fila_final = '<tr>
+                                    <td>'.$texto_fila.'</td>';
+                $fila_final .= $fila;
+                echo $fila_final.'</tr>';
+            }
+            ?>
+        </table>
+    </section>
+
+    <section id="seccion_h" style="width: 100%;overflow-y: scroll;">
+        <div class="row">
+            <div class="col l10">
+                <header>SECCION H: MUJERES BAJO CONTROL DE REGULACIÓN DE FERTILIDAD SEGÚN ESTADO NUTRICIONAL</header>
+            </div>
+        </div>
+        <table id="table_seccion_h" style="width: 100%;border: solid 1px black;" border="1">
+            <tr>
+                <td style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;" rowspan="6">
+                    POBLACION <br />MUJERES BAJO CONTROL DE REGULACIÓN DE FERTILIDAD SEGÚN ESTADO NUTRICIONAL
+                </td>
+                <td>ESTADO NUTRICIONAL</td>
+                <td>TOTAL</td>
+                <td>Menos 15 años</td>
+                <td>15 a 19 AÑOS</td>
+                <td>20 a 24 AÑOS</td>
+                <td>25 a 29 AÑOS</td>
+                <td>30 a 34 AÑOS</td>
+                <td>35 a 39 AÑOS</td>
+                <td>40 a 44 AÑOS</td>
+                <td>45 a 49 AÑOS</td>
+                <td>50 a 54 AÑOS</td>
+            </tr>
+
+            <?php
+
+            $FILA = [
+                "OBESA",
+                "SOBREPESO",
+                "NORMAL",
+                "BAJO PESO",
+                "TOTAL",
+            ];
+            $filtro_fila = [
+                "and paciente_mujer.imc='OB' ",
+                "and paciente_mujer.imc='SP' ",
+                "and paciente_mujer.imc='N' ",
+                "and paciente_mujer.imc='BP' ",
+                "and (paciente_mujer.imc='BP' OR paciente_mujer.imc='N' OR paciente_mujer.imc='SP' paciente_mujer.imc='OB') ",
+
+            ];
+
+            $filtro_column = [
+                'and persona.edad_total>=1*12 ',
+                'and persona.edad_total<15*12 ',
+                'and persona.edad_total>=15*12 and persona.edad_total<20*12 ',
+                'and persona.edad_total>=20*12 and persona.edad_total<25*12 ',
+                'and persona.edad_total>=25*12 and persona.edad_total<30*12 ',
+                'and persona.edad_total>=30*12 and persona.edad_total<35*12 ',
+                'and persona.edad_total>=35*12 and persona.edad_total<40*12 ',
+                'and persona.edad_total>=40*12 and persona.edad_total<45*12 ',
+                'and persona.edad_total>=45*12 and persona.edad_total<50*12 ',
+                'and persona.edad_total>=50*12 and persona.edad_total<55*12 ',
+            ];
+
+            foreach ($filtro_fila as $f => $sql_fila) {
+                $texto_fila = $FILA[$f];//detalle fila
+                $fila = '';
+                foreach ($filtro_column as $c => $sql_column){
+                    if ($id_centro != '') {
+                        $sql = "select count(*) as total from persona 
+                                  inner join paciente_mujer on persona.rut=paciente_mujer.rut 
+                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno,
+                                  where sectores_centros_internos.id_centro_interno='$id_centro'
+                                  and m_mujer='SI' and id_establecimiento='$id_establecimiento' 
+                                  and paciente_mujer.regulacion_fertilidad='SI' ";
+                    } else {
+                        $sql = "select count(*) as total from persona 
+                                  inner join paciente_mujer on persona.rut=paciente_mujer.rut
+                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                                  where m_mujer='SI' and id_establecimiento='$id_establecimiento' 
+                                  and paciente_mujer.regulacion_fertilidad='SI' ";
+                    }
+                    $sql .= $sql_fila.$sql_column;
+                    $row = mysql_fetch_array(mysql_query($sql));
+                    if($row){
+                        $total = $row['total'];
+                    }else{
+                        $total = 0;
+                    }
+
+                    $fila .= "<td>$total</td>";
+                }
+                $fila_final = '<tr>
+                                    <td>'.$texto_fila.'</td>';
+                $fila_final .= $fila;
+                echo $fila_final.'</tr>';
+            }
+            ?>
+        </table>
+    </section>
+
+    <!--
+    SOLO PARA HOSPITALES
+    <section id="seccion_i" style="width: 100%;overflow-y: scroll;">
+        <div class="row">
+            <div class="col l10">
+                <header>SECCIÓN I POBLACIÓN EN CONTROL POR PATOLOGÍAS DE ALTO RIESGO OBSTÉTRICO	</header>
+            </div>
+        </div>
+        <table id="table_seccion_i" style="width: 100%;border: solid 1px black;" border="1">
+            <tr>
+                <td style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
+                    PATOLOGÍA
+                </td>
+                <td>TOTAL</td>
+            </tr>
+
+            <?php
+
+            $FILA = [
+                "Preeclampsia (PE) ",
+                "Sindrome Hipertensivo del Embarazo (SHE)",
+                "Factores de riesgo y condicionantes de Parto Prematuro",
+                "Retardo Crecimiento Intrauterino (RCIU )",
+                "SÍFILIS",
+                "VIH",
+                "Diabetes Pre Gestacional",
+                "Diabetes Gestacional",
+                "Cesárea anterior",
+                "Malformación Congénita",
+                "Anemia",
+                "Cardiopatías",
+                "Pielonefritis",
+                "Rh(-) sensibilizada",
+                "Placenta previa",
+                "Chagas",
+                "Colestasia Intrahépatica de Embarazo",
+                "Otras patologías del embarazo",
+                "TOTAL",
+            ];
+            $filtro_fila = [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+            ];
+
+            $filtro_column = [
+                'and persona.edad_total>=1*12 '
+            ];
+
+            foreach ($filtro_fila as $f => $sql_fila) {
+                $texto_fila = $FILA[$f];//detalle fila
+                $fila = '';
+                foreach ($filtro_column as $c => $sql_column){
+                    if ($id_centro != '') {
+                        $sql = "select count(*) as total from persona 
+                                  inner join paciente_mujer on persona.rut=paciente_mujer.rut 
+                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno,
+                                  where sectores_centros_internos.id_centro_interno='$id_centro'
+                                  and m_mujer='SI' and id_establecimiento='$id_establecimiento' 
+                                  and paciente_mujer.regulacion_fertilidad='SI' ";
+                    } else {
+                        $sql = "select count(*) as total from persona 
+                                  inner join paciente_mujer on persona.rut=paciente_mujer.rut
+                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                                  where m_mujer='SI' and id_establecimiento='$id_establecimiento' 
+                                  and paciente_mujer.regulacion_fertilidad='SI' ";
+                    }
+                    $sql .= $sql_fila.$sql_column;
+                    $row = mysql_fetch_array(mysql_query($sql));
+                    if($row){
+                        $total = $row['total'];
+                    }else{
+                        $total = 0;
+                    }
+
+                    $fila .= "<td>$total</td>";
+                }
+                $fila_final = '<tr>
+                                    <td>'.$texto_fila.'</td>';
+                $fila_final .= $fila;
+                echo $fila_final.'</tr>';
+            }
+            ?>
+        </table>
+    </section>
+    -->
 
 </div>

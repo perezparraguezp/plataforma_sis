@@ -1601,6 +1601,7 @@ class persona{
                             set $column=upper('$value')
                             where id_gestacion='$id_gestacion' 
                             and rut='$this->rut' ";
+
         mysql_query($sql);
         $this->insert_historial_m($column,$value,$fecha,$id_gestacion);
 
@@ -1694,13 +1695,25 @@ class persona{
     function getIdGestacion(){
         $sql = "select * from gestacion_mujer 
                     where rut='$this->rut' 
-                    and estado_gestacion='ACTIVA' 
+                    and (estado_gestacion='ACTIVA'  or estado_gestacion='NO ACTIVA' )
                     limit 1";
         $row = mysql_fetch_array(mysql_query($sql));
         if($row){
             return $row['id_gestacion'];
         }else{
             return 0;
+        }
+    }
+    function getEstadoGestacion($id){
+        $sql = "select * from gestacion_mujer 
+                    where rut='$this->rut' 
+                    and id_gestacion='$id'
+                    limit 1";
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            return $row['estado_gestacion'];
+        }else{
+            return 'NO ACTIVA';
         }
     }
     function crearGestacion(){
