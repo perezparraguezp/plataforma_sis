@@ -35,6 +35,7 @@
     <!-- JQUERY -->
     <!-- php script -->
     <link type="text/css" rel="stylesheet" href="../../jqwidgets/styles/jqx.base.css"  />
+    <link type="text/css" rel="stylesheet" href="../../jqwidgets/styles/eh-open.css"  />
 
 
     <script type="text/javascript" src="../../jqwidgets/jqxcore.js"></script>

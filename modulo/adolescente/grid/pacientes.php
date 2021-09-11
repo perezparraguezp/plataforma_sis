@@ -102,6 +102,7 @@
                 height:400,
                 columnsresize: true,
                 sortable: true,
+                theme:'eh-open',
                 filterable: true,
                 autoshowfiltericon: true,
                 showfilterrow: true,

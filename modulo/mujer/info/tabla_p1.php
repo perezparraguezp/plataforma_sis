@@ -807,6 +807,95 @@ $filtro_rango_seccion_a = [
         </table>
     </section>
 
+    <section id="seccion_d" style="width: 100%;overflow-y: scroll;">
+        <div class="row">
+            <div class="col l10">
+                <header>SECCION D: GESTANTES Y MUJERES DE 8° MES POST-PARTO EN CONTROL, SEGÚN ESTADO NUTRICIONAL</header>
+            </div>
+        </div>
+        <table id="table_seccion_d" style="width: 100%;border: solid 1px black;" border="1">
+            <tr>
+                <td style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;" rowspan="2">
+                    POBLACION
+                </td>
+                <td>ESTADO NUTRICIONAL</td>
+                <td>TOTAL</td>
+                <td>Menos 15 años</td>
+                <td>15 a 19 AÑOS</td>
+                <td>20 a 24 AÑOS</td>
+                <td>25 a 29 AÑOS</td>
+                <td>30 a 34 AÑOS</td>
+                <td>35 a 39 AÑOS</td>
+                <td>40 a 44 AÑOS</td>
+                <td>45 a 49 AÑOS</td>
+                <td>50 a 54 AÑOS</td>
+            </tr>
+
+            <?php
+
+            $INDICES = [
+                "1 Visita",
+                "2 Visitas",
+                "3 Visitas",
+                "4 Visitas Y Más",
+                "TOTAL",
+            ];
+            $filtro_sql = [
+                '=1',
+                '=2',
+                '=3',
+                '>=4',
+                '>=1',
+            ];
+
+            $filtro_rango_seccion_a = [
+                '',
+            ];
+
+            foreach ($INDICES AS $TR => $texto_fila) {
+                $fila = '';
+                foreach ($filtro_rango_seccion_a as $i => $filtro) {
+                    if ($id_centro != '') {
+                        $sql = "select count(distinct visita_vdi.rut) as total,count(id_visita) as total_visitas from persona 
+                                  inner join gestacion_mujer using(rut)
+                                  inner join visita_vdi on visita_vdi.id_gestacion=gestacion_mujer.id_gestacion
+                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                                  where sectores_centros_internos.id_centro_interno='$id_centro'
+                                  and m_mujer='SI' and id_establecimiento='$id_establecimiento' 
+                                  and estado_gestacion='ACTIVA' ";
+                    } else {
+                        $sql = "select count(distinct visita_vdi.rut) as total,count(id_visita) as total_visitas from persona 
+                                  inner join gestacion_mujer using(rut)
+                                  inner join visita_vdi on visita_vdi.id_gestacion=gestacion_mujer.id_gestacion 
+                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                                  where m_mujer='SI' and id_establecimiento='$id_establecimiento' 
+                                  and estado_gestacion='ACTIVA' ";
+                    }
+                    $sql .= "group by visita_vdi.rut
+                             having count(*) ".$filtro_sql[$TR];
+                    $res = mysql_query($sql);
+                    $total = 0;
+                    $total_visitas = 0;
+                    while($row = mysql_fetch_array($res)){
+                        $total++;
+                        $total_visitas += $row['total_visitas'];
+                    }
+                    $fila .= "<td>$total</td>";
+                    $fila .= "<td>$total_visitas</td>";
+
+
+                }
+                $fila_final = '<tr>
+                                    <td>'.$texto_fila.'</td>';
+                $fila_final .= $fila;
+                echo $fila_final.'</tr>';
+            }
+            ?>
+        </table>
+    </section>
+
     <section id="seccion_f" style="width: 100%;overflow-y: scroll;">
         <div class="row">
             <div class="col l10">

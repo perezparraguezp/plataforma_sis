@@ -108,6 +108,7 @@ session_start();
                         </div>
                     </div>
                 </div>
+
                 <?php
                 include('php/config.php');
                 session_start();

@@ -29,7 +29,10 @@ if($p->rut_papa!=''){
     <script type="text/javascript">
         $(document).ready(function () {
             // Create jqxNavigationBar
-            $("#jqxNavigationBar").jqxNavigationBar({ width: '100%', height: 460});
+            $("#jqxNavigationBar").jqxNavigationBar({
+                width: '100%',
+                theme: 'eh-open',
+                height: 460});
         });
     </script>
     <div id='jqxNavigationBar'>
