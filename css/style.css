@@ -145,7 +145,7 @@ li.li-hover:hover{
   margin: -75px 0 0 -75px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: #3498db;
+  border-top-color: #0a73a7;
   -webkit-animation: spin 2s linear infinite;
   /* Chrome, Opera 15+, Safari 5+ */
   
@@ -172,7 +172,7 @@ li.li-hover:hover{
   bottom: 5px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: #e74c3c;
+  border-top-color: #e3f2fd;
   -webkit-animation: spin 3s linear infinite;
   /* Chrome, Opera 15+, Safari 5+ */
   
@@ -188,7 +188,7 @@ li.li-hover:hover{
   bottom: 15px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: #f9c922;
+  border-top-color: #bbdefb;
   -webkit-animation: spin 1.5s linear infinite;
   /* Chrome, Opera 15+, Safari 5+ */
   
@@ -305,7 +305,7 @@ li.li-hover:hover{
   transform: translateY(-100%);
   /* Firefox 16+, IE 10+, Opera */
   
-  -webkit-transition: all 0.3s 1s ease-out;
+  -webkit-transition: all 10.3s 1s ease-out;
   transition: all 0.3s 1s ease-out;
 }
 /* JavaScript Turned Off */

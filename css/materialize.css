@@ -5813,7 +5813,10 @@ small {
   transition: 0.2s ease-out;
   cursor: pointer; }
 .btn:hover, .btn-large:hover {
-  background-color: #ff5a92; }
+  background-color: #e3f2fd;
+  color: #0a73a7;
+  font-weight: bold;
+}
 
 .btn-floating {
   display: inline-block;
@@ -6827,7 +6830,7 @@ form p:last-child {
   height: 0; }
 
 .switch label input[type=checkbox]:checked + .lever {
-  background-color: #f7c7d8; }
+  background-color: #e3f2fd; }
 
 .switch label input[type=checkbox]:checked + .lever:after {
   background-color: #0a73a7; }

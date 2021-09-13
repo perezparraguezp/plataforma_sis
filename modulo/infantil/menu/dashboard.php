@@ -31,6 +31,7 @@ $sql1 = "select * from sector_comunal
                 $(function(){
                     $('#indicador').jqxDropDownList({
                         width: '98%',
+                        theme: 'eh-open',
                         height: '25px'
                     });
                 })
@@ -56,6 +57,7 @@ $sql1 = "select * from sector_comunal
                     $('#sector_comunal').jqxDropDownList({
                         width: '98%',
                         height: '25px',
+                        theme: 'eh-open',
                         checkboxes: true
                     });
                 })
