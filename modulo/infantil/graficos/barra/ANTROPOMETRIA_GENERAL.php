@@ -691,6 +691,7 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                 autoshowfiltericon: true,
                 showfilterrow: true,
                 showstatusbar: true,
+                theme: 'eh-open',
                 statusbarheight: 30,
                 showaggregates: true,
                 selectionmode: 'multiplecellsextended',
@@ -810,6 +811,7 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                     $(function(){
                         $('#estado').jqxDropDownList({
                             width: '100%',
+                            theme: 'eh-open',
                             height: '25px'
                         });
                         $('#estado').on('select', function (event) {

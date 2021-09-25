@@ -477,6 +477,7 @@ $txt_grafico = strtoupper(str_replace("_"," ",$_POST['indicador'])." [".$_POST['
             {
                 width: '98%',
                 height:400,
+                theme: 'eh-open',
                 source: dataAdapter,
                 columnsresize: true,
                 sortable: true,
@@ -542,10 +543,12 @@ $txt_grafico = strtoupper(str_replace("_"," ",$_POST['indicador'])." [".$_POST['
                 $(function(){
                     $('#select_psicomotor').jqxDropDownList({
                         width: '100%',
+                        theme: 'eh-open',
                         height: '25px'
                     });
                     $('#estados_psicomotor').jqxDropDownList({
                         width: '100%',
+                        theme: 'eh-open',
                         height: '25px'
                     });
                     $('#select_psicomotor').on('select', function (event) {

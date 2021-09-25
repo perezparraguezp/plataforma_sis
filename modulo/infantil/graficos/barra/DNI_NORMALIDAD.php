@@ -378,6 +378,7 @@ if($comunal==true){
                 $(function(){
                     $('#select_dni').jqxDropDownList({
                         width: '100%',
+                        theme: 'eh-open',
                         height: '25px'
                     });
                     $('#select_dni').on('select', function (event) {
@@ -385,6 +386,7 @@ if($comunal==true){
                     });
                     $('#edad_dni').jqxDropDownList({
                         width: '100%',
+                        theme: 'eh-open',
                         height: '25px'
                     });
                     $('#edad_dni').on('select', function (event) {

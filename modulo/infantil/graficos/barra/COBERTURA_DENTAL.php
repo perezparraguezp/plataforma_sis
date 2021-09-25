@@ -591,6 +591,7 @@ if($comunal==true){
                 editable: true,
                 statusbarheight: 30,
                 showaggregates: true,
+                theme: 'eh-open',
                 selectionmode: 'multiplecellsextended',
                 columns: [
                     { text: 'IR', dataField: 'IR',

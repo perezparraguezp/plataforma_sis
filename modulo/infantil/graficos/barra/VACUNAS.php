@@ -470,6 +470,7 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
             {
                 width: '95%',
                 height:400,
+                theme: 'eh-open',
                 source: dataAdapter,
                 columnsresize: true,
                 sortable: true,
@@ -563,6 +564,7 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                     $(function(){
                         $('#estado').jqxDropDownList({
                             width: '100%',
+                            theme: 'eh-open',
                             height: '25px'
                         });
                         $('#estado').on('select', function (event) {
