@@ -50,7 +50,7 @@ session_start();
 
 </head>
 
-<body class="cyan">
+<body class="light">
 <a id="btn-modal" class="modal-trigger" href="#modal"></a>
 <div id="modal" class="modal modal-fixed-footer">
 </div>
@@ -74,14 +74,14 @@ session_start();
         border: none;
         text-decoration: none;
     }
-    a:hover{
-        background-color: #438eb9;
-    }
+    /*a:hover{
+        background-color: red;
+    }*/
     img.responsive-img, video.responsive-video {
         max-width: 90%;
     }
     .PANEL_MENU_SIS:hover{
-        background-color: #508ede;
+        background-color: #e8eaf6;
         cursor: pointer;
     }
 </style>
@@ -89,17 +89,17 @@ session_start();
     <div class="col l6 m6 s12" style="position: relative;top: 0px;left: 0px;">
         <div class="card-panel center" >
             <div class="col l12 m12 s12">
-                <div class="card-panel">
-                    <div class="row">
+                <div class="card-panel" style="background-color: #0a73a7;">
+                    <div class="row" style="color: #ffffff";>
                         <div class="col l12 m12 s12">
                             <strong>MODULOS DISPONIBLES</strong>
                         </div>
                     </div>
                 </div>
-                <div class="card-panel PANEL_MENU_SIS" style="background-color: #f1ffc5;">
+                <div class="card-panel PANEL_MENU_SIS">
                     <div class="row">
                         <div class="col l4 m4 s4">
-                            <i class="mdi-social-people"></i>
+                            <i class="mdi-action-accessibility small"></i>
                         </div>
                         <div class="col l8 m8 s8">
                             <a style="color: black" href="modulo/some/index.php" target="_blank">
@@ -108,7 +108,6 @@ session_start();
                         </div>
                     </div>
                 </div>
-
                 <?php
                 include('php/config.php');
                 session_start();
@@ -133,7 +132,7 @@ session_start();
                 <?php
                 if($_SESSION['tipo_usuario']=='ADMINISTRADOR'){
                     ?>
-                    <div class="card-panel PANEL_MENU_SIS" style="background-color: #c282de;">
+                    <div class="card-panel PANEL_MENU_SIS">
                         <div class="row">
                             <div class="col l4 m4 s4">
                                 <i class="mdi-action-settings-applications"></i>
@@ -145,34 +144,46 @@ session_start();
                             </div>
                         </div>
                     </div>
-                    <?php
+                    <BR>  <?php
                 }
-                ?>
+                ?><BR>
 
             </div>
-            <hr class="row" />
-            <div class="row">
+
+            <!-- <hr class="row"> -->
+
+            <div class="row" class="card-panel PANEL_MENU_SIS">
                 <div class="col l12 s12 m12">
-                    <a href="salir.php" class="btn-large" style="width: 100%;" >CERRAR SESSION</a>
+                    <a href="salir.php" class="btn waves-effect waves-light" style="width: 97%;">CERRAR SESSION</a>
                 </div>
             </div>
-            <div class="card-panel" class="card-panel center" style="width: 98%;padding: 10px;">
+            <br>
+            <div>
                 <div class="row">
                     Para Obtener Soporte escribanos <a href="mailto:soporte@eh-open.com">SOPORTE@EH-OPEN.COM</a>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="col l6 m6 s12" style="position: relative;top: 0px;right: 0px;">
         <div class="card-panel">
             <div class="card-panel" style="font-size: 0.8;">
                 <div class="row">
-                    <div class="col l12">DATOS PERSONALES</div>
+                    <div class="col l6 ">
+                        <div style="font-size: 0.7em;text-align: right;">Usuario:</div>
+                        <div style="font-size: 0.7em;text-align: right;"><?PHP echo $_SESSION['tipo_usuario']; ?></div>
+                    </div>
+                    <div class="col l6">
+                        <div   style="font-size: 0.7em;text-align: right;">Último Ingreso:</div>
+                        <div  style="font-size: 0.7em;text-align: right;"><?PHP echo $_SESSION['ultimo_ingreso']; ?></div>
+                    </div>
+                    <br>
                 </div>
                 <hr class="row" />
                 <div class="row">
-                    <div class="col l4">
-                        <img src="avatar.png" width="90%;" />
+                    <div class="col l4 center">
+                        <img src="images/hipocrates05.png" width="75%;"/>
                     </div>
                     <div class="col l8" style="text-align: left;">
                         <div class="row">
@@ -198,19 +209,12 @@ session_start();
                     </div>
                 </div>
                 <hr class="row" />
-                <div class="row">
-                    <div class="col l4" style="font-size: 0.7em;text-align: right;">Usuario:</div>
-                    <div class="col l8" style="font-size: 0.7em;text-align: left;"><?PHP echo $_SESSION['tipo_usuario']; ?></div>
-                </div>
-                <div class="row">
-                    <div class="col l4"  style="font-size: 0.7em;text-align: right;">Último Ingreso:</div>
-                    <div class="col l8"  style="font-size: 0.7em;text-align: left;"><?PHP echo $_SESSION['ultimo_ingreso']; ?></div>
-                </div>
-                <hr class="row" />
+
                 <div class="row">
                     <div class="col l12">
                         <a onclick="boxEditarInfoProfesional()">EDITAR INFORMACION</a>
                     </div>
+
                 </div>
                 <script type="text/javascript">
                     function boxEditarInfoProfesional(){

@@ -46,7 +46,7 @@ if($LOGIN=='TRUE'){
 
 </head>
 
-<body class="cyan">
+<body class="light">
 <!-- Start Page Loading -->
 <div id="loader-wrapper">
     <div id="loader"></div>
@@ -62,9 +62,9 @@ if($LOGIN=='TRUE'){
         <form class="login-form" method="post" enctype="multipart/form-data" action="php/login.php">
             <div class="row">
                 <div class="input-field col s12 center">
-                    <img src="images/Logo_ehopen.png"
+                    <img src="images/logo_eh_open_05x.png"
                          width="100%" />
-                    <p class="center login-form-text">Eh-Open Software<br />Sistema Informático de Salud</p>
+                    <p class="center login-form-text">Eh-Open Software<br /></p>
                 </div>
             </div>
             <div class="row margin">
