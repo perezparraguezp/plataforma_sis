@@ -7,6 +7,7 @@
                         class="browser-default"
                         onchange="loadGridPendientes_pscv()"
                         id="indicador_PSCV">
+                    <option selected="selected" disabled="disabled">SELECCIONAR PENDIENTES</option>
                     <option value="">TODOS</option>
                     <option>PARAMETROS</option>
                     <option>DIABETES</option>
@@ -19,7 +20,7 @@
 <div id="content_pendientes"></div>
 <script type="text/javascript">
     $(function () {
-        loadGridPendientes_pscv();
+        // loadGridPendientes_pscv();
     });
     function loadGridPendientes_pscv() {
         var indicador = $("#indicador_PSCV").val();

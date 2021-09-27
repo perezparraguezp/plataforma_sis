@@ -56,7 +56,7 @@ if($paciente->getModuloPaciente('m_adolescente')=='NO'){
     <script type="text/javascript">
         $(document).ready(function () {
             // Create jqxTabs.
-            $('#tabs_registro').jqxTabs({ width: '100%', height: 450, position: 'top',scrollPosition: 'both'});
+            $('#tabs_registro').jqxTabs({ width: '100%',theme: 'eh-open', height: 450, position: 'top',scrollPosition: 'both'});
             loadInfoPaciente('<?php echo $rut; ?>');
             load_ad_antecedentes('<?php echo $rut; ?>');
 
