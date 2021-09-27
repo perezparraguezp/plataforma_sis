@@ -51,7 +51,7 @@ $persona = new persona($profesional->rut);
             <script type="text/javascript">
                 $(document).ready(function () {
                     // Create jqxTabs.
-                    $('#tabs').jqxTabs({ width: '100%', height: 450, position: 'top'});
+                    $('#tabs').jqxTabs({ width: '100%', theme: 'eh-open',height: 450, position: 'top'});
 
                 });
             </script>

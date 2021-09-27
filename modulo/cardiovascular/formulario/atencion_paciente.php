@@ -55,7 +55,10 @@ if($paciente->getModuloPaciente('m_cardiovascular')=='NO'){
     <script type="text/javascript">
         $(document).ready(function () {
             // Create jqxTabs.
-            $('#tabs_registro').jqxTabs({ width: '100%', height: 450, position: 'top',scrollPosition: 'both',selectedItem: 1});
+            $('#tabs_registro').jqxTabs({
+                width: '100%', height: 450,
+                theme: 'eh-open',
+                position: 'top',scrollPosition: 'both',selectedItem: 1});
             loadInfoPaciente('<?php echo $rut; ?>');
             load_pscv_antecedentes('<?php echo $rut; ?>');
             load_pscv_parametros('<?php echo $rut; ?>');

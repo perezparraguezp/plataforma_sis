@@ -149,7 +149,7 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
                 <script type="text/javascript">
                     $(function(){
                         $("#region").jqxDropDownList({
-                            width: '100%', height: 30});
+                            width: '100%',theme: 'eh-open', height: 30});
 
                         $("#region").on('change',function(){
                             var region = $("#region").val();
@@ -162,7 +162,7 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
                                 $("#div_provincia").html('<select  name="provincia" id="provincia"></select>');
                                 $("#provincia").html(data);
                                 $("#provincia").jqxDropDownList({
-                                    width: '100%', height: 30});
+                                    width: '100%',theme: 'eh-open', height: 30});
 
                                 $("#provincia").on('change',function(){
                                     var region = $("#region").val();
@@ -310,10 +310,10 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
 </form>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#jqxNavigationBar").jqxNavigationBar({ width: '100%', height: 460});
+        $("#jqxNavigationBar").jqxNavigationBar({ width: '100%', theme: 'eh-open',height: 460});
 
         $("#id_centro").jqxDropDownList({
-            width: '100%', height: 30});
+            width: '100%',theme: 'eh-open', height: 30});
 
 
         $("#rut").on('change',function(){
@@ -372,7 +372,7 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
             $("#div_sector_id").html('');
             $("#div_sector_id").html('<select id="id_sector_centro" name="id_sector_centro"></select>');
             $("#id_sector_centro").html(data);
-            $("#id_sector_centro").jqxDropDownList({width: '100%', height: 30});
+            $("#id_sector_centro").jqxDropDownList({width: '100%',theme: 'eh-open', height: 30});
         });
     });
 

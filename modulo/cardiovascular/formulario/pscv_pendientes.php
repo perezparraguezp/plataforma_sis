@@ -42,6 +42,7 @@
     $("#grid_pendientes").jqxGrid(
         {
             width: '100%',
+            theme: 'eh-open',
             source: dataAdapter,
             height:alto-200,
             columnsresize: true,
