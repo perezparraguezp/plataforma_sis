@@ -98,6 +98,7 @@
         $("#grid").jqxGrid(
             {
                 width: '98%',
+                theme: 'eh-open',
                 source: dataAdapter,
                 height:400,
                 columnsresize: true,
