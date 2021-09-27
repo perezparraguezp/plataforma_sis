@@ -15,7 +15,7 @@ $mama = new persona($p->rut_mama);
     <script type="text/javascript">
         $(document).ready(function () {
             // Create jqxNavigationBar
-            $("#jqxNavigationBar").jqxNavigationBar({ width: '100%', height: 460});
+            $("#jqxNavigationBar").jqxNavigationBar({ width: '100%',theme: 'eh-open', height: 460});
         });
     </script>
     <div id='jqxNavigationBar'>
@@ -159,7 +159,7 @@ $mama = new persona($p->rut_mama);
                 <script type="text/javascript">
                     $(function(){
                         $("#region").jqxDropDownList({
-                            width: '100%', height: 30});
+                            width: '100%', theme: 'eh-open',height: 30});
 
                         $("#region").on('change',function(){
                             var region = $("#region").val();
@@ -172,7 +172,7 @@ $mama = new persona($p->rut_mama);
                                 $("#div_provincia").html('<select  name="provincia" id="provincia"></select>');
                                 $("#provincia").html(data);
                                 $("#provincia").jqxDropDownList({
-                                    width: '100%', height: 30});
+                                    width: '100%', theme: 'eh-open',height: 30});
 
                                 $("#provincia").on('change',function(){
                                     var region = $("#region").val();
@@ -186,7 +186,7 @@ $mama = new persona($p->rut_mama);
                                         $("#div_comuna").html('<select  name="comuna" id="comuna"></select>');
                                         $("#comuna").html(data);
                                         $("#comuna").jqxDropDownList({
-                                            width: '100%', height: 30});
+                                            width: '100%', theme: 'eh-open',height: 30});
                                     });
                                 });
                             });
@@ -327,7 +327,7 @@ $mama = new persona($p->rut_mama);
 <script type="text/javascript">
     $(document).ready(function () {
         $("#id_centro").jqxDropDownList({
-            width: '100%', height: 30});
+            width: '100%',theme: 'eh-open', height: 30});
 
 
         $("#rut").on('change',function(){

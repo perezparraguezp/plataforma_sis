@@ -33,7 +33,7 @@ $paciente = new persona($rut);
                             <script type="text/javascript">
                                 $(function(){
                                     $('#ev_neurosensorial').jqxDropDownList({
-                                        width: '100%',
+                                        width: '100%',theme: 'eh-open',
                                         height: '25px'
                                     });
                                     $("#ev_neurosensorial").on('change',function(){
@@ -79,7 +79,7 @@ $paciente = new persona($rut);
                             <script type="text/javascript">
                                 $(function(){
                                     $('#rx_pelvis').jqxDropDownList({
-                                        width: '100%',
+                                        width: '100%',theme: 'eh-open',
                                         height: '25px'
                                     });
                                     $("#rx_pelvis").on('change',function(){
@@ -126,7 +126,7 @@ $paciente = new persona($rut);
                             <script type="text/javascript">
                                 $(function(){
                                     $('#pauta_breve').jqxDropDownList({
-                                        width: '100%',
+                                        width: '100%',theme: 'eh-open',
                                         height: '25px'
                                     });
                                     $("#pauta_breve").on('change',function(){
@@ -168,7 +168,7 @@ $paciente = new persona($rut);
                             <script type="text/javascript">
                                 $(function(){
                                     $('#eedp').jqxDropDownList({
-                                        width: '100%',
+                                        width: '100%',theme: 'eh-open',
                                         height: '25px'
                                     });
                                     $('#eedp').on('change',function(){
@@ -238,7 +238,7 @@ $paciente = new persona($rut);
                                 $('#lenguaje').jqxSwitchButton({
                                     height: 27, width: 200,
                                     checked: <?php echo $paciente->eedp_lenguaje == 'NORMAL' ? 'true' : 'false'; ?>,
-                                    onLabel:'NORMAL',
+                                    onLabel:'NORMAL',theme: 'eh-open',
                                     offLabel:'ALTERADO',
                                 });
                                 $('#lenguaje').on('change',function(){
@@ -253,7 +253,7 @@ $paciente = new persona($rut);
                                     });
                                 });
                                 $('#motrocidad').jqxSwitchButton({
-                                    height: 27, width: 200,
+                                    height: 27, width: 200,theme: 'eh-open',
                                     checked: <?php echo $paciente->eedp_motrocidad == 'NORMAL' ? 'true' : 'false'; ?>,
                                     onLabel:'NORMAL',
                                     offLabel:'ALTERADO',
@@ -270,7 +270,7 @@ $paciente = new persona($rut);
                                     });
                                 });
                                 $('#coordinacion').jqxSwitchButton({
-                                    height: 27, width: 200,
+                                    height: 27, width: 200,theme: 'eh-open',
                                     checked: <?php echo $paciente->eedp_coordinacion == 'NORMAL' ? 'true' : 'false'; ?>,
                                     onLabel:'NORMAL',
                                     offLabel:'ALTERADO',
@@ -287,7 +287,7 @@ $paciente = new persona($rut);
                                     });
                                 });
                                 $('#social').jqxSwitchButton({
-                                    height: 27, width: 200,
+                                    height: 27, width: 200,theme: 'eh-open',
                                     checked: <?php echo $paciente->eedp_social == 'NORMAL' ? 'true' : 'false'; ?>,
                                     onLabel:'NORMAL',
                                     offLabel:'ALTERADO',
@@ -330,7 +330,7 @@ $paciente = new persona($rut);
                                 <script type="text/javascript">
                                     $(function(){
                                         $('#tepsi').jqxDropDownList({
-                                            width: '100%',
+                                            width: '100%',theme: 'eh-open',
                                             height: '25px'
                                         });
                                         $('#tepsi').on('change',function(){
@@ -396,7 +396,7 @@ $paciente = new persona($rut);
                             <script type="text/javascript">
                                 $(function(){
                                     $('#lenguaje_tepsi').jqxSwitchButton({
-                                        height: 27, width: 200,
+                                        height: 27, width: 200,theme: 'eh-open',
                                         checked: <?php echo $paciente->tepsi_lenguaje == 'NORMAL' ? 'true' : 'false'; ?>,
                                         onLabel:'NORMAL',
                                         offLabel:'ALTERADO',
@@ -413,7 +413,7 @@ $paciente = new persona($rut);
                                         });
                                     });
                                     $('#motrocidad_tepsi').jqxSwitchButton({
-                                        height: 27, width: 200,
+                                        height: 27, width: 200,theme: 'eh-open',
                                         checked: <?php echo $paciente->tepsi_motrocidad == 'NORMAL' ? 'true' : 'false'; ?>,
                                         onLabel:'NORMAL',
                                         offLabel:'ALTERADO',
@@ -431,7 +431,7 @@ $paciente = new persona($rut);
                                     });
 
                                     $('#coordinacion_tepsi').jqxSwitchButton({
-                                        height: 27, width: 200,
+                                        height: 27, width: 200,theme: 'eh-open',
                                         checked: <?php echo $paciente->tepsi_coordinacion == 'NORMAL' ? 'true' : 'false'; ?>,
                                         onLabel:'NORMAL',
                                         offLabel:'ALTERADO',

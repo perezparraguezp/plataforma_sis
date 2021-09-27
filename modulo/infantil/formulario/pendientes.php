@@ -29,6 +29,7 @@ $rut = $_POST['rut'];
         $("#grid_pendientes_paciente").jqxGrid(
             {
                 width: '100%',
+                theme: 'eh-open',
                 source: dataAdapter,
                 height:300,
                 columnsresize: true,

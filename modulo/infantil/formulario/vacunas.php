@@ -66,6 +66,7 @@ $paciente->calcularEdadFecha($fecha_registro);
                                     $('#vacuna2m').jqxSwitchButton({
                                         height: 27, width: 81,
                                         checked: false,
+                                        theme: 'eh-open',
                                         onLabel:'SI',
                                         offLabel:'NO',
                                     });
@@ -99,6 +100,7 @@ $paciente->calcularEdadFecha($fecha_registro);
                                         height: 27, width: 81,
                                         checked: false,
                                         onLabel:'SI',
+                                        theme: 'eh-open',
                                         offLabel:'NO',
                                     });
                                     $('#vacuna4m').on('change',function(){
@@ -131,6 +133,7 @@ $paciente->calcularEdadFecha($fecha_registro);
                                         height: 27, width: 81,
                                         checked: false,
                                         onLabel:'SI',
+                                        theme: 'eh-open',
                                         offLabel:'NO',
                                     });
                                     $('#vacuna6m').on('change',function(){
@@ -163,6 +166,7 @@ $paciente->calcularEdadFecha($fecha_registro);
                                         height: 27, width: 81,
                                         checked: false,
                                         onLabel:'SI',
+                                        theme: 'eh-open',
                                         offLabel:'NO',
                                     });
                                     $('#vacuna12m').on('change',function(){
@@ -202,6 +206,7 @@ $paciente->calcularEdadFecha($fecha_registro);
                                         height: 27, width: 81,
                                         checked: false,
                                         onLabel:'SI',
+                                        theme: 'eh-open',
                                         offLabel:'NO',
                                     });
                                     $('#vacuna18m').on('change',function(){
@@ -233,6 +238,7 @@ $paciente->calcularEdadFecha($fecha_registro);
                                         height: 27, width: 81,
                                         checked: false,
                                         onLabel:'SI',
+                                        theme: 'eh-open',
                                         offLabel:'NO',
                                     });
                                     $('#vacuna5anios').on('change',function(){

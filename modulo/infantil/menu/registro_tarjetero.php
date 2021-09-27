@@ -183,6 +183,7 @@ $rut = $_POST['rut'];
         $('#tabs_formulario_registro').jqxTabs({
             width: '100%', height: 800,
             position: 'top',
+            theme: 'eh-open',
             scrollPosition: 'both'});
         //load_grid_pacientesInfantil();
 
@@ -190,6 +191,7 @@ $rut = $_POST['rut'];
             {
                 width:'100%',
                 height:25,
+                theme: 'eh-open',
                 placeHolder: "BUSCAR PACIENTE",
                 source: function (query, response) {
                     var dataAdapter = new $.jqx.dataAdapter
@@ -223,7 +225,7 @@ $rut = $_POST['rut'];
     });
     function validar_Rut(){
         $("#fecha_registro").jqxInput({
-            placeHolder: "dd/mm/YYYY", height: 30 });
+            placeHolder: "dd/mm/YYYY",theme: 'eh-open', height: 30 });
         // $("#button_buscar").jqxButton({ height: 30 });
     }
 

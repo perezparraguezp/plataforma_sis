@@ -44,6 +44,7 @@
             {
                 width:'100%',
                 height:25,
+                theme: 'eh-open',
                 placeHolder: "BUSCAR PACIENTE",
                 source: function (query, response) {
                     var dataAdapter = new $.jqx.dataAdapter

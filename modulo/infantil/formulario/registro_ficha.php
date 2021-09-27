@@ -60,7 +60,7 @@ if($paciente->getModuloPaciente('m_infancia')=='NO'){
     <script type="text/javascript">
         $(document).ready(function () {
             // Create jqxTabs.
-            $('#tabs_registro').jqxTabs({ width: '100%', height: 450,
+            $('#tabs_registro').jqxTabs({ width: '100%', height: 450,theme: 'eh-open',
                 position: 'top',scrollPosition: 'both',selectedItem: 1});
 
             loadInfoPaciente('<?php echo $rut; ?>');
