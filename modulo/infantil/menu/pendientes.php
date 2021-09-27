@@ -5,12 +5,13 @@
                 <select name="indicador" class="browser-default"
                                                      onchange="loadGridPendientes()"
                                                      id="indicador">
-                    <option value="">TODOS</option>
+                    <option selected="selected" disabled="disabled">SELECCIONAR PENDIENTES</option>
                     <option>ANTROPOMETRIA</option>
                     <option>DENTAL</option>
                     <option>PSICOMOTOR</option>
                     <option>VACUNAS</option>
                     <option>CONTROL DE SALUD</option>
+                    <option value="">TODOS</option>
 
                 </select></label>
         </div>
@@ -19,7 +20,7 @@
 <div id="content_pendientes"></div>
 <script type="text/javascript">
     $(function () {
-        loadGridPendientes();
+        // loadGridPendientes();
     });
     function loadGridPendientes() {
         var indicador = $("#indicador").val();

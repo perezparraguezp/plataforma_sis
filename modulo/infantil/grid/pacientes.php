@@ -16,7 +16,7 @@
             loadGrid();
         });
 
-        loadGrid();
+        // loadGrid();
     });
     function loadGrid(){
         var tipo = $("#tipo_paciente").val();
@@ -191,6 +191,7 @@
                     <select id="tipo_paciente"
                             style="font-size: 1em;"
                             name="tipo_paciente" class="browser-default">
+                        <option disabled="disabled" selected="selected">SELECCIONAR TIPO DE PACIENTE INFANTIL</option>
                         <option>TODOS</option>
                         <option>NANEAS</option>
                         <option>PUEBLOS ORIGINARIOS</option>

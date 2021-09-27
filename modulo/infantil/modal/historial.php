@@ -41,6 +41,7 @@ $p = new persona($rut);
         $("#grid_historial").jqxGrid(
             {
                 width: '100%',
+                theme: 'eh-open',
                 source: dataAdapter,
                 columnsresize: true,
                 sortable: true,
