@@ -16,7 +16,7 @@ $paciente = new persona($rut);
 <script type="text/javascript">
     $(document).ready(function () {
         // Create jqxTabs.
-        $('#tabs_gestaciones').jqxTabs({ width: '100%', position: 'top'});
+        $('#tabs_gestaciones').jqxTabs({ width: '100%',theme: 'eh-open', position: 'top'});
         $('.tooltipped').tooltip({delay: 50});
     });
 </script>
@@ -88,6 +88,7 @@ $paciente = new persona($rut);
                                 $('.tooltipped').tooltip({delay: 50});
                                 $('#imc_post_parto_<?php echo $id_gestacion; ?>').jqxDropDownList({
                                     width: '100%',
+                                    theme: 'eh-open',
                                     height: '25px'
                                 });
 

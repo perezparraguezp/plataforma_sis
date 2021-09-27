@@ -26,6 +26,7 @@ $id_gestacion = $_POST['id_gestacion'];
                 $(function(){
                     $('#evaluacion').jqxDropDownList({
                         width: '100%',
+                        theme: 'eh-open',
                         height: '25px'
                     });
                 })
@@ -44,6 +45,7 @@ $id_gestacion = $_POST['id_gestacion'];
                 $(function(){
                     $('#tipo_control').jqxDropDownList({
                         width: '100%',
+                        theme: 'eh-open',
                         height: '25px'
                     });
                 })

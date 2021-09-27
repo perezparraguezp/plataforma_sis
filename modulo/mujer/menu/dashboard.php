@@ -30,6 +30,7 @@ $sql1 = "select * from sector_comunal
                 $(function(){
                     $('#sector_comunal').jqxDropDownList({
                         width: '98%',
+                        theme: 'eh-open',
                         height: '25px',
                         checkboxes: true
                     });
@@ -67,6 +68,7 @@ $sql1 = "select * from sector_comunal
                 $(function(){
                     $('#indicador').jqxDropDownList({
                         width: '98%',
+                        theme: 'eh-open',
                         height: '25px'
                     });
                     $('#indicador').on('change',function () {
@@ -143,6 +145,7 @@ $sql1 = "select * from sector_comunal
                 $('#centro_interno').jqxDropDownList({
                     width: '98%',
                     height: '25px',
+                    theme: 'eh-open',
                     checkboxes: true
                 });
                 $("#centro_interno").on('checkChange', function (event2){
@@ -172,6 +175,7 @@ $sql1 = "select * from sector_comunal
                             $('#sector_interno').jqxDropDownList({
                                 width: '98%',
                                 height: '25px',
+                                theme: 'eh-open',
                                 checkboxes: true
                             });
                             $("#sector_interno").on('checkChange', function (event3){

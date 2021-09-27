@@ -43,6 +43,7 @@ $fecha_registro = $_POST['fecha_registro'];
     $(function(){
         $('#tipo_hormona').jqxDropDownList({
             width: '100%',
+            theme: 'eh-open',
             height: '25px'
         });
 

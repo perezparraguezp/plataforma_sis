@@ -11,7 +11,7 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
     <script type="text/javascript">
         $(document).ready(function () {
             // Create jqxNavigationBar
-            $("#jqxNavigationBar").jqxNavigationBar({ width: '100%', height: 460});
+            $("#jqxNavigationBar").jqxNavigationBar({ width: '100%',theme: 'eh-open', height: 460});
         });
     </script>
 
@@ -155,7 +155,7 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
                 <script type="text/javascript">
                     $(function(){
                         $("#region").jqxDropDownList({
-                            width: '100%', height: 30});
+                            width: '100%',theme: 'eh-open', height: 30});
 
                         $("#region").on('change',function(){
                             var region = $("#region").val();
@@ -245,7 +245,7 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
 <script type="text/javascript">
     $(document).ready(function () {
         $("#id_centro").jqxDropDownList({
-            width: '100%', height: 30});
+            width: '100%',theme: 'eh-open', height: 30});
 
 
         $("#rut").on('change',function(){

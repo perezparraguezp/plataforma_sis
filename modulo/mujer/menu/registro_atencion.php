@@ -86,12 +86,14 @@ $rut = $_POST['rut'];
     $(function(){
         $('#tabs_formulario_registro').jqxTabs({
             width: '100%', height: 800,
+            theme: 'eh-open',
             position: 'top',
             scrollPosition: 'both'});
         $("#rut_paciente").jqxInput(
             {
                 width:'100%',
                 height:25,
+                theme: 'eh-open',
                 placeHolder: "BUSCAR PACIENTE",
                 source: function (query, response) {
                     var dataAdapter = new $.jqx.dataAdapter

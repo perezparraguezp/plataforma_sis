@@ -101,6 +101,7 @@ $estado_gestacion = $paciente->getEstadoGestacion($id_gestacion);
                                                     $('.tooltipped').tooltip({delay: 50});
                                                     $('#riesgo_biopsicosocial').jqxDropDownList({
                                                         width: '100%',
+                                                        theme: 'eh-open',
                                                         height: '25px'
                                                     });
                                                     if($("#riesgo_biopsicosocial").val() !=='SIN RIESGO'){
@@ -143,6 +144,7 @@ $estado_gestacion = $paciente->getEstadoGestacion($id_gestacion);
                                                     $('.tooltipped').tooltip({delay: 50});
                                                     $('#imc_gestacional').jqxDropDownList({
                                                         width: '100%',
+                                                        theme: 'eh-open',
                                                         height: '25px'
                                                     });
 

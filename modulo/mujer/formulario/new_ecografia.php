@@ -50,10 +50,12 @@ $id_gestacion = $_POST['id_gestacion'];
     $(function(){
         $('#tipo_eco').jqxDropDownList({
             width: '100%',
+            theme: 'eh-open',
             height: '25px'
         });
         $('#trimestre').jqxDropDownList({
             width: '100%',
+            theme: 'eh-open',
             height: '25px'
         });
 
