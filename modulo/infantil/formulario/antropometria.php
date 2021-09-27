@@ -28,6 +28,7 @@ if($paciente->validaNutricionista()==true){
                     $(function(){
                         $('#eval_nutricionista').jqxDropDownList({
                             width: '100%',
+                            theme: 'eh-open',
                             height: '25px'
                         });
 
@@ -78,6 +79,7 @@ if($paciente->validaNutricionista()==true){
                                 $(function(){
                                     $('#pe').jqxDropDownList({
                                         width: '100%',
+                                        theme: 'eh-open',
                                         height: '25px'
                                     });
 
@@ -133,6 +135,7 @@ if($paciente->validaNutricionista()==true){
                                 $(function(){
                                     $('#pt').jqxDropDownList({
                                         width: '100%',
+                                        theme: 'eh-open',
                                         height: '25px'
                                     });
 
@@ -187,6 +190,7 @@ if($paciente->validaNutricionista()==true){
                                 $(function(){
                                     $('#imce').jqxDropDownList({
                                         width: '100%',
+                                        theme: 'eh-open',
                                         height: '25px'
                                     });
 
@@ -240,6 +244,7 @@ if($paciente->validaNutricionista()==true){
                                 $(function(){
                                     $('#te').jqxDropDownList({
                                         width: '100%',
+                                        theme: 'eh-open',
                                         height: '25px'
                                     });
 
@@ -294,6 +299,7 @@ if($paciente->validaNutricionista()==true){
                                 $(function(){
                                     $('#dni').jqxDropDownList({
                                         width: '100%',
+                                        theme: 'eh-open',
                                         height: '25px'
                                     });
 
@@ -348,6 +354,7 @@ if($paciente->validaNutricionista()==true){
                                 $(function(){
                                     $('#lme').jqxDropDownList({
                                         width: '100%',
+                                        theme: 'eh-open',
                                         height: '25px'
                                     });
                                     $("#lme").on('change',function(){
@@ -398,6 +405,7 @@ if($paciente->validaNutricionista()==true){
                                 $(function(){
                                     $('#pcint').jqxDropDownList({
                                         width: '100%',
+                                        theme: 'eh-open',
                                         height: '25px'
                                     });
 
@@ -448,6 +456,7 @@ if($paciente->validaNutricionista()==true){
                                 $(function(){
                                     $('#rimaln').jqxDropDownList({
                                         width: '100%',
+                                        theme: 'eh-open',
                                         height: '25px'
                                     });
                                     $("#rimaln").on('change',function(){
@@ -500,6 +509,7 @@ if($paciente->validaNutricionista()==true){
                                 $(function(){
                                     $('#presion_arterial').jqxDropDownList({
                                         width: '100%',
+                                        theme: 'eh-open',
                                         height: '25px'
                                     });
 
@@ -557,6 +567,7 @@ if($paciente->validaNutricionista()==true){
                                 $(function(){
                                     $('#perimetro_craneal').jqxDropDownList({
                                         width: '100%',
+                                        theme: 'eh-open',
                                         height: '25px'
                                     });
 
@@ -610,6 +621,7 @@ if($paciente->validaNutricionista()==true){
                                 $(function(){
                                     $('#agudeza_visual').jqxDropDownList({
                                         width: '100%',
+                                        theme: 'eh-open',
                                         height: '25px'
                                     });
 
@@ -662,6 +674,7 @@ if($paciente->validaNutricionista()==true){
                                 $(function(){
                                     $('#evaluacion_auditiva').jqxDropDownList({
                                         width: '100%',
+                                        theme: 'eh-open',
                                         height: '25px'
                                     });
 
@@ -718,6 +731,7 @@ if($paciente->validaNutricionista()==true){
                             $(function(){
                                 $('#ira').jqxDropDownList({
                                     width: '100%',
+                                    theme: 'eh-open',
                                     height: '25px'
                                 });
 
@@ -764,6 +778,7 @@ if($paciente->validaNutricionista()==true){
                             $(function(){
                                 $('#ira_visita').jqxDropDownList({
                                     width: '100%',
+                                    theme: 'eh-open',
                                     height: '25px'
                                 });
 

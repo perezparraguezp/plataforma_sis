@@ -478,7 +478,6 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                 autoshowfiltericon: true,
                 showfilterrow: true,
                 showstatusbar: true,
-
                 statusbarheight: 30,
                 showaggregates: true,
                 selectionmode: 'multiplecellsextended',

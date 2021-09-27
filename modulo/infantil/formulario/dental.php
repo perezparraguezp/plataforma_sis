@@ -148,6 +148,7 @@ $paciente = new persona($rut);
                             $(function(){
                                 $('#dental_indice').jqxDropDownList({
                                     width: '100%',
+                                    theme: 'eh-open',
                                     height: '25px'
                                 });
 
@@ -199,6 +200,7 @@ $paciente = new persona($rut);
                             $(function(){
                                 $('#dental_c').jqxDropDownList({
                                     width: '100%',
+                                    theme: 'eh-open',
                                     height: '25px'
                                 });
 
@@ -245,6 +247,7 @@ $paciente = new persona($rut);
                             $(function(){
                                 $('#dental_e').jqxDropDownList({
                                     width: '100%',
+                                    theme: 'eh-open',
                                     height: '25px'
                                 });
 
@@ -291,6 +294,7 @@ $paciente = new persona($rut);
                             $(function(){
                                 $('#dental_o').jqxDropDownList({
                                     width: '100%',
+                                    theme: 'eh-open',
                                     height: '25px'
                                 });
 
@@ -342,6 +346,7 @@ $paciente = new persona($rut);
                             $(function(){
                                 $('#dental_dientes').jqxDropDownList({
                                     width: '100%',
+                                    theme: 'eh-open',
                                     height: '25px'
                                 });
 
@@ -390,6 +395,7 @@ $paciente = new persona($rut);
                             $(function(){
                                 $('#dental_riesgo').jqxDropDownList({
                                     width: '100%',
+                                    theme: 'eh-open',
                                     height: '25px'
                                 });
 

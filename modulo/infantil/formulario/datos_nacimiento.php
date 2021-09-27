@@ -30,7 +30,7 @@ $paciente->load_DatosNacimiento();
                 <script type="text/javascript">
                     $(function(){
                         $('#eoa').jqxDropDownList({
-                            width: '100%',
+                            width: '100%',theme: 'eh-open',
                             height: '25px'
                         });
                         $("#eoa").jqxDropDownList('selectItem','<?php echo $paciente->eoa;  ?>');
@@ -71,7 +71,7 @@ $paciente->load_DatosNacimiento();
                 <script type="text/javascript">
                     $(function(){
                         $('#pku').jqxDropDownList({
-                            width: '100%',
+                            width: '100%',theme: 'eh-open',
                             height: '25px'
                         });
                         $("#pku").jqxDropDownList('selectItem','<?php echo $paciente->pku;  ?>');
@@ -112,7 +112,7 @@ $paciente->load_DatosNacimiento();
                 <script type="text/javascript">
                     $(function(){
                         $('#hc').jqxDropDownList({
-                            width: '100%',
+                            width: '100%',theme: 'eh-open',
                             height: '25px'
                         });
                         $("#hc").jqxDropDownList('selectItem','<?php echo $paciente->hc;  ?>');
@@ -153,7 +153,7 @@ $paciente->load_DatosNacimiento();
                 <script type="text/javascript">
                     $(function(){
                         $('#apego_inmediato').jqxDropDownList({
-                            width: '100%',
+                            width: '100%',theme: 'eh-open',
                             height: '25px'
                         });
                         $("#apego_inmediato").jqxDropDownList('selectItem','<?php echo $paciente->apego_inmediato;  ?>');
@@ -194,7 +194,7 @@ $paciente->load_DatosNacimiento();
                 <script type="text/javascript">
                     $(function(){
                         $('#vacuna_bcg').jqxDropDownList({
-                            width: '100%',
+                            width: '100%',theme: 'eh-open',
                             height: '25px'
                         });
                         $("#vacuna_bcg").jqxDropDownList('selectItem','<?php echo $paciente->vacuna_bcg;  ?>');
@@ -234,7 +234,7 @@ $paciente->load_DatosNacimiento();
                 <script type="text/javascript">
                     $(function(){
                         $('#vacuna_hp').jqxDropDownList({
-                            width: '100%',
+                            width: '100%',theme: 'eh-open',
                             height: '25px'
                         });
                         $("#vacuna_hp").jqxDropDownList('selectItem','<?php echo $paciente->vacuna_bcg;  ?>');
