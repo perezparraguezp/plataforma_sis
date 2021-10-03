@@ -183,7 +183,7 @@ session_start();
                 <hr class="row" />
                 <div class="row">
                     <div class="col l4 center">
-                        <img src="images/hipocrates05.png" width="75%;"/>
+                        <img src="perfil.jpeg" width="75%;"/>
                     </div>
                     <div class="col l8" style="text-align: left;">
                         <div class="row">

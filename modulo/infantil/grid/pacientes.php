@@ -52,10 +52,7 @@
             };
 
         var cellLinkRegistroTarjetero = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-            return ''+
-                '<a onclick="loadMenu_Infantil(\'menu_1\',\'registro_tarjetero\',\''+value+'\')" style="color: white;" >' +
-                '<i class="mdi-hardware-keyboard-return"></i> IR' +
-                '</a>';
+            return '<i onclick="loadMenu_Infantil(\'menu_1\',\'registro_tarjetero\',\''+value+'\')"  class="mdi-hardware-keyboard-return"></i> IR';
         }
         var cellIrClass = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
             return  "eh-open_principal white-text cursor_cell_link center";

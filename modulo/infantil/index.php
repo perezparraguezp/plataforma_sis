@@ -174,6 +174,10 @@
             color: white;
             font-family: Helvetica, Arial, Verdana, sans-serif;
         }
+        .eh-open_principal:hover{
+            color: black;
+            font-family: Helvetica, Arial, Verdana, sans-serif;
+        }
         body{
             font-family: Helvetica, Arial, Verdana, sans-serif;
         }

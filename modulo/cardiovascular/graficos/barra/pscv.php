@@ -499,13 +499,10 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                 localdata: data
             };
         var cellLinkRegistroTarjetero = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-            return '<i class="mdi-hardware-keyboard-return"></i> '+
-                '<a href="registrar_ficha.php?rut='+value+'" style="color: black;" >' +
-                'IR' +
-                '</a>';
+            return '<i onclick="loadMenu_CardioVascular(\'menu_1\',\'registro_atencion\',\''+value+'\')" class="mdi-hardware-keyboard-return"></i> IR';
         }
         var cellIrClass = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-            return  "green center-align cursor_cell_link black-text";
+            return  "eh-open_principal white-text cursor_cell_link center";
 
         }
 
