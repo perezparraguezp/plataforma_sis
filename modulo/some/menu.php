@@ -22,7 +22,8 @@ $profesional = new profesional($_SESSION['id_usuario']);
 </ul>
 <aside id="left-sidebar-nav">
     <ul id="slide-out" class="side-nav fixed leftside-navigation">
-        <li class="user-details cyan darken-2" style="background-image: url(ingreso_pacientes.png);">
+        <li class="user-details cyan darken-2"
+            style="background-image: url(ingreso_pacientes.png);width: 100%;">
             <div class="row">
                 <!--
                 <div class="col col s4 m4 l4" style="margin-top: -10px;">
@@ -38,7 +39,7 @@ $profesional = new profesional($_SESSION['id_usuario']);
             </div>
         </li>
         <li id="menu_3" onclick="loadMenu_SOME('menu_3','pacientes','')"class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-action-account-child"></i> Pacientes</a></li>
-        <li id="menu_44" onclick="menu_misDatos('menu_44','mis_datos','')"class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-action-perm-contact-cal"></i> Mis Datos</a></li>
+
         <li class="bold"><a href="../../php/salir.php" class="waves-effect waves-cyan"><i class="mdi-action-lock"></i> CERRAR SESSIÓN </a></li>
     </ul>
     <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only darken-2"><i class="mdi-navigation-menu" ></i></a>

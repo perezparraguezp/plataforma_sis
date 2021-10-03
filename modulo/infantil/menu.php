@@ -98,7 +98,6 @@ $profesional = new profesional($_SESSION['id_usuario']);
             <?php
         }
         ?>
-        <li id="menu_44" onclick="menu_misDatos('menu_44','mis_datos','')"class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-action-perm-contact-cal"></i> Mis Datos</a></li>
         <li class="bold"><a href="../../php/salir.php" class="waves-effect waves-cyan"><i class="mdi-action-lock"></i> CERRAR SESSIÓN </a></li>
     </ul>
     <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only darken-2"><i class="mdi-navigation-menu" ></i></a>
