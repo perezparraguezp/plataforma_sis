@@ -95,7 +95,7 @@ $sql1 = "select * from sector_comunal
         </div>
     </div>
 
-    <div class="row" style="margin-top: 5px;">
+    <div class="row" style="margin-top: 15px;">
         <div class="col l12 m12 s12">
             <input type="button"
                    class="btn col l12 m12 s12"

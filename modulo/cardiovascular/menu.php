@@ -22,18 +22,12 @@ $profesional = new profesional($_SESSION['id_usuario']);
 </ul>
 <aside id="left-sidebar-nav">
     <ul id="slide-out" class="side-nav fixed leftside-navigation">
-        <li class="user-details cyan darken-2" style="background-image: url(fondo_pscv.png);ima">
+        <li class="user-details cyan darken-2"
+            style="background-image: url(sis_cardiovascular.jpeg);width: 100%;height: 80px;">
             <div class="row">
-                <!--
-                <div class="col col s4 m4 l4" style="margin-top: -10px;">
-                    <img src="img/h.png" alt="" class="circle responsive-img valign profile-image">
-                </div>
-                -->
+
                 <div class="col col s12 m12 l12" style="height: 70px;">
-                    <a style="left: 55px;"
-                       class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#"
-                       data-activates="menu_usuario"><?php echo $profesional->nombre;; ?><i class="mdi-navigation-arrow-drop-down right"></i></a>
-                    <p class="user-roal"><?php echo $profesional->tipo_profesional; ?></p>
+
                 </div>
             </div>
         </li>

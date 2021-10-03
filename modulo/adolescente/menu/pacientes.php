@@ -1,12 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: ipapo
- * Date: 5/29/20
- * Time: 11:45 AM
- */
 
-?>
 
 
 <div id="content-pacientes" class="content">

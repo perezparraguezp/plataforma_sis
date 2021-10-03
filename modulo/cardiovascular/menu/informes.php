@@ -21,7 +21,7 @@ $dsm = new establecimiento($id_establecimiento);
 </ul>
 <div class="container">
     <div class="col s12 m12 l12" style="margin-top: 10px;">
-        <nav class="blue lighten-3">
+        <nav class="eh-open_principal">
             <div class="nav-wrapper">
                 <div class="col s12">
                     <a href="#!" class="brand-logo"><i class="mdi-action-settings-applications"></i></a>

@@ -160,7 +160,7 @@
             border: none;
             text-decoration: none;
         }
-        a:hover{
+        ul li a:hover{
             background-color: #bbdefb;
         }
         .active{

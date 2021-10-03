@@ -38,6 +38,7 @@
     <!-- JQUERY -->
     <!-- php script -->
     <link type="text/css" rel="stylesheet" href="../../jqwidgets/styles/jqx.base.css"  />
+    <link type="text/css" rel="stylesheet" href="../../jqwidgets/styles/eh-open.css"  />
 
 
     <script type="text/javascript" src="../../jqwidgets/jqxcore.js"></script>
@@ -168,7 +169,29 @@
 
         }
     </script>
-
+    <style type="text/css">
+        ul li a:hover{
+            background-color: #bbdefb;
+        }
+        .active{
+            background-color: #e3f2fd;
+        }
+        .cursor_cell_link{
+            cursor: pointer;
+        }
+        .eh-open_principal{
+            background-color: #0a73a7;
+            color: white;
+            font-family: Helvetica, Arial, Verdana, sans-serif;
+        }
+        .eh-open_principal:hover{
+            color: black;
+            font-family: Helvetica, Arial, Verdana, sans-serif;
+        }
+        body{
+            font-family: Helvetica, Arial, Verdana, sans-serif;
+        }
+    </style>
 
 </head>
 

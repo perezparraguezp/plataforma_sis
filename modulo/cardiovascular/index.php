@@ -9,7 +9,7 @@
     <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
     <title>Bienvenido - CARDIOASCULAR</title>
     <link rel="stylesheet" href="../../jqwidgets/styles/jqx.base.css" type="text/css" />
-    
+
     <!-- Favicons-->
     <link rel="icon" href="../../images/O.ico" sizes="32x32">
     <!-- Favicons-->
@@ -192,6 +192,29 @@
         }
     </script>
 
+    <style type="text/css">
+        ul li a:hover{
+            background-color: #bbdefb;
+        }
+        .active{
+            background-color: #e3f2fd;
+        }
+        .cursor_cell_link{
+            cursor: pointer;
+        }
+        .eh-open_principal{
+            background-color: #0a73a7;
+            color: white;
+            font-family: Helvetica, Arial, Verdana, sans-serif;
+        }
+        .eh-open_principal:hover{
+            color: black;
+            font-family: Helvetica, Arial, Verdana, sans-serif;
+        }
+        body{
+            font-family: Helvetica, Arial, Verdana, sans-serif;
+        }
+    </style>
 
 </head>
 

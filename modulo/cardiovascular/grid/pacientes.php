@@ -33,13 +33,11 @@
             };
 
         var cellLinkRegistroTarjetero = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-            return ''+
-                '<a onclick="loadMenu_CardioVascular(\'menu_1\',\'registro_atencion\',\''+value+'\')"  style="color: black;" >' +
-                '<i class="mdi-hardware-keyboard-return"></i> IR' +
-                '</a>';
+            return '<i onclick="loadMenu_CardioVascular(\'menu_1\',\'registro_atencion\',\''+value+'\')"  ' +
+                'style="color: white;" class="mdi-hardware-keyboard-return"></i> IR' ;
         }
         var cellIrClass = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-            return  "green center-align cursor_cell_link black-text";
+            return  "eh-open_principal white-text cursor_cell_link center";
 
         }
         var cellEditarPaciente = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
@@ -67,12 +65,12 @@
             if(value=='M'){
                 return  "light-blue lighten-1";
             }else{
-                return  "pink lighten-1";
+                return  "pink lighten-1 white-text";
             }
 
         }
         var cellEditarClass = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-            return  "green center-align cursor_cell_link black-text";
+            return  "eh-open_principal white-text cursor_cell_link center";
 
         }
 
@@ -173,7 +171,7 @@
         <div class="card-panel">
             <div class="row">
                 <div class="col l12 right-align">
-                    <input type="button" class="btn  green lighten-3"
+                    <input type="button" class="btn eh-open_principal"
                            value="Exportar a Excel" id='excelExport' />
                 </div>
             </div>

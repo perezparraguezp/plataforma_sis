@@ -7,19 +7,6 @@
  */
 
 ?>
-
-<div class="row">
-    <div class="col l12">
-        <div class="col l4">
-        </div>
-        <div class="col l4">
-            <a class="btn waves-effect waves-light col s12" onclick="load_lista_am()"><i class="mdi-action-account-child"></i> VER LISTADO DE PACIENTES</a>
-        </div>
-        <div class="col l4">
-<!--            <a class="btn light-green lighten-2 col s12" onclick="importar_pacientes_pscv()"><i class="mdi-communication-import-export"></i> IMPORTAR PACIENTES</a>-->
-        </div>
-    </div>
-</div>
 <div id="content-pacientes" class="content">
 
 </div>

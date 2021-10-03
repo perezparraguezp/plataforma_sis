@@ -66,6 +66,7 @@
     $(function(){
         $('#estado').jqxDropDownList({
             width: '98%',
+            theme: 'eh-open',
             height: '25px'
         });
     });
