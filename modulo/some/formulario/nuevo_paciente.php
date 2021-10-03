@@ -351,10 +351,11 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
 </form>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#jqxNavigationBar").jqxNavigationBar({ width: '100%', height: 460});
+        $("#jqxNavigationBar").jqxNavigationBar({ width: '100%',theme: 'eh-open', height: 460});
 
         $("#id_centro").jqxDropDownList({
-            width: '100%', height: 30});
+
+            width: '100%',theme: 'eh-open', height: 30});
 
 
         $("#rut").on('change',function(){
