@@ -49,4 +49,16 @@ $dsm = new establecimiento($id_establecimiento);
             }
         });
     }
+    function load_estadistica_REMP12(){
+        var div = 'contenido_menu';
+        loading_div(div);
+        $.post('info/P12.php',{
+        },function(data){
+            if(data !=='ERROR_SQL' ){
+                $("#"+div).html(data);
+            }else{
+
+            }
+        });
+    }
 </script>

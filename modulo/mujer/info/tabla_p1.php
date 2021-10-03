@@ -82,6 +82,7 @@ $filtro_rango_seccion_a = [
     <div class="row" style="padding:20px;">
         <div class="col l10">
             <header>CENTRO MEDICO: <?php echo $nombre_centro; ?></header>
+            <header>REM-P1. POBLACIÓN EN CONTROL PROGRAMA DE SALUD DE LA MUJER</header>
         </div>
         <div class="col l2">
             <input type="button"
