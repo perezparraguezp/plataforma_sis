@@ -21,7 +21,7 @@ $dsm = new establecimiento($id_establecimiento);
 </ul>
 <div class="container">
     <div class="col s12 m12 l12" style="margin-top: 10px;">
-        <nav class="blue lighten-3">
+        <nav class="eh-open_principal">
             <div class="nav-wrapper">
                 <div class="col s12">
                     <a href="#!" class="brand-logo"><i class="mdi-action-settings-applications"></i></a>
@@ -35,11 +35,12 @@ $dsm = new establecimiento($id_establecimiento);
             </div>
         </nav>
     </div>
-    <div id="contenido_menu">
+    <div id="contenido_menu" style="font-family: Helvetica, Arial, Verdana, sans-serif;">
         <div class="card-panel">
-            <h4>Bienvenido!<br /><?php echo $dsm->nombre; ?></h4>
-            <p>En esta seccion el usuario podrá generar los informes necesarios para realizar una gestión de calidad.</p>
+            <h4>Estadisticas</h4>
+            <div id="estadisticas_infantil">
 
+            </div>
         </div>
     </div>
 </div>

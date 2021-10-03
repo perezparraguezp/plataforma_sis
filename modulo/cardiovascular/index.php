@@ -9,7 +9,7 @@
     <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
     <title>Bienvenido - CARDIOASCULAR</title>
     <link rel="stylesheet" href="../../jqwidgets/styles/jqx.base.css" type="text/css" />
-    <link rel="stylesheet" href="../../jqwidgets/styles/eh-open.css" type="text/css" />
+    
     <!-- Favicons-->
     <link rel="icon" href="../../images/O.ico" sizes="32x32">
     <!-- Favicons-->

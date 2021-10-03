@@ -432,7 +432,7 @@ ul.side-nav.fixed li {
 }
 ul.side-nav.fixed li:hover,
 ul.side-nav.fixed li.active {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: #e3f2fd;
 }
 ul.side-nav.fixed li a {
   font-size: 14px;

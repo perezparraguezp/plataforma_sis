@@ -11,19 +11,21 @@ $profesional = new profesional($myId);
     <div class="navbar-fixed">
         <nav class="grey lighten-2">
             <div class="nav-wrapper">
-                <ul class="right hide-on-med-and-down black-text">
+                <ul class="right hide-on-med-and-down">
                     <li>
-                        <strong><?php
+                        <strong style="color: #0a73a7"><?php
                             echo 'Usuario: '.$profesional->nombre;
                             ?></strong>
                     </li>
                     <li>
-                        <a href="javascript:void(0);" class="waves-effect waves-block blue-text toggle-fullscreen"><i class="mdi-action-settings-overscan"></i>
+                        <a href="javascript:void(0);"
+                           class="waves-effect waves-block toggle-fullscreen" style="color: #0a73a7"><i class="mdi-action-settings-overscan"></i>
                         </a>
                     </li>
                     <!-- Dropdown Trigger -->
                     <li>
-                        <a href="#" data-activates="chat-out" class="waves-effect waves-block blue-text chat-collapse"><i class="mdi-editor-insert-chart"></i></a>
+                        <a href="#" data-activates="chat-out"
+                           class="waves-effect waves-block  chat-collapse" style="color: #0a73a7"><i class="mdi-editor-insert-chart"></i></a>
                     </li>
                 </ul>
             </div>

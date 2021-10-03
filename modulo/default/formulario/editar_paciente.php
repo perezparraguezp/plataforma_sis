@@ -394,10 +394,10 @@ if($p->rut_papa!=''){
         <div>CONFIGURACIÓN DEL PACIENTE</div>
         <div>
             <div class="row">
-                <div class="col l12 m12 s12">
+                <div class="col l12 m12 s12" style="padding-top: 10px;">
                     <div class="col l4">
-                        <header>MODULOS A LOS QUE PERTENECE</header>
-                        <p style="font-size: 0.7em;">Para eliminar el paciente de los registros internos, es necesario desactivarlo de los modulos a los que el paciente pertenece.</p>
+                        <header style="color: #0a73a7;font-family: Helvetica, Arial, Verdana, sans-serif;">MODULOS A LOS QUE PERTENECE</header>
+                        <p style="font-size: 0.7em;color: dimgrey;">Para eliminar el paciente de los registros internos, es necesario desactivarlo de los modulos a los que el paciente pertenece.</p>
                     </div>
                     <div class="col l8">
                         <?php
@@ -438,7 +438,7 @@ if($p->rut_papa!=''){
                                         </div>
                                     </div>
                                     <div class="col l6" checked="col l8">
-                                        <label for="modulo[<?php echo $i ?>]"><?php echo $row['nombre_modulo']; ?></label>
+                                        <label style="color: #0a73a7;" for="modulo[<?php echo $i ?>]"><?php echo $row['nombre_modulo']; ?></label>
                                     </div>
                                     <!--
                                     <div class="col l4">

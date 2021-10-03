@@ -445,12 +445,12 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
             };
         var cellLinkRegistroTarjetero = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
             return ''+
-                '<a onclick="loadMenu_Infantil(\'menu_1\',\'registro_tarjetero\',\''+value+'\')"  style="color: black;" >' +
+                '<a onclick="loadMenu_Infantil(\'menu_1\',\'registro_tarjetero\',\''+value+'\')"  style="color: white;" >' +
                 '<i class="mdi-hardware-keyboard-return"></i> IR' +
                 '</a>';
         }
         var cellIrClass = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-            return  "green center-align cursor_cell_link black-text";
+            return  "eh-open_principal white-text cursor_cell_link center";
 
         }
         var cellEdadAnios = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
