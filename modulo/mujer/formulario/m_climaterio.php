@@ -12,6 +12,11 @@ $paciente = new persona($rut);
 $terapia_reemplazo = $paciente->getParametro_M_table('paciente_mujer','reemplazo_hormonal');
 
 ?>
+<style type="text/css">
+    a{
+        color: white;;
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col l6 m6 s12">

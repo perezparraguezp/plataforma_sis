@@ -10,6 +10,11 @@ $fecha_registro = $_POST['fecha_registro'];
 $paciente = new persona($rut);
 
 ?>
+<style type="text/css">
+    a{
+        color: white;;
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col l6 m6 s12">

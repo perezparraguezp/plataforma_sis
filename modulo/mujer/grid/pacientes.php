@@ -33,7 +33,9 @@
             };
 
         var cellLinkRegistroTarjetero = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-            return '<i onclick="loadMenu_M(\'menu_1\',\'registro_atencion\',\''+value+'\')" class="mdi-hardware-keyboard-return"></i> IR';
+            return '<i onclick="loadMenu_M(\'menu_1\',\'registro_atencion\',\''+value+'\')" ' +
+                '   class="mdi-hardware-keyboard-return"></i> ' +
+                '<span onclick="loadMenu_M(\'menu_1\',\'registro_atencion\',\''+value+'\')">IR</span>';
         }
         var cellIrClass = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
             return  "eh-open_principal white-text cursor_cell_link center";

@@ -133,6 +133,7 @@
             menuEhOpen('');
             // infoLateral();
             init();
+            loadMenu_CardioVascular('menu_0','dashboard','');
         });
         function menuEhOpen(menu) {
             $.post('menu.php',{
@@ -218,7 +219,7 @@
 
 </head>
 
-<body onload="loadMenu_CardioVascular('menu_0','dashboard','')">
+<body onload="">
 <a id="btn-modal" class="modal-trigger" href="#modal"></a>
 <div id="modal" class="modal modal-fixed-footer">
 </div>

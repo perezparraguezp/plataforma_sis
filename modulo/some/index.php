@@ -217,6 +217,15 @@
         background-color: #438eb9;
     }
 
+    .eh-open_principal{
+        background-color: #0a73a7;
+        color: white;
+        font-family: Helvetica, Arial, Verdana, sans-serif;
+    }
+    .eh-open_principal:hover{
+        color: black;
+        font-family: Helvetica, Arial, Verdana, sans-serif;
+    }
 </style>
 <!-- START MAIN -->
 <div id="main">

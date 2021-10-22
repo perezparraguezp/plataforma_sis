@@ -1196,7 +1196,7 @@ class persona{
                     $sql1 = "insert into pscv_diabetes_mellitus(rut,$column) 
                         values('$this->rut',upper('$value'))";
                 }
-                echo $sql1;
+//                echo $sql1;
                 mysql_query($sql1);
                 $this->insert_historial_diabetes_pscv($column,$value,$fecha);
                 $this->addHistorial('PSCV DM','SE REGISTRO UN CAMBIO EN '.$column.' con un valor '.$value.' EN LA FECHA '.$fecha);
@@ -1243,7 +1243,10 @@ class persona{
         }
     }
     function insert_historial_parametro_pscv($column,$value,$fecha){
-        $sql0 = "delete from historial_parametros_pscv where rut='$this->rut' and indicador='$column' and fecha_registro='$fecha' ";
+        $sql0 = "delete from historial_parametros_pscv 
+        where rut='$this->rut' 
+        and indicador='$column' 
+        and fecha_registro='$fecha' ";
         mysql_query($sql0);
         if($fecha!=''){
             $fecha_dias = $this->calcularEdadDias($fecha);
@@ -1262,6 +1265,12 @@ class persona{
 
     function insert_historial_diabetes_pscv($column,$value,$fecha){
         $fecha_dias = $this->calcularEdadDias($fecha);
+        $sql = "delete from historial_diabetes_mellitus 
+                where rut='$this->rut' 
+                and indicador='$column'
+                and fecha_registro='$fecha'";
+
+        mysql_query($sql);
         $sql = "insert into historial_diabetes_mellitus(rut,id_profesional,indicador,valor,fecha_registro,edad_dias) 
                 values('$this->rut','$this->myID','$column','$value','$fecha','$fecha_dias')";
         mysql_query($sql);
@@ -1360,6 +1369,7 @@ class persona{
                         values('$this->rut',upper('$value'))";
         }
 
+
         mysql_query($sql1);
 
         $this->insert_historial_parametro_m($column,$value,$fecha);
@@ -1383,7 +1393,10 @@ class persona{
         $this->insert_historial_parametro_m($column,$value,$fecha);
     }
     function insert_historial_parametro_m($column,$value,$fecha){
-        $sql0 = "delete from historial_parametros_m where rut='$this->rut' and indicador='$column' and fecha_registro='$fecha' ";
+        $sql0 = "delete from historial_parametros_m 
+        where rut='$this->rut' 
+          and indicador='$column' 
+          and fecha_registro='$fecha' ";
         mysql_query($sql0);
         if($fecha!=''){
             $fecha_dias = $this->calcularEdadDias($fecha);
@@ -1543,7 +1556,10 @@ class persona{
         }
     }
     function insert_historial_parametro_ad($column,$value,$fecha){
-        $sql0 = "delete from historial_parametros_ad where rut='$this->rut' and indicador='$column' and fecha_registro='$fecha' ";
+        $sql0 = "delete from historial_parametros_ad 
+                where rut='$this->rut' 
+                  and indicador='$column' 
+                  and fecha_registro='$fecha' ";
         mysql_query($sql0);
         if($fecha!=''){
             $fecha_dias = $this->calcularEdadDias($fecha);
@@ -1555,7 +1571,11 @@ class persona{
         }
     }
     function insert_historial_parametro_am($column,$value,$fecha){
-        $sql0 = "delete from historial_parametros_am where rut='$this->rut' and indicador='$column' and fecha_registro='$fecha' ";
+        $sql0 = "delete from historial_parametros_am 
+                where rut='$this->rut' 
+                  and indicador='$column' 
+                  and fecha_registro='$fecha' ";
+
         mysql_query($sql0);
         if($fecha!=''){
             $fecha_dias = $this->calcularEdadDias($fecha);

@@ -19,7 +19,11 @@ $preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer
 
 
 ?>
-
+<style type="text/css">
+    a{
+        color: white;;
+    }
+</style>
 <form class="content card-panel">
     <input type="hidden" name="fecha_antecedentes" id="fecha_antecedentes" value="<?php echo $fecha_registro; ?>" />
     <div class="row">
@@ -116,11 +120,11 @@ $preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer
                             <div class="col l12 m12 s12">
                                 <div class="row">
                                     <div class="col l12 m12 s12">
-                                        <input type="checkbox" id="regulacion_fertilidad"
-                                               onchange="updateIndicadorM_sexual('regulacion_fertilidad')"
+                                        <input type="checkbox" id="regulacion_mas_preservativo"
+                                               onchange="updateIndicadorM_sexual('regulacion_mas_preservativo')"
                                             <?php echo $regulacion_mas_preservativo=='SI'?'checked="checked"':'' ?>
-                                               name="regulacion_fertilidad"  />
-                                        <label class="white-text" for="regulacion_fertilidad">REGULACIÓN FERTILIDAD MAS PRESERVATIVO</label>
+                                               name="regulacion_mas_preservativo"  />
+                                        <label class="white-text" for="regulacion_mas_preservativo">REGULACIÓN FERTILIDAD MAS PRESERVATIVO</label>
                                     </div>
                                 </div>
                             </div>

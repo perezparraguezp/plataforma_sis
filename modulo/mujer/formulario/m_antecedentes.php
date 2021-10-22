@@ -16,15 +16,12 @@ $patologia_diabetes  = $paciente->getParametro_M('patologia_dm');
 $patologia_hipertension  = $paciente->getParametro_M('patologia_hta');
 $patologia_vih  = $paciente->getParametro_M('patologia_vih');
 
-$regulacion_fertilidad  = $paciente->getParametro_M('patologia_vih');
+$regulacion_fertilidad  = $paciente->getParametro_M('regulacion_fertilidad');
 $gestacion  = $paciente->getParametro_M('gestacion');
 $climaterio  = $paciente->getParametro_M('climaterio');
 
 
 $esatdo  = $paciente->getParametro_M('estado_paciente');
-
-
-
 
 
 ?>

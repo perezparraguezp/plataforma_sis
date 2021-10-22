@@ -11,8 +11,18 @@ $sector_comunal = explode(",",$_POST['sector_comunal']);
 $centro_interno = explode(",",$_POST['centro_interno']);
 $sector_interno = explode(",",$_POST['sector_interno']);
 
-$indicador      = 'imc';//funcionalidad
-$atributo       = $_POST['atributo'];//parametro
+$indicador      = $_POST['indicador'];//funcionalidad
+$atributo       = $_POST['atributo'];//parametro columna
+
+if($atributo == 'patologia_dm'){
+    $indicador = 'DIABETES';
+}else{
+    if($atributo == 'patologia_hta'){
+        $indicador = 'HIPERTENSION';
+    }else{
+        $indicador = 'VIH';
+    }
+}
 
 $TITULO_GRAFICO = strtoupper(str_replace("_"," ",$indicador));
 
@@ -41,7 +51,7 @@ $rango = '';
 $series = '';
 $json = '';
 $json_coma = 0;
-
+$total_indicador = 0;
 $estado = '';
 if($comunal==true){
     //total pacientes
@@ -50,7 +60,9 @@ if($comunal==true){
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                     inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                     inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
-                                    where m_mujer='SI' and persona.rut!='' and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
+                                    where m_mujer='SI' 
+                                      and persona.rut!='' 
+                                      and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
                                      ";
     $res_0  = mysql_query($sql_0);
     $total_pacientes = 0;
@@ -65,20 +77,26 @@ if($comunal==true){
         if($json_coma>0){
             $json.=',';
         }
-        $sql_1 = "select * from paciente_mujer where rut='$persona->rut' limit 1";
+        $sql_1 = "select * from paciente_mujer 
+                where rut='$persona->rut' 
+                and $atributo='SI'
+                limit 1";
+
         $row_1 = mysql_fetch_array(mysql_query($sql_1));
         if($row_1){
             $sql_2 = "select * from historial_parametros_m 
-                                          where rut='$persona->rut' and indicador='$indicador'
+                                          where rut='$persona->rut' 
+                                          and indicador='$atributo'
+                                          and valor='SI'   
                                           and TIMESTAMPDIFF(DAY,historial_parametros_m.fecha_registro,CURRENT_DATE)<365
-                                          order by id_historial desc limit 1";
+                                          order by id_historial 
+                                          desc limit 1";
 
             $row_2 = mysql_fetch_array(mysql_query($sql_2));
             if($row_2){//dentro del año
                 $fecha = fechaNormal($row_2['fecha_registro']);
                 $indicador_json = $row_2['valor'];
-
-                if($indicador_json==$atributo){//segun indicador
+                if($indicador_json=='SI'){//segun indicador
                     //vigente segun opcion
                     $total_vigente++;
                     if($persona->sexo=='M'){
@@ -167,7 +185,9 @@ if($comunal==true){
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                     inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                     inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
-                                    where m_mujer='SI' and persona.rut!='' and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
+                                    where m_mujer='SI'
+                                    and persona.rut!=''
+                                    and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
                                     and sector_comunal.id_sector_comunal='$id' ";
             $res_0  = mysql_query($sql_0);
             $total_pacientes = 0;
@@ -182,18 +202,24 @@ if($comunal==true){
                 if($json_coma>0){
                     $json.=',';
                 }
-                $sql_1 = "select * from paciente_mujer where rut='$persona->rut' limit 1";
+                $sql_1 = "select * from paciente_mujer 
+                            where rut='$persona->rut' 
+                            and $atributo='SI'
+                            limit 1";
+
                 $row_1 = mysql_fetch_array(mysql_query($sql_1));
                 if($row_1){
                     $sql_2 = "select * from historial_parametros_m 
-                                          where rut='$persona->rut' and indicador='$indicador'
+                                          where rut='$persona->rut' 
+                                          and indicador='$atributo'
                                           and TIMESTAMPDIFF(DAY,historial_parametros_m.fecha_registro,CURRENT_DATE)<365
                                           order by id_historial desc limit 1";
+
                     $row_2 = mysql_fetch_array(mysql_query($sql_2));
                     if($row_2){//dentro del año
                         $fecha = fechaNormal($row_2['fecha_registro']);
                         $indicador_json = $row_2['valor'];
-                        if($indicador_json==$atributo){//segun indicador
+                        if($indicador_json=='SI'){//segun indicador
                             //vigente segun opcion
                             $total_vigente++;
                             if($persona->sexo=='M'){
@@ -297,18 +323,21 @@ if($comunal==true){
                     if($json_coma>0){
                         $json.=',';
                     }
-                    $sql_1 = "select * from paciente_mujer where rut='$persona->rut' limit 1";
+                    $sql_1 = "select * from paciente_mujer 
+                            where rut='$persona->rut' 
+                            and $atributo='SI'
+                            limit 1";
                     $row_1 = mysql_fetch_array(mysql_query($sql_1));
                     if($row_1){
                         $sql_2 = "select * from historial_parametros_m 
-                                          where rut='$persona->rut' and indicador='$indicador'
+                                          where rut='$persona->rut' and indicador='$atributo'
                                           and TIMESTAMPDIFF(DAY,historial_parametros_m.fecha_registro,CURRENT_DATE)<365
                                           order by id_historial desc limit 1";
                         $row_2 = mysql_fetch_array(mysql_query($sql_2));
                         if($row_2){//dentro del año
                             $fecha = fechaNormal($row_2['fecha_registro']);
                             $indicador_json = $row_2['valor'];
-                            if($indicador_json==$atributo){//segun indicador
+                            if($indicador_json=='SI'){//segun indicador
                                 //vigente segun opcion
                                 $total_vigente++;
                                 if($persona->sexo=='M'){
@@ -416,18 +445,21 @@ if($comunal==true){
                     if($json_coma>0){
                         $json.=',';
                     }
-                    $sql_1 = "select * from paciente_mujer where rut='$persona->rut' limit 1";
+                    $sql_1 = "select * from paciente_mujer 
+                            where rut='$persona->rut' 
+                            and $atributo='SI'
+                            limit 1";
                     $row_1 = mysql_fetch_array(mysql_query($sql_1));
                     if($row_1){
                         $sql_2 = "select * from historial_parametros_m 
-                                          where rut='$persona->rut' and indicador='$indicador'
+                                          where rut='$persona->rut' and indicador='$atributo'
                                           and TIMESTAMPDIFF(DAY,historial_parametros_m.fecha_registro,CURRENT_DATE)<365
                                           order by id_historial desc limit 1";
                         $row_2 = mysql_fetch_array(mysql_query($sql_2));
                         if($row_2){//dentro del año
                             $fecha = fechaNormal($row_2['fecha_registro']);
                             $indicador_json = $row_2['valor'];
-                            if($indicador_json==$atributo){//segun indicador
+                            if($indicador_json=='SI'){//segun indicador
                                 //vigente segun opcion
                                 $total_vigente++;
                                 if($persona->sexo=='M'){

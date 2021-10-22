@@ -333,14 +333,20 @@ if($paciente->anios<80){
     function updateDiabetesPSCV(indicador) {
         var value = $("#"+indicador).val();
         var fecha = $("#fecha_"+indicador).val();
-        $.post('db/update/pscv_diabetes.php',{
-            column:indicador,
-            value:value,
-            fecha_registro:fecha,
-            rut:'<?php echo $rut ?>'
-        },function (data) {
-            alertaLateral(data);
-        });
+        if(fecha!==''){
+            $.post('db/update/pscv_diabetes.php',{
+                column:indicador,
+                value:value,
+                fecha_registro:fecha,
+                rut:'<?php echo $rut ?>'
+            },function (data) {
+                alertaLateral(data);
+            });
+        }else{
+            alertaLateral('DEBE INGRESAR UNA FECHA PARA EL INDICADOR '+indicador);
+            $("#fecha_"+indicador).css({'background-color':'red'});
+        }
+
     }
     function updateDiabetesPSCV_Podologia(indicador){
         var value = $("#"+indicador).val();

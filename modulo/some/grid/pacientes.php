@@ -59,7 +59,7 @@
                 '</a>';
         }
         var cellIrClass = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-            return  "green center-align cursor_cell_link black-text";
+            return  "eh-open_principal white-text cursor_cell_link center";
 
         }
         var cellEditarPaciente = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
@@ -71,7 +71,7 @@
 
 
         var cellEditarClass = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-            return  "green center-align cursor_cell_link black-text";
+            return  "eh-open_principal white-text cursor_cell_link center";
 
         }
 
@@ -83,6 +83,7 @@
             {
                 width: '98%',
                 source: dataAdapter,
+                theme: 'eh-open',
                 height:400,
                 columnsresize: true,
                 sortable: true,

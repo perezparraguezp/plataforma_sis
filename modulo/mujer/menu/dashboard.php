@@ -55,13 +55,10 @@ $sql1 = "select * from sector_comunal
             <label>INDICADOR</label>
             <select name="indicador" id="indicador">
                 <option selected disabled value="">SELECCIONAR INDICADOR</option>
-                <option value="funcionalidad">FUNCIONALIDAD</option>
-                <option value="actividad_fisica">ACTIVIDAD FISICA</option>
-                <option value="mas_adulto_mayor">+ ADULTO MAYOR</option>
+                <option value="patologias">PATOLOGIAS</option>
+                <option value="gestacion">ESTADO DEL PACIENTE</option>
                 <option value="estado_nutricional">ESTADO NUTRICIONAL</option>
-                <option value="sospecha_maltrato">SOSPECHA MALTRATO</option>
-                <option value="time_up_and_go">RIESGO CAIDA : TIMED UP AND GO</option>
-                <option value="estacion_unipodal">RIESGO CAIDA : ESTACION UNIPODAL</option>
+
 
             </select>
             <script type="text/javascript">

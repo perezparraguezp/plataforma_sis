@@ -7,22 +7,20 @@
     $table_sql = $_POST['table_sql'];//tabla
     $tiene_estado = true;
     switch ($indicador){
-        case 'FUNCIONALIDAD':{
+        case 'PATOLOGIAS':{
             ?>
-            <option >AUTOVALENTE SIN RIESGO</option>
-            <option >AUTOVALENTE CON RIESGO</option>
-            <option >RIESGO DEPENDENCIA</option>
-            <option >DEPENDENCIA LEVE</option>
-            <option >DEPENDENCIA MODERADO</option>
-            <option >DEPENDENCIA GRAVE</option>
-            <option >DEPENDENCIA TOTAL</option>
+            <option value="patologia_dm">DIABETES</option>
+            <option value="patologia_hta">HIPERTENSION ARTERIAL</option>
+            <option value="patologia_vih">VIH</option>
             <?php
             break;
         }
-        case 'ACTIVIDAD FISICA':{
+        case 'ESTADO DEL PACIENTE':{
             ?>
-            <option>SI</option>
-            <option>NO</option>
+
+            <option value="regulacion_fertilidad">REGULACION DE FERTILIDAD</option>
+            <option value="gestacion">GESTACION</option>
+            <option value="climaterio">CLIMATERIO</option>
             <?php
             break;
         }

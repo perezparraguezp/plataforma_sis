@@ -55,7 +55,7 @@ if($paciente->anios<80){
                             <div class="col l7 m6 s12">
                                 <div class="row">
                                     <div class="col l6 m12 s12">
-                                        <input type="date" name="fecha_hba1c" id="fecha_hba1c" />
+                                        <input type="date" name="fecha_hba1c" id="fecha_hba1c"  />
                                     </div>
                                     <div class="col l6 m12 s12">
                                         <select class="browser-default"
@@ -86,7 +86,7 @@ if($paciente->anios<80){
                             <div class="col l7 m6 s12">
                                 <div class="row">
                                     <div class="col l6 m12 s12">
-                                        <input type="date" name="fecha_fondo_ojo" id="fecha_fondo_ojo" va />
+                                        <input type="date" name="fecha_fondo_ojo" id="fecha_fondo_ojo"  />
                                     </div>
                                     <div class="col l6 m12 s12">
                                         <select class="browser-default"
@@ -333,14 +333,21 @@ if($paciente->anios<80){
     function updateDiabetesPSCV(indicador) {
         var value = $("#"+indicador).val();
         var fecha = $("#fecha_"+indicador).val();
-        $.post('db/update/pscv_diabetes.php',{
-            column:indicador,
-            value:value,
-            fecha_registro:fecha,
-            rut:'<?php echo $rut ?>'
-        },function (data) {
-            alertaLateral(data);
-        });
+        if(fecha!==''){
+            $.post('db/update/pscv_diabetes.php',{
+                column:indicador,
+                value:value,
+                fecha_registro:fecha,
+                rut:'<?php echo $rut ?>'
+            },function (data) {
+                $("#fecha_"+indicador).css({'background-color':'green'});
+                alertaLateral(data);
+            });
+        }else{
+            alertaLateral('DEBE INGRESAR UNA FECHA PARA EL INDICADOR '+indicador);
+            $("#fecha_"+indicador).css({'background-color':'red'});
+            $("#"+indicador).val('');
+        }
     }
     function updateDiabetesPSCV_Podologia(indicador){
         var value = $("#"+indicador).val();
