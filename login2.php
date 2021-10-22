@@ -1,7 +1,7 @@
 <?php
 $LOGIN = $_GET['LOGIN'];
 if($LOGIN=='TRUE'){
-    header('Location: escritorio.php');
+    header('Location: i.php');
 }
 ?>
 <!DOCTYPE html>
@@ -21,7 +21,7 @@ if($LOGIN=='TRUE'){
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
     <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
-    <title>INICIAR SESSION | EH-OPEN SOFTWARE</title>
+    <title>SIS OPEN</title>
 
 
     <!-- Favicons-->

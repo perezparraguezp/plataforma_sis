@@ -1196,6 +1196,7 @@ class persona{
                     $sql1 = "insert into pscv_diabetes_mellitus(rut,$column) 
                         values('$this->rut',upper('$value'))";
                 }
+                echo $sql1;
                 mysql_query($sql1);
                 $this->insert_historial_diabetes_pscv($column,$value,$fecha);
                 $this->addHistorial('PSCV DM','SE REGISTRO UN CAMBIO EN '.$column.' con un valor '.$value.' EN LA FECHA '.$fecha);
