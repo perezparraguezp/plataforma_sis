@@ -200,7 +200,41 @@
 <!-- //////////////////////////////////////////////////////////////////////////// -->
 
 <!-- START HEADER -->
-<?php include '../header.php'; ?>
+<?php
+include '../../php/config.php';
+include '../../php/objetos/profesional.php';
+session_start();
+//print_r($_SESSION);
+$myId = $_SESSION['id_usuario'];
+$profesional = new profesional($myId);
+?>
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed">
+        <nav class="grey lighten-2">
+            <div class="nav-wrapper">
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <strong style="color: #0a73a7"><?php
+                            echo 'Usuario: '.$profesional->nombre;
+                            ?></strong>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);"
+                           class="waves-effect waves-block toggle-fullscreen" style="color: #0a73a7"><i class="mdi-action-settings-overscan"></i>
+                        </a>
+                    </li>
+                    <!-- Dropdown Trigger -->
+                    <li>
+                        <a href="#" data-activates="chat-out"
+                           class="waves-effect waves-block  chat-collapse" style="color: #0a73a7"><i class="mdi-editor-insert-chart"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- end header nav-->
+</header>
 <!-- END HEADER -->
 
 <!-- //////////////////////////////////////////////////////////////////////////// -->
@@ -228,20 +262,20 @@
         <!-- //////////////////////////////////////////////////////////////////////////// -->
         <!-- START RIGHT SIDEBAR NAV-->
         <aside id="right-sidebar-nav">
+            <ul id="chat-out" class="side-nav rightside-navigation">
             <?php
-
-            include '../../php/config.php';
-
+//            include '../../php/config.php';
 
             $sql_e = "select count(*) as total,
-       sum(persona.sexo='M') as hombres,sum(persona.sexo='M')*100/count(*) as porcentaje_hombres,
-       sum(persona.sexo='F') as mujeres,sum(persona.sexo='F')*100/count(*) as porcentaje_mujeres,
-       sum(persona.nanea='SI') as nanea,sum(persona.nanea='SI')*100/count(*) as porcentaje_nanea,
-       sum(persona.pueblo='SI') as pueblo,sum(persona.pueblo='SI')*100/count(*) as porcentaje_pueblo,
-       sum(persona.migrante='SI') as migrante,sum(persona.migrante='SI')*100/count(*) as porcentaje_migrante
-      from persona 
-      inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut 
-      where paciente_establecimiento.m_infancia='SI'; ";
+                       sum(persona.sexo='M') as hombres,sum(persona.sexo='M')*100/count(*) as porcentaje_hombres,
+                       sum(persona.sexo='F') as mujeres,sum(persona.sexo='F')*100/count(*) as porcentaje_mujeres,
+                       sum(persona.nanea='SI') as nanea,sum(persona.nanea='SI')*100/count(*) as porcentaje_nanea,
+                       sum(persona.pueblo='SI') as pueblo,sum(persona.pueblo='SI')*100/count(*) as porcentaje_pueblo,
+                       sum(persona.migrante='SI') as migrante,sum(persona.migrante='SI')*100/count(*) as porcentaje_migrante
+                      from persona 
+                      inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut 
+                      where paciente_establecimiento.m_infancia='SI'; ";
+
 
 
             $row = mysql_fetch_array(mysql_query($sql_e))or die('1');
@@ -310,16 +344,15 @@ inner join antropometria on persona.rut=antropometria.rut;";
 
             //EV NEUROSENSORIAL
             $sql2 = "select
-       count(*) as total_ev,
-       sum(ev_neurosensorial!='') as cobertura_ev,
-       sum(ev_neurosensorial='NORMAL') AS ev_normal,
-       sum(ev_neurosensorial='ALTERADO') AS ev_alterado
-
-from persona
-inner join paciente_psicomotor on persona.rut=paciente_psicomotor.rut
-where
-    DATEDIFF(current_date(),persona.fecha_nacimiento)>=0
-and DATEDIFF(current_date(),persona.fecha_nacimiento)<=90;";
+                           count(*) as total_ev,
+                           sum(ev_neurosensorial!='') as cobertura_ev,
+                           sum(ev_neurosensorial='NORMAL') AS ev_normal,
+                           sum(ev_neurosensorial='ALTERADO') AS ev_alterado
+                    from persona
+                    inner join paciente_psicomotor on persona.rut=paciente_psicomotor.rut
+                    where
+                        DATEDIFF(current_date(),persona.fecha_nacimiento)>=0
+                    and DATEDIFF(current_date(),persona.fecha_nacimiento)<=90;";
             $row2 = mysql_fetch_array(mysql_query($sql2))or die('error');
 
             $total_ev      = $row2['total_ev'];
@@ -329,22 +362,13 @@ and DATEDIFF(current_date(),persona.fecha_nacimiento)<=90;";
             $ev_alterado    = $row2['ev_alterado']==''?0:$row2['ev_alterado'];
 
 
-
             $porcentaje_ev = $cobertura_ev*100/$total_ev;
 
-
-
-
-
-
-
             ?>
-
-            <ul id="chat-out" class="side-nav rightside-navigation right-aligned ps-container ps-active-y">
                 <li class="li-hover">
                     <ul class="chat-collapsible" data-collapsible="">
-                        <li>
-                            <div class="collapsible-header teal white-text active"><i class="mdi-editor-insert-chart"></i>ESTADISTICA GENERAL</div>
+                        <li class="">
+                            <div class="collapsible-header teal white-text active"><i class="mdi-editor-insert-chart"></i>ESTADISTICA</div>
                             <div class="collapsible-body recent-activity" style="display: none;">
                                 <div class="recent-activity-list chat-out-list row">
                                     <div class="col s3 recent-activity-list-icon"><i class="mdi-social-people"></i>
@@ -454,10 +478,14 @@ and DATEDIFF(current_date(),persona.fecha_nacimiento)<=90;";
                         </li>
                     </ul>
                 </li>
-                <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 582px; right: 3px;"><div class="ps-scrollbar-y" style="top: 0px; height: 340px;"></div></div></ul>
+                <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;">
+                    <div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div>
+                </div>
+                <div class="ps-scrollbar-y-rail" style="top: 0px; height: 582px; right: 3px;">
+                    <div class="ps-scrollbar-y" style="top: 0px; height: 340px;"></div>
+                </div>
             </ul>
         </aside>
-
         <div>
 
         </div>

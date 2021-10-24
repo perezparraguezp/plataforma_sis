@@ -213,7 +213,41 @@
 <!-- //////////////////////////////////////////////////////////////////////////// -->
 
 <!-- START HEADER -->
-<?php include '../header.php'; ?>
+<?php
+include '../../php/config.php';
+include '../../php/objetos/profesional.php';
+session_start();
+//print_r($_SESSION);
+$myId = $_SESSION['id_usuario'];
+$profesional = new profesional($myId);
+?>
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed">
+        <nav class="grey lighten-2">
+            <div class="nav-wrapper">
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <strong style="color: #0a73a7"><?php
+                            echo 'Usuario: '.$profesional->nombre;
+                            ?></strong>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);"
+                           class="waves-effect waves-block toggle-fullscreen" style="color: #0a73a7"><i class="mdi-action-settings-overscan"></i>
+                        </a>
+                    </li>
+                    <!-- Dropdown Trigger -->
+                    <li>
+                        <a href="#" data-activates="chat-out"
+                           class="waves-effect waves-block  chat-collapse" style="color: #0a73a7"><i class="mdi-editor-insert-chart"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- end header nav-->
+</header>
 <!-- END HEADER -->
 
 <!-- //////////////////////////////////////////////////////////////////////////// -->
@@ -261,7 +295,7 @@
             <ul id="chat-out" class="side-nav rightside-navigation">
                 <?php
 
-                include '../php/config.php';
+
                 $id_establecimiento = 1;
 
                 $sql_e = "select count(*) as total,
@@ -324,7 +358,7 @@
                 <li class="li-hover">
                     <ul class="chat-collapsible" data-collapsible="expandable">
                         <li>
-                            <div class="collapsible-header teal white-text active"><i class="mdi-editor-insert-chart"></i>ESTADISTICA GENERAL</div>
+                            <div class="collapsible-header teal white-text active"><i class="mdi-editor-insert-chart"></i>ESTADISTICA</div>
                             <div class="collapsible-body recent-activity" style="display: none;">
                                 <div class="recent-activity-list chat-out-list row">
                                     <div class="col s3 recent-activity-list-icon"><i class="mdi-social-people"></i>
@@ -372,7 +406,7 @@
                             </div>
                         </li>
                         <li>
-                            <div class="collapsible-header lime accent-1 black-text "><i class="mdi-alert-warning red-text"></i>ESTADO NUTRICIONAL</div>
+                            <div class="collapsible-header lime accent-1 black-text "><i class="mdi-alert-warning red-text"></i>ESTADO IMC</div>
                             <div class="collapsible-body recent-activity" style="display: none;">
                                 <div class="recent-activity-list chat-out-list row">
                                     <div class="col s3 recent-activity-list-icon">

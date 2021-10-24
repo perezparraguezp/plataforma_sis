@@ -211,7 +211,41 @@
 <!-- //////////////////////////////////////////////////////////////////////////// -->
 
 <!-- START HEADER -->
-<?php include '../header.php'; ?>
+<?php
+include '../../php/config.php';
+include '../../php/objetos/profesional.php';
+session_start();
+//print_r($_SESSION);
+$myId = $_SESSION['id_usuario'];
+$profesional = new profesional($myId);
+?>
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed">
+        <nav class="grey lighten-2">
+            <div class="nav-wrapper">
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <strong style="color: #0a73a7"><?php
+                            echo 'Usuario: '.$profesional->nombre;
+                            ?></strong>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);"
+                           class="waves-effect waves-block toggle-fullscreen" style="color: #0a73a7"><i class="mdi-action-settings-overscan"></i>
+                        </a>
+                    </li>
+                    <!-- Dropdown Trigger -->
+                    <li>
+                        <a href="#" data-activates="chat-out"
+                           class="waves-effect waves-block  chat-collapse" style="color: #0a73a7"><i class="mdi-editor-insert-chart"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- end header nav-->
+</header>
 <!-- END HEADER -->
 
 <!-- //////////////////////////////////////////////////////////////////////////// -->
@@ -343,7 +377,7 @@
                 <li class="li-hover">
                     <ul class="chat-collapsible" data-collapsible="">
                         <li>
-                            <div class="collapsible-header teal white-text active"><i class="mdi-editor-insert-chart"></i>ESTADISTICA GENERAL</div>
+                            <div class="collapsible-header teal white-text active" style="font-size: 0.7em;"><i class="mdi-editor-insert-chart"></i>ESTADISTICA GENERAL</div>
                             <div class="collapsible-body recent-activity" style="display: none;">
                                 <div class="recent-activity-list chat-out-list row">
                                     <div class="col s3 recent-activity-list-icon"><i class="mdi-social-people"></i>
@@ -370,7 +404,7 @@
                             </div>
                         </li>
                         <li class="">
-                            <div class="collapsible-header light-blue lighten-4 black-text "><i class="mdi-social-mood"></i>ESTADO NUTRICIONAL</div>
+                            <div class="collapsible-header light-blue lighten-4 black-text" style="font-size: 0.7em;"><i class="mdi-social-mood"></i>ESTADO NUTRICIONAL</div>
                             <div class="collapsible-body recent-activity" style="display: none;">
                                 <div class="recent-activity-list chat-out-list row">
                                     <div class="col s3 recent-activity-list-icon">
@@ -392,7 +426,7 @@
                             </div>
                         </li>
                         <li class="">
-                            <div class="collapsible-header orange lighten-3 black-text "><i class="mdi-navigation-arrow-forward"></i>EDUCACION Y TRABAJO</div>
+                            <div class="collapsible-header orange lighten-3 black-text " style="font-size: 0.7em;"><i class="mdi-navigation-arrow-forward"></i>EDUCACION Y TRABAJO</div>
                             <div class="collapsible-body recent-activity" style="display: none;">
                                 <div class="recent-activity-list chat-out-list row">
                                     <div class="col s3 recent-activity-list-icon">
@@ -412,7 +446,7 @@
                             </div>
                         </li>
                         <li class="">
-                            <div class="collapsible-header green lighten-2 black-text"><i class="mdi-navigation-arrow-forward"></i>AREAS DE RIESGO</div>
+                            <div class="collapsible-header green lighten-2 black-text" style="font-size: 0.7em;"><i class="mdi-navigation-arrow-forward"></i>AREAS DE RIESGO</div>
                             <div class="collapsible-body recent-activity" style="display: none;">
                                 <div class="recent-activity-list chat-out-list row">
                                     <div class="col s3 recent-activity-list-icon">
@@ -432,7 +466,7 @@
                             </div>
                         </li>
                         <li class="">
-                            <div class="collapsible-header deep-purple lighten-3 black-text"><i class="mdi-navigation-arrow-forward"></i> GENICO / SEXUAL</div>
+                            <div class="collapsible-header deep-purple lighten-3 black-text" style="font-size: 0.7em;"><i class="mdi-navigation-arrow-forward"></i> GENICO / SEXUAL</div>
                             <div class="collapsible-body recent-activity" style="display: none;">
                                 <div class="recent-activity-list chat-out-list row">
                                     <div class="col s3 recent-activity-list-icon">

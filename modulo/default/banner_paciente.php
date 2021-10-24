@@ -16,7 +16,7 @@ list($establecimiento,$sector_interno,$sector_comunal) = explode(":",$paciente->
 <div class="row">
     <div class="col l1 center">
         <?php $imagen = $paciente->sexo=='F'?'mujer.png':'hombre.png'; ?>
-        <img src="../../images/<?php echo $imagen; ?>" width="28" />
+        <img src="../../images/<?php echo $imagen; ?>" width="48" />
     </div>
     <div class="col l4">
         <div class="row">

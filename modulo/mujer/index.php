@@ -210,7 +210,42 @@
 <!-- //////////////////////////////////////////////////////////////////////////// -->
 
 <!-- START HEADER -->
-<?php include '../header.php'; ?>
+
+<?php
+include '../../php/config.php';
+include '../../php/objetos/profesional.php';
+session_start();
+//print_r($_SESSION);
+$myId = $_SESSION['id_usuario'];
+$profesional = new profesional($myId);
+?>
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed">
+        <nav class="grey lighten-2">
+            <div class="nav-wrapper">
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <strong style="color: #0a73a7"><?php
+                            echo 'Usuario: '.$profesional->nombre;
+                            ?></strong>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);"
+                           class="waves-effect waves-block toggle-fullscreen" style="color: #0a73a7"><i class="mdi-action-settings-overscan"></i>
+                        </a>
+                    </li>
+                    <!-- Dropdown Trigger -->
+                    <li>
+                        <a href="#" data-activates="chat-out"
+                           class="waves-effect waves-block  chat-collapse" style="color: #0a73a7"><i class="mdi-editor-insert-chart"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- end header nav-->
+</header>
 <!-- END HEADER -->
 
 <!-- //////////////////////////////////////////////////////////////////////////// -->
@@ -258,7 +293,7 @@
             <ul id="chat-out" class="side-nav rightside-navigation">
                 <?php
 
-                include '../../php/config.php';
+
                 $id_establecimiento = 1;
 
                 $sql_e = "select count(*) as total,
@@ -269,45 +304,35 @@
                        sum(persona.migrante='SI') as migrante,sum(persona.migrante='SI')*100/count(*) as porcentaje_migrante
                       from persona 
                       inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut 
-                       where m_adulto_mayor='SI'; ";
+                       where m_mujer='SI'; ";
                 $row = mysql_fetch_array(mysql_query($sql_e))or die('error');
                 $total_pacientes = $row['total'];
-                //PATOLOGIAS
+                $total_hombres = $row['porcentaje_hombres'];
+                $total_mujeres = $row['porcentaje_mujeres'];
+                //ESTADOS
                 $sql_e = "select 
-                       sum(paciente_adultomayor.funcionalidad='AUTOVALENTE CON RIESGO') as con_riesgo,
-                       sum(paciente_adultomayor.funcionalidad='AUTOVALENTE SIN RIESGO') as sin_riesgo,
-                       sum(paciente_adultomayor.funcionalidad='RIESGO DEPENDENCIA') as risgo_dependencia,
-                       sum(paciente_adultomayor.funcionalidad='DEPENDENCIA LEVE') as dependencia_leve,
-                       sum(paciente_adultomayor.funcionalidad='DEPENDENCIA MODERADO') as dependencia_moderado,
-                       sum(paciente_adultomayor.funcionalidad='DEPENDENCIA GRAVE') as dependencia_grave,
-                       sum(paciente_adultomayor.funcionalidad='DEPENDENCIA TOTAL') as dependencia_total,
-                       sum(paciente_adultomayor.imc='BP') as BP,
-                       sum(paciente_adultomayor.imc='N') as N,
-                       sum(paciente_adultomayor.imc='SP') as SP,
-                       sum(paciente_adultomayor.imc='OB') as OB,
-                       sum(paciente_adultomayor.sospecha_maltrato='SI') as maltrato,
-                       sum(paciente_adultomayor.actividad_fisica='SI') as actividad_fisica
-                    
-                      from paciente_adultomayor 
-                      inner join paciente_establecimiento on paciente_adultomayor.rut=paciente_establecimiento.rut    
+                       sum(paciente_mujer.gestacion='SI') as gestacion,
+                       sum(paciente_mujer.regulacion_fertilidad='SI') as fertilidad,
+                       sum(paciente_mujer.climaterio='SI') as climaterio,
+                       sum(paciente_mujer.imc='BP') as BP,
+                       sum(paciente_mujer.imc='N') as N,
+                       sum(paciente_mujer.imc='SP') as SP,
+                       sum(paciente_mujer.imc='OB') as OB
+                      from paciente_mujer 
+                      inner join paciente_establecimiento on paciente_mujer.rut=paciente_establecimiento.rut    
                        where id_establecimiento='$id_establecimiento'; ";
+
                 $row = mysql_fetch_array(mysql_query($sql_e))or die($sql_e);
-                $total_pacientes = $row['total'];
-                $riesgo_dependencia = $row['riesgo_dependencia']*100/$total_pacientes;
-                $auto_sin_riesgo = $row['sin_riesgo']*100/$total_pacientes;
-                $auto_con_riesgo = $row['con_riesgo']*100/$total_pacientes;
-                $d_leve = $row['dependencia_leve']*100/$total_pacientes;
-                $d_moderado = $row['dependencia_moderado']*100/$total_pacientes;
-                $d_grave = $row['dependencia_grave']*100/$total_pacientes;
-                $d_total = $row['dependencia_total']*100/$total_pacientes;
+
+                $gestacion = $row['gestacion']*100/$total_pacientes;
+                $fertilidad = $row['fertilidad']*100/$total_pacientes;
+                $climaterio = $row['climaterio']*100/$total_pacientes;
 
                 $BP = $row['BP']*100/$total_pacientes;
                 $N = $row['N']*100/$total_pacientes;
                 $SP = $row['SP']*100/$total_pacientes;
                 $OB = $row['OB']*100/$total_pacientes;
 
-                $MALTRATO = $row['maltrato']*100/$total_pacientes;
-                $ACTIVIDAD_FISICA = $row['actividad_fisica']*100/$total_pacientes;
 
 
                 ?>
@@ -316,47 +341,21 @@
                 <li class="li-hover">
                     <ul class="chat-collapsible" data-collapsible="expandable">
                         <li>
-                            <div class="collapsible-header teal white-text active"><i class="mdi-editor-insert-chart"></i>ESTADISTICA GENERAL</div>
+                            <div class="collapsible-header teal white-text active" style="font-size: 0.7em;"><i class="mdi-editor-insert-chart"></i>ESTADISTICA GENERAL</div>
                             <div class="collapsible-body recent-activity" style="display: none;">
                                 <div class="recent-activity-list chat-out-list row">
                                     <div class="col s3 recent-activity-list-icon"><i class="mdi-social-people"></i>
                                     </div>
                                     <div class="col s9 recent-activity-list-text">
-                                        <a href="#">Pacientes Registrados <?php echo $row['total']; ?></a>
+                                        <a href="#" style="font-size: 0.6em;">Pacientes Registrados <?php echo $total_pacientes; ?></a>
                                         <p class="left-align">
                                             <?php
-                                            echo 'HOMBRES '.number_format($row['porcentaje_hombres'],0).'%<br />';
-                                            echo 'MUJERES '.number_format($row['porcentaje_mujeres'],0).'%<br />';
-                                            ?>
-                                        </p>
-                                        <hr class="row" />
-                                        <?php
-                                        echo 'AUTOVALENTE SIN RIESGO '.number_format($auto_sin_riesgo,0).'%<br />';
-                                        echo 'AUTOVALENTE CON RIESGO '.number_format($auto_con_riesgo,0).'%<br />';
-                                        echo 'RIESGO DEPENDENCIA '.number_format($riesgo_dependencia,0).'%<br />';
-                                        ?>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header purple lighten-4 black-text "><i class="mdi-action-accessibility"></i>BARTHEL</div>
-                            <div class="collapsible-body recent-activity" style="display: none;">
-                                <div class="recent-activity-list chat-out-list row">
-                                    <div class="col s3 recent-activity-list-icon">
-                                        <!-- img -->
-                                    </div>
-                                    <div class="col s9 recent-activity-list-text">
-
-                                        <p class="left-align">
-                                            <?php
-                                            echo 'INDICE DE DEPENDENCIA <BR />';
-                                            echo 'LEVE '.number_format($d_leve,0).'%<br />';
-                                            echo 'MODERADA '.number_format($d_moderado,0).'%<br />';
-                                            echo 'GRAVE '.number_format($d_grave,0).'%<br />';
-                                            echo 'TOTAL '.number_format($d_total,0).'%<br />';
-
+                                            echo 'HOMBRES '.number_format($total_hombres,0).'%<br />';
+                                            echo 'MUJERES '.number_format($total_mujeres,0).'%<br />';
+                                            echo '<hr />';
+                                            echo 'FERTILIDAD '.number_format($fertilidad,0).'%<br />';
+                                            echo 'GESTACION '.number_format($gestacion,0).'%<br />';
+                                            echo 'CLIMATERIO '.number_format($climaterio,0).'%<br />';
                                             ?>
                                         </p>
                                     </div>
@@ -364,14 +363,13 @@
                             </div>
                         </li>
                         <li>
-                            <div class="collapsible-header lime accent-1 black-text "><i class="mdi-alert-warning red-text"></i>ESTADO NUTRICIONAL</div>
+                            <div class="collapsible-header lime accent-1 black-text " style="font-size: 0.7em;"><i class="mdi-alert-warning red-text"></i>ESTADO NUTRICIONAL</div>
                             <div class="collapsible-body recent-activity" style="display: none;">
                                 <div class="recent-activity-list chat-out-list row">
                                     <div class="col s3 recent-activity-list-icon">
-                                        <img src="images/imc.png" width="100%" />
+                                        <img src="images/imc.png" width="98%" />
                                     </div>
                                     <div class="col s9 recent-activity-list-text">
-
                                         <p class="left-align">
                                             <?php
                                             echo 'BAJO PESO '.number_format($BP,0).'%<br />';
@@ -385,7 +383,7 @@
                             </div>
                         </li>
                         <li>
-                            <div class="collapsible-header light-green lighten-2 black-text "><i class="mdi-maps-local-hospital blue-text"></i>VARIOS</div>
+                            <div class="collapsible-header light-green lighten-2 black-text " style="font-size: 0.7em;"><i class="mdi-maps-local-hospital blue-text"></i>VARIOS</div>
                             <div class="collapsible-body recent-activity" style="display: none; ">
                                 <div class="recent-activity-list chat-out-list row">
                                     <div class="col s3 recent-activity-list-icon">
