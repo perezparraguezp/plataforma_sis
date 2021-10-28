@@ -59,11 +59,9 @@ if($paciente->getModuloPaciente('m_mujer')=='NO'){
             loadInfoPaciente('<?php echo $rut; ?>');
 
             load_sm_antecedentes('<?php echo $rut; ?>');
-            load_m_examenes('<?php echo $rut; ?>');
-            load_m_climaterio('<?php echo $rut; ?>');
-            load_m_sexualidad('<?php echo $rut; ?>');
-            load_m_gestaciones('<?php echo $rut; ?>');
-            //load_am_funcionalidad('<?php //echo $rut; ?>//');
+            load_sm_diagnosticos('<?php echo $rut; ?>');
+            load_sm_dependiente('<?php echo $rut; ?>');
+
 
         });
         function loadInfoPaciente(rut){
@@ -85,10 +83,10 @@ if($paciente->getModuloPaciente('m_mujer')=='NO'){
                 $("#"+div).html(data);
             });
         }
-        function load_m_examenes(rut) {
+        function load_sm_diagnosticos(rut) {
             var div = 'form_examenes';
             loading_div(div);
-            $.post('formulario/m_examenes.php',{
+            $.post('formulario/diagnosticos.php',{
                 rut:rut,
                 fecha_registro:'<?php echo $fecha_registro; ?>'
             },function(data){
@@ -96,30 +94,10 @@ if($paciente->getModuloPaciente('m_mujer')=='NO'){
             });
         }
 
-        function load_m_climaterio(rut) {
+        function load_sm_dependiente(rut) {
             var div = 'form_climaterio';
             loading_div(div);
-            $.post('formulario/m_climaterio.php',{
-                rut:rut,
-                fecha_registro:'<?php echo $fecha_registro; ?>'
-            },function(data){
-                $("#"+div).html(data);
-            });
-        }
-        function load_m_sexualidad(rut) {
-            var div = 'form_sexualidad';
-            loading_div(div);
-            $.post('formulario/m_sexualidad.php',{
-                rut:rut,
-                fecha_registro:'<?php echo $fecha_registro; ?>'
-            },function(data){
-                $("#"+div).html(data);
-            });
-        }
-        function load_m_gestaciones(rut){
-            var div = 'form_gestaciones';
-            loading_div(div);
-            $.post('formulario/m_gestaciones.php',{
+            $.post('formulario/dependiente.php',{
                 rut:rut,
                 fecha_registro:'<?php echo $fecha_registro; ?>'
             },function(data){
@@ -127,16 +105,6 @@ if($paciente->getModuloPaciente('m_mujer')=='NO'){
             });
         }
 
-        function load_PendientesPerfil(rut) {
-            var div = 'form_pendientes';
-            loading_div(div);
-            $.post('formulario/pscv_pendientes.php',{
-                rut:rut,
-                fecha_registro:'<?php echo $fecha_registro; ?>'
-            },function(data){
-                $("#"+div).html(data);
-            });
-        }
         function boxEditarPaciente_AM(rut) {
             $.post('../default/formulario/editar_paciente.php',{
                 rut:rut,
@@ -148,7 +116,7 @@ if($paciente->getModuloPaciente('m_mujer')=='NO'){
                 }
             });
         }
-        function boxHistorialPaciente_PSCV(rut){
+        function boxHistorialPaciente_SM(rut){
             $.post('modal/historial.php',{
                 rut:rut,
             },function(data){
@@ -207,10 +175,8 @@ if($paciente->getModuloPaciente('m_mujer')=='NO'){
         <div id="tabs_registro" style="font-size: 0.8em;">
             <ul>
                 <li style="margin-left: 30px;text-align: center" onclick="load_sm_antecedentes('<?php echo $rut; ?>')">ANTECEDENTES</li>
-                <li style="margin-left: 30px;text-align: center" onclick="load_m_examenes('<?php echo $rut; ?>')">EXAMENES</li>
-                <li style="margin-left: 30px;" onclick="load_m_sexualidad('<?php echo $rut; ?>')">FERTILIDAD Y SALUD SEXUAL</li>
-                <li style="margin-left: 30px;" onclick="load_m_gestaciones('<?php echo $rut; ?>')">GESTANTES</li>
-                <li style="margin-left: 30px;" onclick="load_m_climaterio('<?php echo $rut; ?>')">CLIMATERIO</li>
+                <li style="margin-left: 30px;text-align: center" onclick="load_sm_diagnosticos('<?php echo $rut; ?>')">DIAGNOSTICOS</li>
+                <li style="margin-left: 30px;" onclick="load_sm_dependiente('<?php echo $rut; ?>')">ACOMPAÑAMIENTO</li>
                 <li style="background-color: #5cff9a;cursor: pointer;" onclick="boxAgendamiento()">FINALIZAR ATENCIÓN</li>
             </ul>
             <div>
@@ -218,16 +184,12 @@ if($paciente->getModuloPaciente('m_mujer')=='NO'){
                 <form name="form_antecedentes" id="form_antecedentes" class="col l12"></form>
             </div>
             <div>
-                <!-- EXAMENES -->
+                <!-- DIAGNOSTICOS -->
                 <form name="form_examenes" id="form_examenes" class="col l12"></form>
             </div>
             <div>
-                <!-- FUNCIONALIDAD -->
+                <!-- ACOMPAÑAMIENTO -->
                 <form name="form_sexualidad" id="form_sexualidad" class="col l12"></form>
-            </div>
-            <div>
-                <!-- FUNCIONALIDAD -->
-                <form name="form_gestaciones" id="form_gestaciones" class="col l12"></form>
             </div>
             <div>
                 <!-- CLIMATERIO -->
