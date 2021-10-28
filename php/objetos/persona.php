@@ -1742,5 +1742,39 @@ class persona{
         mysql_query($sql);
     }
 
+    //SALUD MENTAL
+    function hisotrial_SM_Antecedentes($column,$value,$fecha){
+        $sql0 = "delete from historial_antecedentes_sm
+                where rut='$this->rut' 
+                  and indicador='$column' 
+                  and fecha_registro='$fecha' ";
+
+        mysql_query($sql0);
+        if($fecha!=''){
+            $fecha_dias = $this->calcularEdadDias($fecha);
+            $sql = "insert into historial_antecedentes_sm(rut,id_profesional,indicador,valor,fecha_registro,edad_dias) 
+                values('$this->rut','$this->myID','$column','$value','$fecha','$fecha_dias')";
+
+            mysql_query($sql);
+
+        }
+    }
+    function update_antecedentes_sm($column,$value,$fecha){
+        $sql1 = "select * from paciente_salud_mental 
+                  where rut='$this->rut' limit 1";
+        $row1 = mysql_fetch_array(mysql_query($sql1));
+        if($row1){
+            $sql2 = "update paciente_salud_mental 
+                        set $column='$value',
+                            ultimo_registro=now() 
+                      where rut='$this->rut' limit 1";
+        }else{
+            $sql2 = "insert into paciente_salud_mental(rut,$column) values('$this->rut','$value')";
+        }
+        mysql_query($sql2);
+        $this->hisotrial_SM_Antecedentes($column,$value,$fecha);
+        $this->addHistorial('SALUD MENTAL','SE REGISTRO UN CAMBIO EN '.$column.' con un valor '.$value.' EN LA FECHA '.$fecha);
+    }
+
 
 }
