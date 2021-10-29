@@ -105,62 +105,6 @@ $esatdo  = $paciente->getParametro_M('estado_paciente');
                         </div>
                         <div class="row">
                             <div class="col l10 m10 s10" >
-                                <strong style="line-height: 2em;font-size: 1.5em;">GESTANTE <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
-                            </div>
-                            <div class="col l2 center-align">
-                                <i class="mdi-editor-insert-chart"
-                                   onclick="loadHistorialParametro_SM('<?php echo $rut ?>','gestante')"></i>
-                            </div>
-                            <div class="col l12 m12 s12">
-                                <div class="row">
-                                    <input type="hidden" name="fecha_gestante" id="fecha_gestante" value="<?php echo $fecha_registro; ?>" />
-                                    <select class="browser-default"
-                                            name="gestante" id="gestante"
-                                            style="font-size: 1.5em;"
-                                            onchange="updateAntecedente_sm('gestante')">
-
-                                        <option></option>
-                                        <option>SI</option>
-                                        <option>NO</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!-- PATOLOGIA BASE  -->
-        </div>
-        <div class="col l4 m6 s12">
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="card-panel green lighten-2">
-                        <div class="row">
-                            <div class="col l10 m10 s10" >
-                                <strong style="line-height: 2em;font-size: 1.5em;">MADRE HIJO MENOR 5 AÑOS <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
-                            </div>
-                            <div class="col l2 center-align">
-                                <i class="mdi-editor-insert-chart"
-                                   onclick="loadHistorialParametro_SM('<?php echo $rut ?>','madre_5')"></i>
-                            </div>
-                            <div class="col l12 m12 s12">
-                                <div class="row">
-                                    <input type="hidden" name="fecha_madre_5" id="fecha_madre_5" value="<?php echo $fecha_registro; ?>" />
-                                    <select class="browser-default"
-                                            name="madre_5" id="madre_5"
-                                            style="font-size: 1.5em;"
-                                            onchange="updateAntecedente_sm('madre_5')">
-
-                                        <option></option>
-                                        <option>SI</option>
-                                        <option>NO</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col l10 m10 s10" >
                                 <strong style="line-height: 2em;font-size: 1.5em;">POBLACION SENAME <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
                             </div>
                             <div class="col l2 center-align">
@@ -182,9 +126,71 @@ $esatdo  = $paciente->getParametro_M('estado_paciente');
                                 </div>
                             </div>
                         </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- PATOLOGIA BASE  -->
+        </div>
+        <div class="col l4 m6 s12">
+            <div class="row">
+                <div class="col l12 m12 s12">
+                    <div class="card-panel green lighten-2">
+                        <?php
+                        if($paciente->sexo=='F'){
+                            ?>
+                            <div class="row">
+                                <div class="col l10 m10 s10" >
+                                    <strong style="line-height: 2em;font-size: 1.5em;">GESTANTE <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
+                                </div>
+                                <div class="col l2 center-align">
+                                    <i class="mdi-editor-insert-chart"
+                                       onclick="loadHistorialParametro_SM('<?php echo $rut ?>','gestante')"></i>
+                                </div>
+                                <div class="col l12 m12 s12">
+                                    <div class="row">
+                                        <input type="hidden" name="fecha_gestante" id="fecha_gestante" value="<?php echo $fecha_registro; ?>" />
+                                        <select class="browser-default"
+                                                name="gestante" id="gestante"
+                                                style="font-size: 1.5em;"
+                                                onchange="updateAntecedente_sm('gestante')">
+                                            <option></option>
+                                            <option>SI</option>
+                                            <option>NO</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col l10 m10 s10" >
+                                    <strong style="line-height: 2em;font-size: 1.5em;">MADRE DE HIJO MENOR 5 AÑOS <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
+                                </div>
+                                <div class="col l2 center-align">
+                                    <i class="mdi-editor-insert-chart"
+                                       onclick="loadHistorialParametro_SM('<?php echo $rut ?>','madre_5')"></i>
+                                </div>
+                                <div class="col l12 m12 s12">
+                                    <div class="row">
+                                        <input type="hidden" name="fecha_madre_5" id="fecha_madre_5" value="<?php echo $fecha_registro; ?>" />
+                                        <select class="browser-default"
+                                                name="madre_5" id="madre_5"
+                                                style="font-size: 1.5em;"
+                                                onchange="updateAntecedente_sm('madre_5')">
+
+                                            <option></option>
+                                            <option>SI</option>
+                                            <option>NO</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+
                         <div class="row">
                             <div class="col l10 m10 s10" >
-                                <strong style="line-height: 2em;font-size: 1.5em;">PLANA INTEGRAL<strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
+                                <strong style="line-height: 2em;font-size: 1.5em;">PLANIFICACION INTEGRAL<strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
                             </div>
                             <div class="col l2 center-align">
                                 <i class="mdi-editor-insert-chart"
@@ -201,6 +207,14 @@ $esatdo  = $paciente->getParametro_M('estado_paciente');
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col l4 m6 s12">
+            <div class="row">
+                <div class="col l12 m12 s12">
+                    <div class="card-panel green lighten-2">
                         <div class="row">
                             <div class="col l10 m10 s10" >
                                 <strong style="line-height: 2em;font-size: 1.5em;">GES <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
@@ -211,7 +225,8 @@ $esatdo  = $paciente->getParametro_M('estado_paciente');
                             </div>
                             <div class="col l12 m12 s12">
                                 <div class="row">
-                                    <input type="hidden" name="fecha_ges" id="fecha_ges" value="<?php echo $fecha_registro; ?>" />
+                                    <input type="date"
+                                           name="fecha_ges" id="fecha_ges" value="<?php echo $fecha_registro; ?>" />
                                     <select class="browser-default"
                                             name="ges" id="ges"
                                             style="font-size: 1.5em;"
@@ -230,6 +245,7 @@ $esatdo  = $paciente->getParametro_M('estado_paciente');
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </form>

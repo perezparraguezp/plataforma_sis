@@ -73,6 +73,16 @@ if($paciente->getModuloPaciente('m_mujer')=='NO'){
                 $("#info_paciente").html(data);
             });
         }
+        function load_sm_antecedentes2(rut){
+            var div = 'form_antecedentes2';
+            loading_div(div);
+            $.post('formulario/antecedentes2.php',{
+                rut:rut,
+                fecha_registro:'<?php echo $fecha_registro; ?>'
+            },function(data){
+                $("#"+div).html(data);
+            });
+        }
         function load_sm_antecedentes(rut) {
             var div = 'form_antecedentes';
             loading_div(div);
@@ -174,11 +184,16 @@ if($paciente->getModuloPaciente('m_mujer')=='NO'){
         </div>
         <div id="tabs_registro" style="font-size: 0.8em;">
             <ul>
-                <li style="margin-left: 30px;text-align: center" onclick="load_sm_antecedentes('<?php echo $rut; ?>')">ANTECEDENTES</li>
-                <li style="margin-left: 30px;text-align: center" onclick="load_sm_diagnosticos('<?php echo $rut; ?>')">DIAGNOSTICOS</li>
+                <li style="margin-left: 30px;text-align: center" onclick="load_sm_antecedentes2('<?php echo $rut; ?>')">ANTECEDENTES 1</li>
+                <li style="margin-left: 30px;text-align: center" onclick="load_sm_antecedentes('<?php echo $rut; ?>')">ANTECEDENTES 2</li>
+                <li style="margin-left: 30px;text-align: center" onclick="('<?php echo $rut; ?>')">DIAGNOSTICOS</li>
                 <li style="margin-left: 30px;" onclick="load_sm_dependiente('<?php echo $rut; ?>')">ACOMPAÑAMIENTO</li>
                 <li style="background-color: #5cff9a;cursor: pointer;" onclick="boxAgendamiento()">FINALIZAR ATENCIÓN</li>
             </ul>
+            <div>
+                <!-- ANTECEDENTES2 -->
+                <form name="form_antecedentes2" id="form_antecedentes2" class="col l12"></form>
+            </div>
             <div>
                 <!-- ANTECEDENTES -->
                 <form name="form_antecedentes" id="form_antecedentes" class="col l12"></form>

@@ -1775,6 +1775,28 @@ class persona{
         $this->hisotrial_SM_Antecedentes($column,$value,$fecha);
         $this->addHistorial('SALUD MENTAL','SE REGISTRO UN CAMBIO EN '.$column.' con un valor '.$value.' EN LA FECHA '.$fecha);
     }
+    function Alta_Antecedente($id,$fecha,$obs){
+        $sql = "update paciente_antecedentes_sm 
+                set 
+                    fecha_egreso='$fecha',
+                    obs_egreso=upper('$obs')
+                where id='$id'";
+
+        mysql_query($sql);
+        $this->addHistorial('SALUD MENTAL','SE DIO DE ALTA UN DIAGNOSTICO LA FECHA '.$fecha);
+
+    }
+    function Alta_Diagnostico($id,$fecha,$obs){
+        $sql = "update paciente_diagnosticos_sm 
+                set 
+                    estado='ALTA',
+                    fecha_egreso='$fecha',
+                    obs_alta=upper('$obs')
+                where id='$id'";
+        mysql_query($sql);
+        $this->addHistorial('SALUD MENTAL','SE DIO DE ALTA UN DIAGNOSTICO LA FECHA '.$fecha);
+
+    }
 
 
 }

@@ -46,18 +46,27 @@ $paciente = new persona($rut);
                 $res1 = mysql_query($sql1);
                 while($row1 = mysql_fetch_array($res1)){
                     ?>
-                    <div class="row tooltipped rowInfoSis"
-                         data-position="bottom" data-delay="50" data-tooltip="OBS: <?php echo $row1['obs']; ?>" >
-                        <div class="col l2 s4 m2"><?PHP echo fechaNormal($row1['fecha_inicio']); ?></div>
+                    <div class="row rowInfoSis" >
+                        <div class="col l2 s4 m2"><?PHP echo fechaNormal($row1['fecha_inicio']).' 
+                                <strong class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="OBS INGRESO: '.$row1['obs'].'">(?)</strong>'; ?></div>
                         <div class="col l5 s5 m5"><?PHP echo $row1['nombre_tipo']; ?></div>
                         <div class="col l3 s3 m3"><?PHP echo $row1['valor_tipo']; ?></div>
                         <div class="col l2 s2 m2">
                             <?PHP
 
-                            if($row1['fecha_inicio']==date('Y-m-d')){
+                            if($row1['fecha_inicio']==$fecha_registro){
                                 ?>
                                 <a href="#" onclick="delete_diagnostico('<?php echo $row1['id']; ?>')">ELIMINAR</a>
                                 <?php
+                            }else{
+                                if($row1['fecha_egreso']==''){
+                                    ?>
+                                    <a href="#" onclick="AltaDiagnostico('<?php echo $row1['id']; ?>')">DAR ALTA</a>
+                                    <?php
+                                }else{
+                                    echo fechaNormal($row1['fecha_egreso']).' <strong class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="OBS EGRESO: '.$row1['obs_alta'].'">(?)</strong>';
+                                }
+
                             }
                             ?>
                         </div>
@@ -74,6 +83,18 @@ $paciente = new persona($rut);
     $(function () {
         $('.tooltipped').tooltip({delay: 50});
     });
+    function AltaDiagnostico(id){
+        $.post('formulario/alta_diagnostico.php',{
+            rut:'<?php echo $rut ?>',
+            id:id
+        },function(data){
+            if(data !== 'ERROR_SQL'){
+                $("#modal").html(data);
+                $("#modal").css({'width':'800px'});
+                document.getElementById("btn-modal").click();
+            }
+        });
+    }
     function delete_diagnostico(id){
         if(confirm("Desea Eliminar este Diagnostico")){
             $.post('db/delete/diagnostico.php',{

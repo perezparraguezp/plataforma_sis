@@ -5,32 +5,24 @@ include "../../../php/objetos/persona.php";
 $rut = $_POST['rut'];
 $fecha_registro = $_POST['fecha_registro'];
 ?>
-<form id="form_diagnostico" class="container" style="padding: 20px;">
+<form id="form_antecedentes_lista" class="container" style="padding: 20px;">
     <input type="hidden" name="rut" value="<?php echo $rut; ?>" />
     <input type="hidden" name="fecha_registro" value="<?php echo $fecha_registro; ?>" />
     <div class="row">
-        <div class="col l4 s4 m4">TIPO DIAGNOSTICO</div>
+            <div class="col l4 s4 m4">TIPO ANTECEDENTE</div>
         <div class="col l8 s8 m8">
             <select name="tipo" id="tipo">
-                <option value="" disabled="disabled" selected="selected">SELECCIONE UN DIAGNOSTICO</option>
+                <option value="" disabled="disabled" selected="selected">SELECCIONE UN ANTECEDENTE</option>
                 <option disabled="disabled">-------------------------------------</option>
                 <?php
-                $sql = "select * from tipo_diagnostico_sm order by nombre_tipo";
+                $sql = "select * from antecedentes_sm order by nombre_antecedente";
                 $res = mysql_query($sql);
                 while($row = mysql_fetch_array($res)){
                     ?>
-                    <option value="<?php echo $row['id_tipo']; ?>"><?php echo $row['nombre_tipo']; ?></option>
+                    <option><?php echo $row['nombre_antecedente']; ?></option>
                     <?php
                 }
                 ?>
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col l4 s4 m4">EVALUACION DIAGNOSTICO</div>
-        <div class="col l8 s8 m8" id="div_eval">
-            <select name="evaluacion" id="evaluacion">
-                <option>SELECCIONE UN DIAGNOSTICO</option>
             </select>
         </div>
     </div>
@@ -43,11 +35,11 @@ $fecha_registro = $_POST['fecha_registro'];
     <div class="row">
         <div class="col l4 s4 m4">OBSERVACION</div>
         <div class="col l8 s8 m8">
-            <textarea id="obs" name="obs"></textarea>
+            <textarea name="obs" id="obs"></textarea>
         </div>
     </div>
     <div class="row">
-        <div class="btn blue" style="width: 100%;" onclick="insertDiagnostico()"> REGISTRAR DIAGNOSTICO</div>
+        <div class="btn blue" style="width: 100%;" onclick="insertAntecedente()"> REGISTRAR ANTECEDENTE</div>
     </div>
 
 </form>
@@ -62,34 +54,24 @@ $fecha_registro = $_POST['fecha_registro'];
             height: '25px'
         });
 
-        $("#tipo").on('change',function(){
-            $.post('ajax/select/valor_diagnostico.php',
-                {
-                    tipo:$("#tipo").val()
-                }
-                ,function (data) {
-                    $("#div_eval").html(data);
-
-                });
-        });
 
 
     });
-    function insertDiagnostico(){
+    function insertAntecedente(){
         var obs = $("#obs").val();
-        var diagnostico = $("#tipo").val();
-        if(diagnostico !== '' ){
+        var antecedente = $("#tipo").val();
+        if(antecedente !== '' ){
             if(obs !== ''){
-                if(confirm("¿Seguro que desea asignar este Diagnostico al Paciente?")){
-                    $.post('db/insert/diagnostico.php',
-                        $("#form_diagnostico").serialize()
+                if(confirm("¿Seguro que desea asignar este Antecedente al Paciente?")){
+                    $.post('db/insert/antecedente.php',
+                        $("#form_antecedentes_lista").serialize()
                         ,function (data) {
-                            load_sm_diagnosticos('<?php echo $rut; ?>');
+                            load_sm_antecedentes2('<?php echo $rut; ?>');
                             document.getElementById("close_modal").click();
                         });
                 }
             }else{
-                alertaLateral('DEBE INGRESAR UNA OBSERVACION PARA EL DIAGNOSTICO');
+                alertaLateral('DEBE INGRESAR UNA OBSERVACION PARA EL ANTECEDENTE');
                 $("#obs").css({
                     'background-color':'pink',
                     'border':'solid 1px red'
@@ -97,13 +79,14 @@ $fecha_registro = $_POST['fecha_registro'];
                 $("#obs").focus();
             }
         }else{
-            alertaLateral('DEBE INGRESAR UN DIAGNOSTICO');
+            alertaLateral('DEBE INGRESAR UN ANTECEDENTE');
             $("#tipo").css({
                 'background-color':'pink',
                 'border':'solid 1px red'
             });
             $("#tipo").focus();
         }
+
 
     }
 </script>
