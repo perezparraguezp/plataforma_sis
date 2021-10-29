@@ -23,7 +23,7 @@ $profesional = new profesional($_SESSION['id_usuario']);
 <aside id="left-sidebar-nav">
     <ul id="slide-out" class="side-nav fixed leftside-navigation">
         <li class="user-details cyan darken-2"
-            style="background-image: url(sis_mujer.jpeg);width: 100%;height: 80px;">
+            style="background-image: url(sis_salud_mental.jpg);width: 100%;height: 80px;">
             <div class="row">
 
             </div>

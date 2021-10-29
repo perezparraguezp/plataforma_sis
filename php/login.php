@@ -37,6 +37,6 @@ if($row){
     mysql_query("UPDATE persona SET edad_total_dias=TIMESTAMPDIFF(DAY , fecha_nacimiento, current_date());");
     header('Location: ../i.php?LOGIN=TRUE');
 }else{
-    header('Location: ../login.php?LOGIN=FALSE');
+    header('Location: ../login2.php?LOGIN=FALSE');
 }
 
