@@ -58,7 +58,7 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
             $('#tabs_registro').jqxTabs({ width: '100%', theme: 'eh-open',height: 450, position: 'top',scrollPosition: 'both'});
             loadInfoPaciente('<?php echo $rut; ?>');
 
-            load_sm_antecedentes('<?php echo $rut; ?>');
+            load_sm_antecedentes2('<?php echo $rut; ?>');
             load_sm_diagnosticos('<?php echo $rut; ?>');
             load_sm_dependiente('<?php echo $rut; ?>');
 
@@ -184,8 +184,7 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
         </div>
         <div id="tabs_registro" style="font-size: 0.8em;">
             <ul>
-                <li style="margin-left: 30px;text-align: center" onclick="load_sm_antecedentes2('<?php echo $rut; ?>')">ANTECEDENTES 1</li>
-                <li style="margin-left: 30px;text-align: center" onclick="load_sm_antecedentes('<?php echo $rut; ?>')">ANTECEDENTES 2</li>
+                <li style="margin-left: 30px;text-align: center" onclick="load_sm_antecedentes2('<?php echo $rut; ?>')">ANTECEDENTES</li>
                 <li style="margin-left: 30px;text-align: center" onclick="('<?php echo $rut; ?>')">DIAGNOSTICOS</li>
                 <li style="margin-left: 30px;" onclick="load_sm_dependiente('<?php echo $rut; ?>')">ACOMPAÑAMIENTO</li>
                 <li style="background-color: #5cff9a;cursor: pointer;" onclick="boxAgendamiento()">FINALIZAR ATENCIÓN</li>
@@ -193,10 +192,6 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
             <div>
                 <!-- ANTECEDENTES2 -->
                 <form name="form_antecedentes2" id="form_antecedentes2" class="col l12"></form>
-            </div>
-            <div>
-                <!-- ANTECEDENTES -->
-                <form name="form_antecedentes" id="form_antecedentes" class="col l12"></form>
             </div>
             <div>
                 <!-- DIAGNOSTICOS -->

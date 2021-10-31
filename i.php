@@ -84,6 +84,10 @@ session_start();
         background-color: #e8eaf6;
         cursor: pointer;
     }
+    .PANEL_MENU_SIS_INVACTIVO{
+        background-color: rgba(204,204,221,0.86);
+        cursor: pointer;
+    }
 </style>
 <div class="row">
     <div class="col l6 m6 s12" style="position: relative;top: 0px;left: 0px;">
@@ -117,14 +121,24 @@ session_start();
 
                 $profesional = new profesional($myId);
 
-                $sql = "select * from menu_usuario 
-                        inner join modulos_ehopen using(id_modulo)
-                        where rut='$rut' and id_establecimiento='$id_establecimiento' 
+                $sql = "select * from modulos_ehopen 
                         order by id_modulo";
 
                 $res = mysql_query($sql);
                 while($row = mysql_fetch_array($res)){
-                    echo  $row['html'];
+                    $id_modulo = $row['id_modulo'];
+                    $sql1 = "select * from menu_usuario 
+                            where rut='$rut' 
+                              and id_modulo='$id_modulo' 
+                              and id_establecimiento='$id_establecimiento' 
+                              limit 1";
+                    $row1 = mysql_fetch_array(mysql_query($sql1));
+                    if($row1){
+                        echo  $row['html'];
+                    }else{
+                        echo  $row['inactivo'];
+                    }
+
                 }
                 ?>
 
