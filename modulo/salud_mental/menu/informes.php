@@ -18,9 +18,7 @@ $dsm = new establecimiento($id_establecimiento);
                 <div class="col s12">
                     <a href="#!" class="brand-logo"><i class="mdi-action-settings-applications"></i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li onclick="load_estadistica_REMP1()"><a href="#"><i class="mdi-action-assignment-turned-in left"></i>REM P1</a></li>
-                        <li onclick="load_estadistica_REMP12()"><a href="#"><i class="mdi-action-assignment-turned-in left"></i>REM P12</a></li>
-
+                        <li onclick="load_estadistica_REMP6()"><a href="#"><i class="mdi-action-assignment-turned-in left"></i>REM P6</a></li>
                     </ul>
                 </div>
             </div>
@@ -35,12 +33,12 @@ $dsm = new establecimiento($id_establecimiento);
     </div>
 </div>
 <script type="text/javascript">
-    load_estadistica_REMP1();
+    load_estadistica_REMP6();
 
-    function load_estadistica_REMP1() {
+    function load_estadistica_REMP6() {
         var div = 'contenido_menu';
         loading_div(div);
-        $.post('info/P1.php',{
+        $.post('info/P6.php',{
         },function(data){
             if(data !=='ERROR_SQL' ){
                 $("#"+div).html(data);

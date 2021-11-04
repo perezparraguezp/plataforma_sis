@@ -11,11 +11,16 @@ $sector_comunal = explode(",",$_POST['sector_comunal']);
 $centro_interno = explode(",",$_POST['centro_interno']);
 $sector_interno = explode(",",$_POST['sector_interno']);
 
-$indicador      = 'riesgo_caida';//funcionalidad
-$atributo       = $_POST['atributo'];//parametro
+$indicador      = $_POST['indicador'];//funcionalidad
+$atributo       = $_POST['atributo'];//parametro columna
+$estado       = $_POST['estado'];//parametro columna
 
-$TITULO_GRAFICO = strtoupper(str_replace("_"," ",$indicador));
 
+
+
+$TITULO_GRAFICO = strtoupper(str_replace("_"," ",$indicador." - ".$atributo));
+
+$atributo = str_replace(" ","_",strtolower($atributo));
 
 $filtro = '';
 
@@ -41,8 +46,8 @@ $rango = '';
 $series = '';
 $json = '';
 $json_coma = 0;
+$total_indicador = 0;
 
-$estado = '';
 if($comunal==true){
     //total pacientes
     $sql_0 = "select *  from persona 
@@ -50,7 +55,9 @@ if($comunal==true){
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                     inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                     inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
-                                    where m_adulto_mayor='SI' and persona.rut!='' and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
+                                    where m_mujer='SI' 
+                                      and persona.rut!='' 
+                                      and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
                                      ";
     $res_0  = mysql_query($sql_0);
     $total_pacientes = 0;
@@ -65,42 +72,35 @@ if($comunal==true){
         if($json_coma>0){
             $json.=',';
         }
-        $sql_1 = "select * from paciente_adultomayor where rut='$persona->rut' limit 1";
+        $sql_1 = "select * from gestacion_mujer 
+                where $atributo like '$estado%' 
+                  and estado_gestacion='ACTIVA'
+                  and rut='$persona->rut' 
+                limit 1";
+
         $row_1 = mysql_fetch_array(mysql_query($sql_1));
         if($row_1){
-            $sql_2 = "select * from historial_parametros_am 
-                                          where rut='$persona->rut' and indicador='$indicador'
-                                          and TIMESTAMPDIFF(DAY,historial_parametros_am.fecha_registro,CURRENT_DATE)<365
-                                          order by id_historial desc limit 1";
-            $row_2 = mysql_fetch_array(mysql_query($sql_2));
-            if($row_2){//dentro del año
-                $fecha = fechaNormal($row_2['fecha_registro']);
-                $indicador_json = $row_2['valor'];
-                if($indicador_json==$atributo){//segun indicador
-                    //vigente segun opcion
-                    $total_vigente++;
-                    if($persona->sexo=='M'){
-                        $hombres++;
-                    }else{
-                        $mujeres++;
-                    }
-                }else{
-                    //no sumamos
-                }
-
-            }else{//mayor a un año
-                $fecha = '';
-                $indicador_json = 'PENDIENTE';
-                $total_pendiente++;
+            $fecha_retiro = $row_1['fecha_retiro_hormonal'];
+            if($fecha_retiro==''){
+                $indicador_json = 'VIGENTE';
+                $total_vigente++;
                 if($persona->sexo=='M'){
-                    $hombres_pendientes++;
+                    $hombres++;
                 }else{
-                    $mujeres_pendientes++;
+                    $mujeres++;
+                }
+            }else{
+                $indicador_json = 'RETIRADO';
+                $total_vigente++;
+                if($persona->sexo=='M'){
+                    $hombres++;
+                }else{
+                    $mujeres++;
                 }
             }
 
         }else{
-            $indicador_json = 'PENDIENTE';
+            $indicador_json = 'NUNCA';
             $total_pendiente++;
             if($persona->sexo=='M'){
                 $hombres_pendientes++;
@@ -133,7 +133,7 @@ if($comunal==true){
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                     inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                     inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal  
-                                    where m_adulto_mayor='SI' 
+                                    where m_mujer='SI' 
                                     AND (";
 
         $a = 0;
@@ -165,7 +165,9 @@ if($comunal==true){
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                     inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                     inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
-                                    where m_adulto_mayor='SI' and persona.rut!='' and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
+                                    where m_mujer='SI'
+                                    and persona.rut!=''
+                                    and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
                                     and sector_comunal.id_sector_comunal='$id' ";
             $res_0  = mysql_query($sql_0);
             $total_pacientes = 0;
@@ -180,42 +182,34 @@ if($comunal==true){
                 if($json_coma>0){
                     $json.=',';
                 }
-                $sql_1 = "select * from paciente_adultomayor where rut='$persona->rut' limit 1";
+                $sql_1 = "select * from gestacion_mujer 
+                where $atributo like '$estado%' 
+                  and estado_gestacion='ACTIVA'
+                  and rut='$persona->rut' 
+                limit 1";
                 $row_1 = mysql_fetch_array(mysql_query($sql_1));
                 if($row_1){
-                    $sql_2 = "select * from historial_parametros_am 
-                                          where rut='$persona->rut' and indicador='$indicador'
-                                          and TIMESTAMPDIFF(DAY,historial_parametros_am.fecha_registro,CURRENT_DATE)<365
-                                          order by id_historial desc limit 1";
-                    $row_2 = mysql_fetch_array(mysql_query($sql_2));
-                    if($row_2){//dentro del año
-                        $fecha = fechaNormal($row_2['fecha_registro']);
-                        $indicador_json = $row_2['valor'];
-                        if($indicador_json==$atributo){//segun indicador
-                            //vigente segun opcion
-                            $total_vigente++;
-                            if($persona->sexo=='M'){
-                                $hombres++;
-                            }else{
-                                $mujeres++;
-                            }
-                        }else{
-                            //no sumamos
-                        }
-
-                    }else{//mayor a un año
-                        $fecha = '';
-                        $indicador_json = 'PENDIENTE';
-                        $total_pendiente++;
+                    $fecha_retiro = $row_1['fecha_retiro_hormonal'];
+                    if($fecha_retiro==''){
+                        $indicador_json = 'VIGENTE';
+                        $total_vigente++;
                         if($persona->sexo=='M'){
-                            $hombres_pendientes++;
+                            $hombres++;
                         }else{
-                            $mujeres_pendientes++;
+                            $mujeres++;
+                        }
+                    }else{
+                        $indicador_json = 'RETIRADO';
+                        $total_vigente++;
+                        if($persona->sexo=='M'){
+                            $hombres++;
+                        }else{
+                            $mujeres++;
                         }
                     }
 
                 }else{
-                    $indicador_json = 'PENDIENTE';
+                    $indicador_json = 'NUNCA';
                     $total_pendiente++;
                     if($persona->sexo=='M'){
                         $hombres_pendientes++;
@@ -250,7 +244,7 @@ if($comunal==true){
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                     inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                     inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
-                                    where m_adulto_mayor='SI' 
+                                    where m_mujer='SI' 
                                     and (";
             $a = 0;
             foreach ($centro_interno as $i => $id_centro_interno){
@@ -280,7 +274,7 @@ if($comunal==true){
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                     inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                     inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
-                                    where m_adulto_mayor='SI' and persona.rut!='' and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
+                                    where m_mujer='SI' and persona.rut!='' and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
                                     and centros_internos.id_centro_interno='$id' ";
                 $res_0  = mysql_query($sql_0);
                 $total_pacientes = 0;
@@ -295,42 +289,34 @@ if($comunal==true){
                     if($json_coma>0){
                         $json.=',';
                     }
-                    $sql_1 = "select * from paciente_adultomayor where rut='$persona->rut' limit 1";
+                    $sql_1 = "select * from gestacion_mujer 
+                where $atributo like '$estado%' 
+                  and estado_gestacion='ACTIVA'
+                  and rut='$persona->rut' 
+                limit 1";
                     $row_1 = mysql_fetch_array(mysql_query($sql_1));
                     if($row_1){
-                        $sql_2 = "select * from historial_parametros_am 
-                                          where rut='$persona->rut' and indicador='$indicador'
-                                          and TIMESTAMPDIFF(DAY,historial_parametros_am.fecha_registro,CURRENT_DATE)<365
-                                          order by id_historial desc limit 1";
-                        $row_2 = mysql_fetch_array(mysql_query($sql_2));
-                        if($row_2){//dentro del año
-                            $fecha = fechaNormal($row_2['fecha_registro']);
-                            $indicador_json = $row_2['valor'];
-                            if($indicador_json==$atributo){//segun indicador
-                                //vigente segun opcion
-                                $total_vigente++;
-                                if($persona->sexo=='M'){
-                                    $hombres++;
-                                }else{
-                                    $mujeres++;
-                                }
-                            }else{
-                                //no sumamos
-                            }
-
-                        }else{//mayor a un año
-                            $fecha = '';
-                            $indicador_json = 'PENDIENTE';
-                            $total_pendiente++;
+                        $fecha_retiro = $row_1['fecha_retiro_hormonal'];
+                        if($fecha_retiro==''){
+                            $indicador_json = 'VIGENTE';
+                            $total_vigente++;
                             if($persona->sexo=='M'){
-                                $hombres_pendientes++;
+                                $hombres++;
                             }else{
-                                $mujeres_pendientes++;
+                                $mujeres++;
+                            }
+                        }else{
+                            $indicador_json = 'RETIRADO';
+                            $total_vigente++;
+                            if($persona->sexo=='M'){
+                                $hombres++;
+                            }else{
+                                $mujeres++;
                             }
                         }
 
                     }else{
-                        $indicador_json = 'PENDIENTE';
+                        $indicador_json = 'NUNCA';
                         $total_pendiente++;
                         if($persona->sexo=='M'){
                             $hombres_pendientes++;
@@ -368,7 +354,7 @@ if($comunal==true){
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                     inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                     inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
-                                    where  m_adulto_mayor='SI' 
+                                    where  m_mujer='SI' 
                                     and (";
             $a = 0;
             foreach ($sector_interno as $i => $id_sector_interno){
@@ -399,7 +385,7 @@ if($comunal==true){
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                     inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                     inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
-                                    where m_adulto_mayor='SI' and persona.rut!='' and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
+                                    where m_mujer='SI' and persona.rut!='' and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
                                     and sectores_centros_internos.id_sector_centro_interno='$id' ";
                 $res_0  = mysql_query($sql_0);
                 $total_pacientes = 0;
@@ -414,42 +400,34 @@ if($comunal==true){
                     if($json_coma>0){
                         $json.=',';
                     }
-                    $sql_1 = "select * from paciente_adultomayor where rut='$persona->rut' limit 1";
+                    $sql_1 = "select * from gestacion_mujer 
+                where $atributo like '$estado%' 
+                  and estado_gestacion='ACTIVA'
+                  and rut='$persona->rut' 
+                limit 1";
                     $row_1 = mysql_fetch_array(mysql_query($sql_1));
                     if($row_1){
-                        $sql_2 = "select * from historial_parametros_am 
-                                          where rut='$persona->rut' and indicador='$indicador'
-                                          and TIMESTAMPDIFF(DAY,historial_parametros_am.fecha_registro,CURRENT_DATE)<365
-                                          order by id_historial desc limit 1";
-                        $row_2 = mysql_fetch_array(mysql_query($sql_2));
-                        if($row_2){//dentro del año
-                            $fecha = fechaNormal($row_2['fecha_registro']);
-                            $indicador_json = $row_2['valor'];
-                            if($indicador_json==$atributo){//segun indicador
-                                //vigente segun opcion
-                                $total_vigente++;
-                                if($persona->sexo=='M'){
-                                    $hombres++;
-                                }else{
-                                    $mujeres++;
-                                }
-                            }else{
-                                //no sumamos
-                            }
-
-                        }else{//mayor a un año
-                            $fecha = '';
-                            $indicador_json = 'PENDIENTE';
-                            $total_pendiente++;
+                        $fecha_retiro = $row_1['fecha_retiro_hormonal'];
+                        if($fecha_retiro==''){
+                            $indicador_json = 'VIGENTE';
+                            $total_vigente++;
                             if($persona->sexo=='M'){
-                                $hombres_pendientes++;
+                                $hombres++;
                             }else{
-                                $mujeres_pendientes++;
+                                $mujeres++;
+                            }
+                        }else{
+                            $indicador_json = 'RETIRADO';
+                            $total_vigente++;
+                            if($persona->sexo=='M'){
+                                $hombres++;
+                            }else{
+                                $mujeres++;
                             }
                         }
 
                     }else{
-                        $indicador_json = 'PENDIENTE';
+                        $indicador_json = 'NUNCA';
                         $total_pendiente++;
                         if($persona->sexo=='M'){
                             $hombres_pendientes++;
@@ -566,7 +544,9 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                 localdata: data
             };
         var cellLinkRegistroTarjetero = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-            return '<i onclick="loadMenu_M(\'menu_1\',\'registro_atencion\',\''+value+'\')" class="mdi-hardware-keyboard-return"></i> IR' ;
+            return '<i onclick="loadMenu_M(\'menu_1\',\'registro_atencion\',\''+value+'\')" ' +
+                '   class="mdi-hardware-keyboard-return"></i> ' +
+                '<span onclick="loadMenu_M(\'menu_1\',\'registro_atencion\',\''+value+'\')">IR</span>';
         }
         var cellIrClass = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
             return  "eh-open_principal white-text cursor_cell_link center";

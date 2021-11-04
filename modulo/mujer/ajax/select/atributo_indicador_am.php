@@ -33,10 +33,11 @@
             <?php
             break;
         }
-        case 'SOSPECHA MALTRATO':{
+        case 'GESTANTES':{
             ?>
-            <option>SI</option>
-            <option>NO</option>
+            <option disabled="disabled" selected="selected">SELECCIONAR OPCION</option>
+            <option>RIESGO BIOPSICOSOCIAL</option>
+            <option>IMC GESTACIONAL</option>
             <?php
             break;
         }
@@ -75,5 +76,19 @@
             theme: 'eh-open',
             height: '25px'
         });
+        $('#atributo').on('change',function (){
+            var indicador = $("#indicador").text();
+            var table_sql = $("#indicador").val();
+            var atributo = $("#atributo").val();
+            $.post('ajax/select/estado_atributo_indicador.php', {
+                table_sql:table_sql,
+                atributo:atributo,
+                indicador:indicador
+            }, function (data) {
+                $("#estado_indicador_div").html(data);
+
+            });
+        })
+
     });
 </script>

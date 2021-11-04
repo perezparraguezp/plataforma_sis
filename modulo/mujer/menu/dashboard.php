@@ -58,6 +58,8 @@ $sql1 = "select * from sector_comunal
                 <option value="patologias">PATOLOGIAS</option>
                 <option value="gestacion">ESTADO DEL PACIENTE</option>
                 <option value="estado_nutricional">ESTADO NUTRICIONAL</option>
+                <option value="fertilidad">REGULACION DE FERTILIDAD</option>
+                <option value="gestantes">GESTANTES</option>
 
 
             </select>

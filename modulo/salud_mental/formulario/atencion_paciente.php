@@ -61,9 +61,11 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
             load_sm_antecedentes2('<?php echo $rut; ?>');
             load_sm_diagnosticos('<?php echo $rut; ?>');
             load_sm_dependiente('<?php echo $rut; ?>');
+            load_sm_actividad('<?php echo $rut; ?>');
 
 
         });
+
         function loadInfoPaciente(rut){
             $.post('info/banner_paciente.php',{
                 rut:rut,
@@ -71,6 +73,16 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
 
             },function(data){
                 $("#info_paciente").html(data);
+            });
+        }
+        function load_sm_actividad(rut){
+            var div = 'form_actividad';
+            loading_div(div);
+            $.post('formulario/actividad.php',{
+                rut:rut,
+                fecha_registro:'<?php echo $fecha_registro; ?>'
+            },function(data){
+                $("#"+div).html(data);
             });
         }
         function load_sm_antecedentes2(rut){
@@ -184,11 +196,16 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
         </div>
         <div id="tabs_registro" style="font-size: 0.8em;">
             <ul>
+                <li style="margin-left: 30px;text-align: center" onclick="load_sm_actividad('<?php echo $rut; ?>')">ACTIVIDAD</li>
                 <li style="margin-left: 30px;text-align: center" onclick="load_sm_antecedentes2('<?php echo $rut; ?>')">ANTECEDENTES</li>
                 <li style="margin-left: 30px;text-align: center" onclick="('<?php echo $rut; ?>')">DIAGNOSTICOS</li>
                 <li style="margin-left: 30px;" onclick="load_sm_dependiente('<?php echo $rut; ?>')">ACOMPAÑAMIENTO</li>
                 <li style="background-color: #5cff9a;cursor: pointer;" onclick="boxAgendamiento()">FINALIZAR ATENCIÓN</li>
             </ul>
+            <div>
+                <!-- ACTIVIDAD -->
+                <form name="form_actividad" id="form_actividad" class="col l12"></form>
+            </div>
             <div>
                 <!-- ANTECEDENTES2 -->
                 <form name="form_antecedentes2" id="form_antecedentes2" class="col l12"></form>

@@ -187,7 +187,7 @@ if($comunal==true){
             $valor_json = '';
         }
 
-        $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$atributo.'","FECHA":"'.$fecha_json.'","VALOR":"'.$valor_json.'","ESTADO":"'.$estado_json.'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
+        $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.limpiaCadena($persona->nombre).'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$atributo.'","FECHA":"'.$fecha_json.'","VALOR":"'.$valor_json.'","ESTADO":"'.$estado_json.'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
         $total_pacientes++;
         $json_coma++;
     }
@@ -353,7 +353,7 @@ if($comunal==true){
                     $estado_json = 'PENDIENTE';
                 }
                 //preparamos JSON
-                $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$atributo.'","FECHA":"'.$fecha_json.'","VALOR":"'.$valor_json.'","ESTADO":"'.$estado_json.'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
+                $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.limpiaCadena($persona->nombre).'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$atributo.'","FECHA":"'.$fecha_json.'","VALOR":"'.$valor_json.'","ESTADO":"'.$estado_json.'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
                 $total_pacientes++;
                 $json_coma++;
             }
@@ -516,7 +516,7 @@ if($comunal==true){
                     }
 
                     //preparamos JSON
-                    $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$atributo.'","FECHA":"'.$fecha_json.'","VALOR":"'.$valor_json.'","ESTADO":"'.$estado_json.'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
+                    $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.limpiaCadena($persona->nombre).'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$atributo.'","FECHA":"'.$fecha_json.'","VALOR":"'.$valor_json.'","ESTADO":"'.$estado_json.'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
                     $total_pacientes++;
                     $json_coma++;
                 }
@@ -688,7 +688,7 @@ if($comunal==true){
                     if($json_coma>0){
                         $json.=',';
                     }
-                    $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$atributo.'","FECHA":"'.$fecha_json.'","VALOR":"'.$valor_json.'","ESTADO":"'.$estado_json.'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
+                    $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","NOMBRE":"'.limpiaCadena($persona->nombre).'","EDAD":"'.$persona->edad.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$atributo.'","FECHA":"'.$fecha_json.'","VALOR":"'.$valor_json.'","ESTADO":"'.$estado_json.'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
                     $json_coma++;
                 }
 
@@ -881,19 +881,30 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
 
         $('#edad').jqxDropDownList({
             width: '100%',
+            theme: 'eh-open',
             height: '25px'
         });
+
         $('#edad').on('select', function (event) {
             loadGraficoCompensacion();
         });
     });
     function loadGraficoCompensacion() {
+        $("#header_graficos").html('GENERANDO GRAFICO NUEVO');
         $.post('graficos/barra/compensacion.php',
-        $("#form_compensacion").serialize(),function(data){
+            {
+                sector_comunal:$("#sector_comunal").val(),
+                centro_interno:$("#centro_interno").val(),
+                sector_interno:$("#sector_interno").val(),
+                edad:$("#edad").val(),
+                indicador:$("#indicador").val(),
+                estado:$("#estado").val(),
+                atributo:$("#atributo").val()
+
+            },function(data){
                 $("#header_graficos").html(data);
             });
     }
-
 </script>
 <style type="text/css">
     @media only screen
