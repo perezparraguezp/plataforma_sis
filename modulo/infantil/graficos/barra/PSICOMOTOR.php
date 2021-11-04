@@ -315,7 +315,7 @@ while($row_json = mysql_fetch_array($res_json)){
         if($coma>0){
             $json .= ',';
         }
-        $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.$persona->nombre.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador.'","EDAD":"'.$persona->edad_total.'"}';
+        $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.limpiaCadena($persona->nombre).'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador.'","EDAD":"'.$persona->edad_total.'"}';
         $coma++;
     }
 

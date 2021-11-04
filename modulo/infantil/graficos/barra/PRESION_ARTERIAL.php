@@ -94,7 +94,7 @@ if($comunal==true){
         if($total_pacientes>0){
             $json.=',';
         }
-        $json .= '{"RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","COMUNAL":"'.$row2['nombre_sector_comunal'].'","ESTABLECIMIENTO":"'.$row2['nombre_centro_interno'].'","SECTOR_INTERNO":"'.$row2['nombre_sector_interno'].'","INDICADOR":"'.$persona->getAntropometria($indicador).'"}';
+        $json .= '{"RUT":"'.$persona->rut.'","NOMBRE":"'.limpiaCadena($persona->nombre).'","COMUNAL":"'.$row2['nombre_sector_comunal'].'","ESTABLECIMIENTO":"'.$row2['nombre_centro_interno'].'","SECTOR_INTERNO":"'.$row2['nombre_sector_interno'].'","INDICADOR":"'.$persona->getAntropometria($indicador).'"}';
 
         $total_pacientes++;
     }
@@ -202,7 +202,7 @@ if($comunal==true){
             if($total_pacientes>0){
                 $json.=',';
             }
-            $json .= '{"RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","COMUNAL":"'.$row2['nombre_sector_comunal'].'","ESTABLECIMIENTO":"'.$row2['nombre_centro_interno'].'","SECTOR_INTERNO":"'.$row2['nombre_sector_interno'].'","INDICADOR":"'.$persona->getAntropometria($indicador).'"}';
+            $json .= '{"RUT":"'.$persona->rut.'","NOMBRE":"'.limpiaCadena($persona->nombre).'","COMUNAL":"'.$row2['nombre_sector_comunal'].'","ESTABLECIMIENTO":"'.$row2['nombre_centro_interno'].'","SECTOR_INTERNO":"'.$row2['nombre_sector_interno'].'","INDICADOR":"'.$persona->getAntropometria($indicador).'"}';
 
             $total_pacientes++;
         }
@@ -301,7 +301,7 @@ if($comunal==true){
                 if($total_pacientes>0){
                     $json.=',';
                 }
-                $json .= '{"RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","COMUNAL":"'.$row2['nombre_sector_comunal'].'","ESTABLECIMIENTO":"'.$row2['nombre_centro_interno'].'","SECTOR_INTERNO":"'.$row2['nombre_sector_interno'].'","INDICADOR":"'.$persona->getAntropometria($indicador).'"}';
+                $json .= '{"RUT":"'.$persona->rut.'","NOMBRE":"'.limpiaCadena($persona->nombre).'","COMUNAL":"'.$row2['nombre_sector_comunal'].'","ESTABLECIMIENTO":"'.$row2['nombre_centro_interno'].'","SECTOR_INTERNO":"'.$row2['nombre_sector_interno'].'","INDICADOR":"'.$persona->getAntropometria($indicador).'"}';
 
                 $total_pacientes++;
             }
@@ -402,7 +402,7 @@ if($comunal==true){
                 if($total_pacientes>0){
                     $json.=',';
                 }
-                $json .= '{"RUT":"'.$persona->rut.'","NOMBRE":"'.$persona->nombre.'","COMUNAL":"'.$row2['nombre_sector_comunal'].'","ESTABLECIMIENTO":"'.$row2['nombre_centro_interno'].'","SECTOR_INTERNO":"'.$row2['nombre_sector_interno'].'","INDICADOR":"'.$persona->getAntropometria($indicador).'"}';
+                $json .= '{"RUT":"'.$persona->rut.'","NOMBRE":"'.limpiaCadena($persona->nombre).'","COMUNAL":"'.$row2['nombre_sector_comunal'].'","ESTABLECIMIENTO":"'.$row2['nombre_centro_interno'].'","SECTOR_INTERNO":"'.$row2['nombre_sector_interno'].'","INDICADOR":"'.$persona->getAntropometria($indicador).'"}';
 
                 $total_pacientes++;
             }

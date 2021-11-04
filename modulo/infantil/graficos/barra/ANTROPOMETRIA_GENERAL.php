@@ -179,7 +179,7 @@ if($comunal==true){
         if($total_pacientes>0){
             $json.=',';
         }
-        $json .= '{ "IR":"'.$persona->rut.'", "RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad_total.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$persona->getAntropometria($indicador).'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
+        $json .= '{ "IR":"'.$persona->rut.'", "RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.limpiaCadena($persona->nombre).'","EDAD":"'.$persona->edad_total.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$persona->getAntropometria($indicador).'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
 
         $total_pacientes++;
     }
@@ -293,7 +293,7 @@ if($comunal==true){
             if($total_pacientes>0){
                 $json.=',';
             }
-            $json .= '{ "IR":"'.$persona->rut.'", "RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad_total.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$persona->getAntropometria($indicador).'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
+            $json .= '{ "IR":"'.$persona->rut.'", "RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.limpiaCadena($persona->nombre).'","EDAD":"'.$persona->edad_total.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$persona->getAntropometria($indicador).'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
 
             $total_pacientes++;
         }
@@ -399,7 +399,7 @@ if($comunal==true){
                 if($total_pacientes>0){
                     $json.=',';
                 }
-                $json .= '{ "IR":"'.$persona->rut.'", "RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad_total.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$persona->getAntropometria($indicador).'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
+                $json .= '{ "IR":"'.$persona->rut.'", "RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.limpiaCadena($persona->nombre).'","EDAD":"'.$persona->edad_total.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$persona->getAntropometria($indicador).'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
 
                 $total_pacientes++;
             }
@@ -503,7 +503,7 @@ if($comunal==true){
                 if($total_pacientes>0){
                     $json.=',';
                 }
-                $json .= '{ "IR":"'.$persona->rut.'", "RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.$persona->nombre.'","EDAD":"'.$persona->edad_total.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$persona->getAntropometria($indicador).'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
+                $json .= '{ "IR":"'.$persona->rut.'", "RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.limpiaCadena($persona->nombre).'","EDAD":"'.$persona->edad_total.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$persona->getAntropometria($indicador).'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
 
                 $total_pacientes++;
             }

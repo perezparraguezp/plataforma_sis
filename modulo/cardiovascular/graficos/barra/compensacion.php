@@ -879,24 +879,24 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
             }
         });
 
-        $('#edad').jqxDropDownList({
+        $('#edad_filtro').jqxDropDownList({
             width: '100%',
             theme: 'eh-open',
             height: '25px'
         });
 
-        $('#edad').on('select', function (event) {
-            loadGraficoCompensacion();
+        $('#edad_filtro').on('select', function (event) {
+            loadGraficoCompensacion_filtro();
         });
     });
-    function loadGraficoCompensacion() {
+    function loadGraficoCompensacion_filtro() {
         $("#header_graficos").html('GENERANDO GRAFICO NUEVO');
         $.post('graficos/barra/compensacion.php',
             {
                 sector_comunal:$("#sector_comunal").val(),
                 centro_interno:$("#centro_interno").val(),
                 sector_interno:$("#sector_interno").val(),
-                edad:$("#edad").val(),
+                edad:$("#edad_filtro").val(),
                 indicador:$("#indicador").val(),
                 estado:$("#estado").val(),
                 atributo:$("#atributo").val()
@@ -924,7 +924,7 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
         <input type="hidden" name="estado" value="<?php echo $_POST['estado']; ?>" />
         <div class="row right-align">
             <div class="col l8 m8 s8">
-                <select name="edad" id="edad">
+                <select name="edad_filtro" id="edad_filtro">
                     <?php
                     if($atributo=='patologia_dm'){
                         if($rango_edad=='<(80*12)'){
