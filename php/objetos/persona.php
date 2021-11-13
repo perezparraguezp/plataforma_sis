@@ -46,9 +46,9 @@ class persona{
         if($row){
             $this->rut = strtoupper(trim($row['rut']));
             $this->nombre = limpiaCadena(strtoupper(trim($row['nombre_completo'])));
-            $this->telefono = $row['telefono'];
+            $this->telefono = limpiaCadena($row['telefono']);
             $this->email = $row['email'];
-            $this->direccion = $row['direccion'];
+            $this->direccion = limpiaCadena($row['direccion']);
             $this->fecha_nacimiento = $row['fecha_nacimiento'];
             $this->sexo = $row['sexo'];
             $this->pueblo = $row['pueblo'];

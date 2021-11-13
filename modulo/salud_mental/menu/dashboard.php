@@ -55,9 +55,9 @@ $sql1 = "select * from sector_comunal
             <label>INDICADOR</label>
             <select name="indicador" id="indicador">
                 <option selected disabled value="">SELECCIONAR INDICADOR</option>
-                <option value="patologias">PATOLOGIAS</option>
-                <option value="gestacion">ESTADO DEL PACIENTE</option>
-                <option value="estado_nutricional">ESTADO NUTRICIONAL</option>
+                <option value="actividades">REGISTRO DE ACTIVIDADES</option>
+                <option value="antecedentes">REGISTROS DE ANTECEDENTES</option>
+                <option value="diagnosticos">REGISTRO DE DIAGNOSTICOS</option>
 
 
             </select>

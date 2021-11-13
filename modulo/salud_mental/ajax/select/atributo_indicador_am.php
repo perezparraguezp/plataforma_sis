@@ -3,65 +3,46 @@
         id="atributo">
     <option selected disabled value="">SELECCIONAR ATRIBUTO</option>
     <?php
+    include "../../../../php/config.php";
+
     $indicador = $_POST['indicador'];//parametro de la table
     $table_sql = $_POST['table_sql'];//tabla
     $tiene_estado = true;
     switch ($indicador){
-        case 'PATOLOGIAS':{
-            ?>
-            <option value="patologia_dm">DIABETES</option>
-            <option value="patologia_hta">HIPERTENSION ARTERIAL</option>
-            <option value="patologia_vih">VIH</option>
-            <?php
+        case 'REGISTRO DE ACTIVIDADES':{
+            $sql = "select * from activiad_sm order by nombre_actividas";
+            $res = mysql_query($sql);
+            $i=0;
+            while($row = mysql_fetch_array($res)){
+                ?>
+                <option><?php echo $row['nombre_actividas']; ?></option>
+                <?php
+                $i++;
+            }
             break;
         }
-        case 'ESTADO DEL PACIENTE':{
-            ?>
-
-            <option value="regulacion_fertilidad">REGULACION DE FERTILIDAD</option>
-            <option value="gestacion">GESTACION</option>
-            <option value="climaterio">CLIMATERIO</option>
-            <?php
+        case 'REGISTROS DE ANTECEDENTES':{
+            $sql = "select * from antecedentes_sm order by nombre_antecedente";
+            $res = mysql_query($sql);
+            $i=0;
+            while($row = mysql_fetch_array($res)){
+                ?>
+                <option><?php echo $row['nombre_antecedente']; ?></option>
+                <?php
+                $i++;
+            }
             break;
         }
-        case 'ESTADO NUTRICIONAL':{
-            ?>
-            <option value="BP">BAJO PESO</option>
-            <option value="N">NORMAL</option>
-            <option value="SP">SOBREPESO</option>
-            <option value="OB">OBESIDAD</option>
-            <?php
-            break;
-        }
-        case 'SOSPECHA MALTRATO':{
-            ?>
-            <option>SI</option>
-            <option>NO</option>
-            <?php
-            break;
-        }
-        case '+ ADULTO MAYOR':{
-            ?>
-            <option >AUTOVALENTE SIN RIESGO</option>
-            <option >AUTOVALENTE CON RIESGO</option>
-            <option >RIESGO DEPENDENCIA</option>
-            <?php
-            break;
-        }
-        case 'RIESGO CAIDA : TIMED UP AND GO':{
-            ?>
-            <option>NORMAL</option>
-            <option>LEVE</option>
-            <option>ALTO</option>
-            <?php
-            break;
-        }
-
-        case 'RIESGO CAIDA : ESTACION UNIPODAL':{
-            ?>
-            <option>NORMAL</option>
-            <option>ALTERADO</option>
-            <?php
+        case 'REGISTRO DE DIAGNOSTICOS':{
+            $sql = "select * from tipo_diagnostico_sm order by nombre_tipo";
+            $res = mysql_query($sql);
+            $i=0;
+            while($row = mysql_fetch_array($res)){
+                ?>
+                <option><?php echo $row['nombre_tipo']; ?></option>
+                <?php
+                $i++;
+            }
             break;
         }
 
