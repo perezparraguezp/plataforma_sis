@@ -37,6 +37,8 @@
 
 
     }
+
+    //porueba
     if($indicador=='paciente_pscv'){
         $atributo = $_POST['atributo'];
         if($atributo=='factor_riesgo_iam'){
